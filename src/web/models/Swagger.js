@@ -11,7 +11,7 @@ const Swagger = types.model({
   host: 'platform.ringcentral.com',
   schemes: types.array(types.enumeration(['http', 'https', 'ws', 'wss'])),
   basePath: '/restapi',
-  produces: ['application/json'], // types.array(types.string),
+  produces: types.array(types.string),
   tags: types.array(types.reference(Tag)),
   'x-auth-required': true,
   'x-service-version': 'v1',
