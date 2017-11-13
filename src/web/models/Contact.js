@@ -1,9 +1,9 @@
 import { types } from 'mobx-state-tree'
 
 const Contact = types.model({
-  name: types.string,
-  url: types.string,
-  email: types.string
+  name: 'RingCentral Connect Platform',
+  url: 'http://developers.ringcentral.com',
+  email: 'platform@ringcentral.com'
 })
 
 export default Contact
