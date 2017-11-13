@@ -3,7 +3,7 @@ import { types } from 'mobx-state-tree'
 import Tag from './Tag'
 
 const Operation = types.model({
-  tags: types.array(types.reference(Tag)),
+  tags: types.array(Tag),
   summary: types.string,
   description: types.string,
   operationId: types.string,

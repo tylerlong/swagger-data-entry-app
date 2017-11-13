@@ -12,7 +12,7 @@ const Swagger = types.model({
   schemes: types.array(types.enumeration(['http', 'https', 'ws', 'wss'])),
   basePath: '/restapi',
   produces: types.array(types.string),
-  tags: types.array(types.reference(Tag)),
+  tags: types.array(Tag),
   'x-auth-required': true,
   'x-service-version': 'v1',
   'x-service-interface': 'rest',
@@ -22,7 +22,7 @@ const Swagger = types.model({
   'x-metered-api': true,
   'x-metering-group': 'System',
   paths: types.map(PathItem),
-  definitions: types.map(types.reference(Schema))
+  definitions: types.map(Schema)
 })
 
 export default Swagger
