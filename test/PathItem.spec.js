@@ -4,11 +4,11 @@ import PathItem from '../src/web/models/PathItem'
 describe('PathItem', () => {
   test('Create an empty pathItem', () => {
     const pathItem = PathItem.create()
-    expect(pathItem['x-request-max-body-size']).toBe(undefined)
-    expect(pathItem.get).toBe(undefined)
-    expect(pathItem.post).toBe(undefined)
-    expect(pathItem.put).toBe(undefined)
-    expect(pathItem.delete).toBe(undefined)
+    expect(pathItem['x-request-max-body-size']).toBe(null)
+    expect(pathItem.get).toBe(null)
+    expect(pathItem.post).toBe(null)
+    expect(pathItem.put).toBe(null)
+    expect(pathItem.delete).toBe(null)
   })
 
   test('Create a real pathItem', () => {
@@ -46,8 +46,8 @@ describe('PathItem', () => {
     expect(pathItem.get['x-app-permission']).toBe('ReadMessages')
     expect(pathItem.get['x-user-permission']).toBe('ReadMessages')
 
-    expect(pathItem.post).toBe(undefined)
-    expect(pathItem.put).toBe(undefined)
-    expect(pathItem.delete).toBe(undefined)
+    expect(pathItem.post).toBe(null)
+    expect(pathItem.put).toBe(null)
+    expect(pathItem.delete).toBe(null)
   })
 })

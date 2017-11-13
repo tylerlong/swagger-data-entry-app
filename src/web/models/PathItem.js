@@ -1,13 +1,16 @@
 import { types } from 'mobx-state-tree'
 
 import Operation from './Operation'
+import { update } from '../utils'
 
 const PathItem = types.model({
-  'x-request-max-body-size': types.optional(types.union(types.string, types.undefined), undefined),
-  get: types.optional(types.union(Operation, types.undefined), undefined),
-  post: types.optional(types.union(Operation, types.undefined), undefined),
-  put: types.optional(types.union(Operation, types.undefined), undefined),
-  delete: types.optional(types.union(Operation, types.undefined), undefined)
-})
+  'x-request-max-body-size': types.maybe(types.string),
+  get: types.maybe(Operation),
+  post: types.maybe(Operation),
+  put: types.maybe(Operation),
+  delete: types.maybe(Operation)
+}).actions(self => ({
+  update: update(self)
+}))
 
 export default PathItem
