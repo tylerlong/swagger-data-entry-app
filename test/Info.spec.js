@@ -1,7 +1,5 @@
 /* eslint-env jest */
 import Info from '../src/web/models/Info'
-import Contact from '../src/web/models/Contact'
-import License from '../src/web/models/License'
 
 describe('Info', () => {
   test('Create info', () => {
@@ -9,15 +7,15 @@ describe('Info', () => {
       title: 'title',
       description: 'description',
       version: 'version',
-      contact: Contact.create({
+      contact: {
         name: 'contact.name',
         url: 'contact.url',
         email: 'contact.email'
-      }),
-      license: License.create({
+      },
+      license: {
         name: 'license.name',
         url: 'license.url'
-      })
+      }
     })
 
     expect(info.title).toBe('title')
@@ -37,11 +35,11 @@ describe('Info', () => {
       title: 'title',
       description: 'description',
       version: 'version',
-      contact: Contact.create(),
-      license: License.create({
+      contact: {},
+      license: {
         name: 'license.name',
         url: 'license.url'
-      })
+      }
     })
 
     expect(info.contact.name).toBe('RingCentral Connect Platform')
@@ -54,12 +52,12 @@ describe('Info', () => {
       title: 'title',
       description: 'description',
       version: 'version',
-      contact: Contact.create({
+      contact: {
         name: 'contact.name',
         url: 'contact.url',
         email: 'contact.email'
-      }),
-      license: License.create()
+      },
+      license: {}
     })
 
     expect(info.license.name).toBe('RingCentral API License Agreement and Terms of Use')

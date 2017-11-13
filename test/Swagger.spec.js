@@ -2,31 +2,28 @@
 import { getSnapshot } from 'mobx-state-tree'
 
 import Swagger from '../src/web/models/Swagger'
-import Info from '../src/web/models/Info'
-import Contact from '../src/web/models/Contact'
-import License from '../src/web/models/License'
-import Tag from '../src/web/models/Tag'
 
 describe('Swagger', () => {
   test('Create swagger', () => {
     const swagger = Swagger.create({
       swagger: '2.0',
-      info: Info.create({
+      info: {
         title: 'title',
         description: 'description',
         version: 'version',
-        contact: Contact.create(),
-        license: License.create()
-      }),
+        contact: {},
+        license: {}
+      },
       schemes: ['https'],
       produces: ['application/json'],
       tags: [
-        Tag.create({
-          name: 'name1'
-        }),
-        Tag.create({
+        {
+          name: 'name1',
+          unexpected: 'title' // unexpected attribute
+        },
+        {
           name: 'name2'
-        })
+        }
       ],
       paths: {},
       definitions: {}
@@ -44,6 +41,7 @@ describe('Swagger', () => {
 
     expect(swagger.tags.length).toBe(2)
     expect(swagger.tags[0].name).toBe('name1')
+    expect(swagger.tags[0].unexpected).toBe(undefined)
     expect(swagger.tags[1].name).toBe('name2')
   })
 })
