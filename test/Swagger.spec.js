@@ -39,7 +39,7 @@ describe('Swagger', () => {
           'x-request-max-body-size': '10m'
         }
       },
-      definitions: {}
+      definitions: {} // todo: write test
     })
 
     expect(swagger.swagger).toBe('2.0')
