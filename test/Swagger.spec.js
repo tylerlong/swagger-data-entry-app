@@ -12,7 +12,9 @@ describe('Swagger', () => {
         contact: {},
         license: {}
       },
+      host: 'platform.ringcentral.com',
       schemes: ['https'],
+      basePath: '/restapi',
       produces: ['application/json'],
       tags: [
         {
@@ -23,6 +25,15 @@ describe('Swagger', () => {
           name: 'name2'
         }
       ],
+      'x-auth-required': true,
+      'x-service-version': 'v1',
+      'x-service-interface': 'rest',
+      'x-service-name': 'pas',
+      'x-internal-api': false,
+      'x-blacklisting-strategy': 'Off',
+      'x-metered-api': true,
+      'x-metering-group': 'System',
+      'x-unkown-field': 'hello',
       paths: {
         '/v1.0/account/{accountId}/extension/{extensionId}/sms': {
           'x-request-max-body-size': '10m'
@@ -32,10 +43,13 @@ describe('Swagger', () => {
     })
 
     expect(swagger.swagger).toBe('2.0')
+    expect(swagger.host).toBe('platform.ringcentral.com')
 
     expect(swagger.schemes.toJSON()).toEqual(['https'])
     expect(swagger.schemes.length).toBe(1)
     expect(swagger.schemes[0]).toBe('https')
+
+    expect(swagger.basePath).toBe('/restapi')
 
     expect(swagger.produces.toJSON()).toEqual(['application/json'])
     expect(swagger.produces.length).toBe(1)
@@ -45,6 +59,16 @@ describe('Swagger', () => {
     expect(swagger.tags[0].name).toBe('name1')
     expect(swagger.tags[0].unexpected).toBe(undefined)
     expect(swagger.tags[1].name).toBe('name2')
+
+    expect(swagger['x-auth-required']).toBe(true)
+    expect(swagger['x-service-version']).toBe('v1')
+    expect(swagger['x-service-interface']).toBe('rest')
+    expect(swagger['x-service-name']).toBe('pas')
+    expect(swagger['x-internal-api']).toBe(false)
+    expect(swagger['x-blacklisting-strategy']).toBe('Off')
+    expect(swagger['x-metered-api']).toBe(true)
+    expect(swagger['x-metering-group']).toBe('System')
+    expect(swagger['x-unknown-field']).toBe(undefined)
 
     expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms')['x-request-max-body-size']).toBe('10m')
     expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').get).toBe(undefined)
