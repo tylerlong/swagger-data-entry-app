@@ -1,6 +1,4 @@
 /* eslint-env jest */
-import { getSnapshot } from 'mobx-state-tree'
-
 import Swagger from '../src/web/models/Swagger'
 
 describe('Swagger', () => {
@@ -25,17 +23,21 @@ describe('Swagger', () => {
           name: 'name2'
         }
       ],
-      paths: {},
+      paths: {
+        '/v1.0/account/{accountId}/extension/{extensionId}/sms': {
+          'x-request-max-body-size': '10m'
+        }
+      },
       definitions: {}
     })
 
     expect(swagger.swagger).toBe('2.0')
 
-    expect(getSnapshot(swagger.schemes)).toEqual(['https'])
+    expect(swagger.schemes.toJSON()).toEqual(['https'])
     expect(swagger.schemes.length).toBe(1)
     expect(swagger.schemes[0]).toBe('https')
 
-    expect(getSnapshot(swagger.produces)).toEqual(['application/json'])
+    expect(swagger.produces.toJSON()).toEqual(['application/json'])
     expect(swagger.produces.length).toBe(1)
     expect(swagger.produces[0]).toBe('application/json')
 
@@ -43,5 +45,11 @@ describe('Swagger', () => {
     expect(swagger.tags[0].name).toBe('name1')
     expect(swagger.tags[0].unexpected).toBe(undefined)
     expect(swagger.tags[1].name).toBe('name2')
+
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms')['x-request-max-body-size']).toBe('10m')
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').get).toBe(undefined)
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').post).toBe(undefined)
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').put).toBe(undefined)
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').delete).toBe(undefined)
   })
 })
