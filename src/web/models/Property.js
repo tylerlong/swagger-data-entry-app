@@ -6,7 +6,9 @@ const Property = types.model({
   format: types.maybe(types.string),
   description: types.maybe(types.string),
   enum: types.maybe(types.array(types.string)),
-  items: types.maybe(types.late(() => Property))
+  items: types.maybe(types.late(() => Property)),
+  default: types.maybe(types.boolean),
+  readOnly: types.maybe(types.boolean)
 })
 
 export default Property

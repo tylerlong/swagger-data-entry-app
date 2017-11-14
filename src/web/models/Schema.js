@@ -4,7 +4,7 @@ import Property from './Property'
 
 const Schema = types.model({
   required: types.maybe(types.array(types.string)),
-  type: types.literal('object'),
+  type: types.maybe(types.literal('object')),
   properties: types.map(Property)
 })
 
