@@ -15,7 +15,7 @@ describe('PathItem', () => {
     const pathItem = PathItem.create({
       'x-request-max-body-size': '10m',
       get: {
-        tags: [{ name: 'SMS' }],
+        tags: ['SMS'],
         summary: 'summary',
         description: 'description',
         operationId: 'listMessages',
@@ -33,7 +33,7 @@ describe('PathItem', () => {
     })
     expect(pathItem['x-request-max-body-size']).toBe('10m')
 
-    expect(pathItem.get.tags.toJSON()).toEqual([{ name: 'SMS' }])
+    expect(pathItem.get.tags.toJSON()).toEqual(['SMS'])
     expect(pathItem.get.consumes.toJSON()).toEqual(['application/json'])
     expect(pathItem.get.produces.toJSON()).toEqual(['application/json'])
     expect(pathItem.get.summary).toEqual('summary')
