@@ -8,7 +8,7 @@ const Parameter = types.model({
   format: types.union(types.string, types.undefined),
   in: types.enumeration(['query', 'header', 'path', 'formData', 'body']),
   description: types.union(types.string, types.undefined),
-  required: false,
+  required: types.union(types.boolean, types.undefined),
   type: types.union(types.enumeration(primitiveTypes), types.undefined),
   enum: types.union(types.array(types.string), types.undefined),
   items: types.union(Property, types.undefined),

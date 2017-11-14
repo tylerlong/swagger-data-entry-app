@@ -12,7 +12,7 @@ const Operation = types.model({
   produces: types.union(types.array(types.string), types.undefined),
   parameters: types.union(types.array(Parameter), types.undefined),
   responses: types.map(Response),
-  'x-api-group': types.string,
+  'x-api-group': types.union(types.string, types.undefined),
   'x-throttling-group': types.union(types.enumeration(['Light', 'Medium', 'Heavy', 'Auth', 'Unknown']), types.undefined),
   'x-metered-api': types.union(types.boolean, types.undefined),
   'x-metering-group': types.union(types.string, types.undefined),
