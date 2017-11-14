@@ -10,13 +10,12 @@ export const update = self => {
   }
 }
 
-export const removeUnexpectedProps = (o, unexpectedProps, unexpectedValues = []) => {
-  const obj = JSON.parse(JSON.stringify(o))
+export const removeUnexpectedProps = (obj, unexpectedKeys = [], unexpectedValues = []) => {
   Object.entries(obj).forEach(([key, val]) => {
-    if (R.contains(key, unexpectedProps) || R.contains(val, unexpectedValues)) {
+    if (R.contains(key, unexpectedKeys) || R.contains(val, unexpectedValues)) {
       delete obj[key]
     } else if (typeof val === 'object') {
-      obj[key] = removeUnexpectedProps(val, unexpectedProps, unexpectedValues)
+      obj[key] = removeUnexpectedProps(val, unexpectedKeys, unexpectedValues)
     }
   })
   return obj
