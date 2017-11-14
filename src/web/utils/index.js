@@ -25,4 +25,4 @@ export const toAndFromJson = obj => {
   return JSON.parse(JSON.stringify(obj))
 }
 
-export const primitiveTypes = ['object', 'array', 'string', 'number', 'boolean', 'integer']
+export const primitiveTypes = ['object', 'array', 'string', 'number', 'boolean', 'integer', 'file']

@@ -12,7 +12,7 @@ const Parameter = types.model({
   type: types.union(types.enumeration(primitiveTypes), types.undefined),
   enum: types.union(types.array(types.string), types.undefined),
   items: types.union(Property, types.undefined),
-  default: types.union(types.union(types.string, types.boolean), types.undefined),
+  default: types.union(types.union(types.string, types.boolean, types.number), types.undefined),
   schema: types.union(Property, types.undefined),
   collectionFormat: types.union(types.enumeration(['csv', 'ssv', 'tsv', 'pipes', 'multi']), types.undefined),
   maximum: types.union(types.number, types.undefined),
