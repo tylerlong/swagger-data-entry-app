@@ -10,7 +10,9 @@ describe('Swagger', () => {
         description: 'description',
         version: 'version',
         contact: {},
-        license: {}
+        license: {
+          name: 'MIT'
+        }
       },
       host: 'platform.ringcentral.com',
       schemes: ['https'],

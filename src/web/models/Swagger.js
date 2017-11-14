@@ -14,7 +14,7 @@ const Swagger = types.model({
   basePath: '/restapi',
   produces: types.union(types.array(types.string), types.undefined),
   consumes: types.union(types.array(types.string), types.undefined),
-  tags: types.array(Tag),
+  tags: types.union(types.array(Tag), types.undefined),
   'x-auth-required': true,
   'x-service-version': 'v1',
   'x-service-interface': 'rest',
