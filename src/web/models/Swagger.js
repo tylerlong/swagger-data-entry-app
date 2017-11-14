@@ -4,6 +4,7 @@ import Info from './Info'
 import Tag from './Tag'
 import PathItem from './PathItem'
 import Schema from './Schema'
+import { update } from '../utils'
 
 const Swagger = types.model({
   swagger: types.literal('2.0'),
@@ -23,6 +24,8 @@ const Swagger = types.model({
   'x-metering-group': 'System',
   paths: types.map(PathItem),
   definitions: types.map(Schema)
-})
+}).actions(self => ({
+  update: update(self)
+}))
 
 export default Swagger
