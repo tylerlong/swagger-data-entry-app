@@ -14,8 +14,8 @@ const Operation = types.model({
   responses: types.map(Response),
   'x-api-group': types.string,
   'x-throttling-group': types.enumeration(['Light', 'Medium', 'Heavy', 'Auth']),
-  'x-metered-api': true,
-  'x-metering-group': 'System',
+  'x-metered-api': types.maybe(types.boolean),
+  'x-metering-group': types.maybe(types.string),
   'x-app-permission': types.maybe(types.string),
   'x-user-permission': types.maybe(types.string)
 })

@@ -6,7 +6,8 @@ const swaggers = [
   yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'fixtures', 'rc-platform-messaging.yml'), 'utf8')),
   yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'fixtures', 'rc-platform-call-log.yml'), 'utf8')),
   yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'fixtures', 'rc-platform-meetings.yml'), 'utf8')),
-  yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'fixtures', 'rc-platform-address-book.yml'), 'utf8'))
+  yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'fixtures', 'rc-platform-address-book.yml'), 'utf8')),
+  yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'fixtures', 'rc-platform-answering-rules.yml'), 'utf8'))
 ]
 
 export default swaggers
