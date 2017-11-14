@@ -1,0 +1,137 @@
+---
+swagger: '2.0'
+info:
+  title: RingCentral Platform Info API
+  description: API to Get RingCentral Connect Platform Info and Status
+  version: 1.0.34
+  contact:
+    name: RingCentral Connect Platform
+    url: http://developers.ringcentral.com
+    email: platform@ringcentral.com
+  license:
+    name: RingCentral API License Agreement and Terms of Use
+    url: https://www.ringcentral.com/legal/apilitos.html
+host: platform.ringcentral.com
+schemes:
+- https
+basePath: "/restapi"
+produces:
+- application/json
+tags:
+- name: "API Info"
+x-auth-required: false
+x-service-version: "v1"
+x-service-interface: "rest"
+x-service-name: "pas"
+x-internal-api: false
+x-blacklisting-strategy: "Off"
+x-metered-api: true
+x-metering-group: "Free"
+paths:
+  /:
+    get:
+      tags:
+      - "API Info"
+      summary: "Get API Versions"
+      description: "<p style='font-style:italic;'>Since 1.0.0</p><p>Returns current\
+        \ API version(s) and server info.</p><h4>Usage Plan Group</h4><p>Light</p>"
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetVersionsResponse"
+      x-api-group: "restapi"
+
+  /{apiVersion}:
+    get:
+      tags:
+      - "API Info"
+      summary: "Get Version Info"
+      description: "<p style='font-style:italic;'>Since 1.0.0</p><p>Returns current\
+        \ API version info by apiVersion.</p><h4>Usage Plan Group</h4><p>Light</p>"
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "apiVersion"
+        in: "path"
+        description: "API version to be requested, for example 'v1.0'"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetVersionResponse"
+      x-api-group: "restapi/version"
+
+  /v1.0/status:
+    get:
+      tags:
+      - "API Info"
+      summary: "Get Service status"
+      description: "<p style='font-style:italic;'>Since 1.0.0</p><p>Returns current\
+        \ PAS service status.</p><h4>Usage Plan Group</h4><p>Light</p>"
+      responses:
+        200:
+          description: "Success"
+        502:
+          description: "Service in survival mode"
+        503:
+          description: "Service in read only mode"
+      x-api-group: "restapi"
+      
+definitions:
+  
+  GetVersionsResponse:
+    properties:
+      uri:
+        type: "string"
+        description: "Canonical URI of the API version"
+      apiVersions:
+        type: "array"
+        description: "Full API version information: uri, number, release date"
+        items:
+          $ref: "#/definitions/VersionInfo"
+      serverVersion:
+        type: "string"
+        description: "Server version"
+      serverRevision:
+        type: "string"
+        description: "Server revision"
+  VersionInfo:
+    properties:
+      uri:
+        type: "string"
+        description: "Canonical URI of API versions"
+      versionString:
+        type: "string"
+        description: "Version of the RingCentral REST API"
+      releaseDate:
+        type: "string"
+        description: "Release date of this version"
+      uriString:
+        type: "string"
+        description: "URI part determining the current version"
+  GetVersionResponse:
+    properties:
+      uri:
+        type: "string"
+        description: "Canonical URI of the version info resource"
+      versionString:
+        type: "string"
+        description: "Version of the RingCentral REST API"
+      releaseDate:
+        type: "string"
+        description: "Release date of this version"
+      uriString:
+        type: "string"
+        description: "URI part determining the current version"  
