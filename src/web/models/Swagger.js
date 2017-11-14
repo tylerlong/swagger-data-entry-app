@@ -24,7 +24,7 @@ const Swagger = types.model({
   'x-metered-api': true,
   'x-metering-group': 'System',
   paths: types.map(PathItem),
-  definitions: types.map(Schema)
+  definitions: types.union(types.map(Schema), types.undefined)
 }).actions(self => ({
   update: update(self)
 }))

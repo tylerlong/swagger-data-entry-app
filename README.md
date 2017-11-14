@@ -24,6 +24,3 @@ yarn dist
 
 
 ## Todo
-
-- types.optional vs types.maybe
-    - undefined vs null
