@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 
 const Property = types.model({
-  '$ref': types.maybe(types.string),
+  $ref: types.maybe(types.string),
   type: types.maybe(types.string),
   format: types.maybe(types.string),
   description: types.maybe(types.string),

@@ -18,7 +18,7 @@ describe('Schema', () => {
         to: {
           type: 'array',
           items: {
-            '$ref': '#/definitions/CallerInfo'
+            $ref: '#/definitions/CallerInfo'
           }
         }
       }
@@ -33,6 +33,6 @@ describe('Schema', () => {
     expect(schema.properties.get('type').enum.toJSON()).toEqual(['hello', 'world'])
 
     expect(schema.properties.get('to').type).toBe('array')
-    expect(schema.properties.get('to').items['$ref']).toBe('#/definitions/CallerInfo')
+    expect(schema.properties.get('to').items.$ref).toBe('#/definitions/CallerInfo')
   })
 })

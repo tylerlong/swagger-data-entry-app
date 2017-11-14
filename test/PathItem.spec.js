@@ -21,8 +21,8 @@ describe('PathItem', () => {
         operationId: 'listMessages',
         consumes: ['application/json'],
         produces: ['application/json'],
-        parameters: [], // todo: write test
-        responses: {}, // todo: write test
+        parameters: [],
+        responses: {},
         'x-api-group': 'extension/sms',
         'x-throttling-group': 'Light',
         'x-metered-api': true,

@@ -2,7 +2,7 @@
 import Parameter from '../src/web/models/Parameter'
 
 describe('Parameter', () => {
-  test('Create Parameter', () => {
+  test('Create parameter', () => {
     const parameter = Parameter.create({
       name: 'accountId',
       in: 'path',
@@ -26,13 +26,13 @@ describe('Parameter', () => {
       description: 'JSON body',
       required: true,
       schema: {
-        '$ref': '#/definitions/CreateSMSMessage'
+        $ref: '#/definitions/CreateSMSMessage'
       }
     })
     expect(parameter.name).toBe('body')
     expect(parameter.in).toBe('body')
     expect(parameter.description).toBe('JSON body')
     expect(parameter.required).toBe(true)
-    expect(parameter.schema['$ref']).toBe('#/definitions/CreateSMSMessage')
+    expect(parameter.schema.$ref).toBe('#/definitions/CreateSMSMessage')
   })
 })
