@@ -1,0 +1,1013 @@
+---
+swagger: '2.0'
+info:
+  title: RingCentral Devices API
+  description: Device Provisioning API
+  version: 1.0.34
+  contact:
+    name: RingCentral Connect Platform
+    url: http://developers.ringcentral.com
+    email: platform@ringcentral.com
+  license:
+    name: RingCentral API License Agreement and Terms of Use
+    url: https://www.ringcentral.com/legal/apilitos.html
+host: platform.ringcentral.com
+schemes:
+- https
+basePath: "/restapi"
+produces:
+- application/json
+tags:
+- name: "Devices"
+- name: "Ordering"
+x-auth-required: true
+x-service-version: "v1"
+x-service-interface: "rest"
+x-service-name: "pas"
+x-internal-api: false
+x-blacklisting-strategy: "Off"
+x-metered-api: true
+x-metering-group: "System"
+paths:
+
+  /v1.0/account/{accountId}/device:
+    get:
+      tags:
+      - "Devices"
+      summary: "Get Account Device List by ID"
+      description: "<p style='font-style:italic;'>Since 1.0.12 (Release 6.4)</p><p>Returns\
+        \ all the devices for a particular extension.</p><h4>Required Permissions</h4><table\
+        \ class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td\
+        \ class='code'>ReadAccounts</td><td>Viewing user account info (including name,\
+        \ business name, address and phone number/account number)</td></tr></tbody></table><h4>Usage\
+        \ Plan Group</h4><p>Light</p>"
+      operationId: "listAccountDevices"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "accountId"
+        in: "path"
+        description: "Internal identifier of a RingCentral account or tilde (~) to\
+          \ indicate the account logged-in within the current session"
+        required: true
+        type: "integer"
+        default: "~"
+      - name: "page"
+        in: "query"
+        required: false
+        type: "string"
+        default: "1"
+      - name: "perPage"
+        in: "query"
+        required: false
+        type: "string"
+        default: "100"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AccountDeviceEndpoint"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetAccountDevicesResponse"
+      x-api-group: "account/device"
+      x-throttling-group: "Medium"
+      x-metered-api: true
+      x-metering-group: "System"
+      x-app-permission: "ReadAccounts"
+      x-user-permission: "ReadCompanyDevices"
+  /v1.0/account/{accountId}/device/{deviceId}:
+    get:
+      tags:
+      - "Devices"
+      summary: "Get Account Device(s) by ID"
+      description: "<p style='font-style:italic;'>Since 1.0.9 (Release 6.1)</p><p>Returns\
+        \ account device(s) by their ID(s).</p><h4>Required Permissions</h4><table\
+        \ class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td\
+        \ class='code'>ReadAccounts</td><td>Viewing user account info (including name,\
+        \ business name, address and phone number/account number)</td></tr></tbody></table><h4>Usage\
+        \ Plan Group</h4><p>Light</p>"
+      operationId: "loadAccountDevice"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "accountId"
+        in: "path"
+        description: "Internal identifier of a RingCentral account or tilde (~) to\
+          \ indicate the account logged-in within the current session"
+        required: true
+        type: "integer"
+        default: "~"
+      - name: "deviceId"
+        in: "path"
+        description: "Internal identifier of a device"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AccountDeviceEndpoint"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetDeviceInfoResponse"
+      x-api-group: "account/device"
+      x-throttling-group: "Light"
+      x-metered-api: true
+      x-metering-group: "System"
+      x-app-permission: "ReadAccounts"
+      x-user-permission: "ReadCompanyDevices"
+    put:
+      tags:
+      - Devices
+      operationId: "updateDevice"
+      consumes:
+      - "application/json"
+      - "multipart/mixed"
+      produces:
+      - "application/json"
+      - "multipart/mixed"
+      parameters:
+      - name: "deviceId"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "prestatement"
+        in: "query"
+        required: false
+        type: "boolean"
+        default: false
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/DeviceResource"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AccountDeviceEndpoint"
+      - name: "accountId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/DeviceResource"
+          headers: {}
+      x-api-group: "account/device"
+      x-throttling-group: "Medium"
+      x-metered-api: true
+      x-metering-group: "System"
+      x-app-permission: "EditAccounts"
+      x-user-permission: "EditCompanyDevices"
+  /v1.0/account/{accountId}/device/{deviceId}/assign-line:
+    post:
+      tags:
+      - Devices
+      operationId: "assignLine"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "deviceId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AccountDeviceEndpoint"
+      - name: "accountId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/AssignLineResource"
+          headers: {}
+      x-api-group: "account/device/assign-line"
+      x-throttling-group: "Medium"
+      x-metered-api: true
+      x-metering-group: "System"
+      x-app-permission: "EditAccounts"
+      x-user-permission: "EditUserDevices"
+  /v1.0/account/{accountId}/device/{deviceId}/sip-info:
+    get:
+      tags:
+      - Devices
+      operationId: "getDeviceSipInfo"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "deviceId"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AccountDeviceEndpoint"
+      - name: "accountId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SipInfoResource"
+          headers: {}
+      x-api-group: "account/device"
+      x-throttling-group: "Light"
+      x-metered-api: true
+      x-metering-group: "System"
+      x-app-permission: "ReadAccounts"
+      x-user-permission: "ReadCompanyDevices"
+
+  /v1.0/account/{accountId}/extension/{extensionId}/device:
+    get:
+      tags:
+      - "Devices"
+      summary: "Get Extension Device List by ID"
+      description: "<p style='font-style:italic;'>Since 1.0.12 (Release 6.4)</p><p>Returns\
+        \ all the devices for extension(s) by extension ID(s). Batch request is supported,\
+        \ see Batch Requests for details.</p><h4>Required Permissions</h4><table class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td\
+        \ class='code'>ReadAccounts</td><td>Viewing user account info (including name,\
+        \ business name, address and phone number/account number)</td></tr></tbody></table><h4>Usage\
+        \ Plan Group</h4><p>Light</p>"
+      operationId: "listExtensionDevices"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      - "multipart/mixed"
+      parameters:
+      - name: "accountId"
+        in: "path"
+        description: "Internal identifier of a RingCentral account or tilde (~) to\
+          \ indicate the account logged-in within the current session"
+        required: true
+        type: "integer"
+        default: "~"
+      - name: "extensionId"
+        in: "path"
+        description: "Internal identifier of an extension or tilde (~) to indicate\
+          \ the extension assigned to the account logged-in within the current session"
+        required: true
+        type: "integer"
+        default: "~"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/GetExtensionDevicesResponse"
+      x-api-group: "extension/device"
+      x-throttling-group: "Light"
+      x-metered-api: true
+      x-metering-group: "System"
+      x-app-permission: "ReadAccounts"
+      x-user-permission: "ReadUserDevices"
+
+  /v1.0/account/{accountId}/order:
+    post:
+      tags:
+      - "Ordering"
+      summary: "Create Device Order"
+      description: "<p style='font-style:italic;'></p><p></p><h4>Required Permissions</h4><table\
+        \ class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td\
+        \ class='code'>EditAccounts</td><td>Viewing and updating user account info\
+        \ (including name, business name, address and phone number/account number)</td></tr><tr><td\
+        \ class='code'>ReadAccounts</td><td>Viewing user account info (including name,\
+        \ business name, address and phone number/account number)</td></tr></tbody></table><h4>Usage\
+        \ Plan Group</h4><p>Heavy</p>"
+      operationId: "createDeviceOrder"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "accountId"
+        in: "path"
+        description: "Internal identifier of a RingCentral account or tilde (~) to\
+          \ indicate the account logged-in within the current session"
+        required: true
+        type: "integer"
+        default: "~"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/OrderResource"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/"
+      x-api-group: "account/order"
+      x-throttling-group: "Heavy"
+      x-metered-api: true
+      x-metering-group: "System"
+      x-app-permission: "EditAccounts"
+      x-user-permission: "EditCompanyDevices"
+  /v1.0/account/{accountId}/order/{orderId}:
+    get:
+      tags:
+      - "Ordering"
+      summary: "Get Device Order by ID"
+      description: "<p style='font-style:italic;'></p><p></p><h4>Required Permissions</h4><table\
+        \ class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td\
+        \ class='code'>ReadAccounts</td><td>Viewing user account info (including name,\
+        \ business name, address and phone number/account number)</td></tr></tbody></table><h4>Usage\
+        \ Plan Group</h4><p>Light</p>"
+      operationId: "loadDeviceOrder"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "accountId"
+        in: "path"
+        description: "Internal identifier of a RingCentral account or tilde (~) to\
+          \ indicate the account logged-in within the current session"
+        required: true
+        type: "integer"
+        default: "~"
+      - name: "orderId"
+        in: "path"
+        description: "Internal identifier of an order"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AccountOrderEndpoint"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/"
+      x-api-group: "account/order"
+      x-throttling-group: "Light"
+      x-metered-api: true
+      x-metering-group: "System"
+      x-app-permission: "ReadAccounts"
+      x-user-permission: "EditCompanyDevices"
+
+  /v1.0/dictionary/device:
+    get:
+      tags:
+      - Ordering
+      operationId: "getDeviceModels"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page"
+        in: "query"
+        required: false
+        type: "string"
+        default: "1"
+      - name: "perPage"
+        in: "query"
+        required: false
+        type: "string"
+        default: "100"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/DeviceModelExtsResource"
+          headers: {}
+      x-api-group: "dictionary/device"
+      x-throttling-group: "Light"
+      x-metered-api: true
+      x-metering-group: "System"
+
+  /v1.0/dictionary/shipping-options:
+    get:
+      tags:
+      - "Ordering"
+      summary: "Get Shipping Options"
+      description: "<p style='font-style:italic;'>Since 1.0.16 (Release 7.1)</p><p>Returns\
+        \ the list of device shipping options with their prices, according to brand,\
+        \ tier, number of ordered devices.</p><h4>Usage Plan Group</h4><p>Light</p>"
+      operationId: "listShippingOptions"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "servicePlanId"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "quantity"
+        in: "query"
+        required: false
+        type: "integer"
+        maximum: 10000.0
+        minimum: 1.0
+        format: "int32"
+      - name: "page"
+        in: "query"
+        required: false
+        type: "string"
+        default: "1"
+      - name: "perPage"
+        in: "query"
+        required: false
+        type: "string"
+        default: "100"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/"
+      x-api-group: "dictionary/shipping-options"
+      x-throttling-group: "Light"
+      x-metered-api: true
+      x-metering-group: "System"
+
+definitions:
+
+  GetAccountDevicesResponse:
+    required:
+    - "navigation"
+    - "paging"
+    - "records"
+    properties:
+      records:
+        type: "array"
+        description: "List of extension records"
+        items:
+          $ref: "#/definitions/GetDeviceInfoResponse"
+      navigation:
+        description: "Information on navigation"
+        $ref: "#/definitions/NavigationInfo"
+      paging:
+        description: "Information on paging"
+        $ref: "#/definitions/PagingInfo"
+  GetDeviceInfoResponse:
+    properties:
+      id:
+        type: "string"
+        description: "Internal identifier of a device"
+      uri:
+        type: "string"
+        description: "Canonical URI of a device"
+      sku:
+        type: "string"
+        description: "Device identification number (stock keeping unit) in the format\
+          \ TP-ID [-AT-AC], where TP is device type (HP for RC HardPhone, DV for all\
+          \ other devices including softphone); ID - device model ID; AT -addon type\
+          \ ID; AC - addon count (if any). For example 'HP-56-2-2'"
+      type:
+        type: "string"
+        description: "Device type. The default value is 'HardPhone'"
+        enum:
+        - "SoftPhone"
+        - "OtherPhone"
+        - "HardPhone"
+      name:
+        type: "string"
+        description: "Device name. Mandatory if ordering  SoftPhone  or  OtherPhone\
+          \ . Optional for  HardPhone . If not specified for HardPhone, then device\
+          \  model  name is used as device  name "
+      serial:
+        type: "string"
+        description: "Serial number for HardPhone (is returned only when the phone\
+          \ is shipped and provisioned); endpoint_id for softphone and mobile applications"
+      computerName:
+        type: "string"
+        description: "PC name for softphone"
+      model:
+        description: "HardPhone model information"
+        $ref: "#/definitions/ModelInfo"
+      extension:
+        description: "This attribute can be omitted for unassigned devices"
+        $ref: "#/definitions/ExtensionInfo"
+      emergencyServiceAddress:
+        description: "Address for emergency cases. The same emergency address is assigned\
+          \ to all the numbers of one device"
+        $ref: "#/definitions/EmergencyAddressInfo"
+      phoneLines:
+        description: "Phone lines information"
+        $ref: "#/definitions/PhoneLinesInfo"
+      shipping:
+        description: "Shipping information, according to which devices (in case of\
+          \  HardPhone ) or e911 stickers (in case of  SoftPhone  and  OtherPhone\
+          \ ) will be delivered to the customer"
+        $ref: "#/definitions/ShippingInfo"
+      boxBillingId:
+        type: "integer"
+        description: "Box billing identifier of a device. Applicable only for HardPhones.\
+          \ It is an alternative way to identify the device to be ordered. EitherT?\
+          \ model  structure, or  boxBillingId  must be specified forT?HardPhone"
+  ModelInfo:
+    required:
+    - "addons"
+    properties:
+      id:
+        type: "string"
+        description: "Addon identifier. For HardPhones of certain types, which are\
+          \ compatible with this addon identifier"
+      name:
+        type: "string"
+        description: "Device name"
+      addons:
+        type: "array"
+        description: "Addons description"
+      count:
+        type: "integer"
+        description: "Number of addons. For HardPhones of certain types, which are\
+          \ compatible with such addon identifier"
+  EmergencyAddressInfo:
+    properties:
+      customerName:
+        type: "string"
+        description: "Name of a customer"
+      street:
+        type: "string"
+        description: "Street address, line 1 - street address, P.O. box, company name,\
+          \ c/o"
+      street2:
+        type: "string"
+        description: "Street address, line 2 - apartment, suite, unit, building, floor,\
+          \ etc."
+      city:
+        type: "string"
+        description: "City name"
+      state:
+        type: "string"
+        description: "State/province name"
+      zip:
+        type: "string"
+        description: "Zip code"
+      country:
+        type: "string"
+        description: "Country name"
+  PhoneLinesInfo:
+    properties:
+      lineType:
+        type: "string"
+        description: "Type of phone line"
+        enum:
+        - "Standalone"
+        - "StandaloneFree"
+        - "BlaPrimary"
+        - "BlaSecondary"
+      phoneInfo:
+        description: "Phone number information"
+        $ref: "#/definitions/PhoneNumberInfo"
+  ShippingInfo:
+    required:
+    - "address"
+    - "method"
+    properties:
+      status:
+        type: "string"
+        description: "Shipping status of the order item. It is set to 'Initial' when\
+          \ the order is submitted. Then it is changed to 'Accepted' when a distributor\
+          \ starts processing the order. Finally it is changed to Shipped which means\
+          \ that distributor has shipped the device."
+        enum:
+        - "Initial"
+        - "Accepted"
+        - "Shipped"
+      carrier:
+        type: "string"
+        description: "Shipping carrier name. Appears only if the device status is\
+          \  Shipped "
+      trackingNumber:
+        type: "string"
+        description: "Carrier-specific tracking number. Appears only if the device\
+          \ status is  Shipped "
+      method:
+        type: "array"
+        description: "Shipping method information"
+      id:
+        type: "string"
+        description: "Method identifier. The default value is  1  (Ground)"
+        enum:
+        - "string; 1"
+        - "2"
+        - "3"
+      name:
+        type: "string"
+        description: "Method name, corresponding to the identifier"
+        enum:
+        - "Ground"
+        - "2 Day"
+        - "Overnight"
+      address:
+        type: "array"
+        description: "Shipping address for the order. If it coincides with the Emergency\
+          \ Service Address, then can be omitted. By default the same value as the\
+          \ emergencyServiceAddress. Multiple addresses can be specified; in case\
+          \ an order contains several devices, they can be delivered to different\
+          \ addresses"
+      customerName:
+        type: "string"
+        description: "Name of a receiver"
+      street:
+        type: "string"
+        description: "Street address, line 1 - street address, P.O. box, company name,\
+          \ c/o"
+      street2:
+        type: "string"
+        description: "Street address, line 2 - apartment, suite, unit, building, floor,\
+          \ etc."
+      city:
+        type: "string"
+        description: "City name"
+      state:
+        type: "string"
+        description: "State/province name"
+      zip:
+        type: "string"
+        description: "Zip code"
+      country:
+        type: "string"
+        description: "Country name"
+  GetExtensionDevicesResponse:
+    required:
+    - "navigation"
+    - "paging"
+    - "records"
+    properties:
+      records:
+        type: "array"
+        description: "List of extension devices"
+        items:
+          $ref: "#/definitions/GetDeviceInfoResponse"
+      navigation:
+        description: "Information on navigation"
+        $ref: "#/definitions/NavigationInfo"
+      paging:
+        description: "Information on paging"
+        $ref: "#/definitions/PagingInfo"
+        
+  AccountDeviceEndpoint:
+    type: "object"
+    properties:
+      multiPartHandler:
+        $ref: "#/definitions/MultiPartHandler"
+      subscriberInfo:
+        $ref: "#/definitions/SubscriptionInfo"        
+
+  OrderResource:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      uri:
+        type: "string"
+        format: "uri"
+      devices:
+        type: "array"
+        items:
+          $ref: "#/definitions/DeviceResource"
+    xml:
+      name: "order"
+      
+  RegistrationResponse:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      device:
+        $ref: "#/definitions/DeviceResource"
+      sipInfo:
+        type: "array"
+        items:
+          $ref: "#/definitions/SipInfo"
+      sipFlags:
+        $ref: "#/definitions/SipFlags"
+
+  DevicesResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      records:
+        type: "array"
+        xml:
+          name: "records"
+          wrapped: true
+        items:
+          $ref: "#/definitions/DeviceResource"
+      paging:
+        $ref: "#/definitions/Paging"
+      navigation:
+        $ref: "#/definitions/Navigation"
+    xml:
+      name: "devices"
+
+  DeviceResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      id:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "HardPhone"
+        - "SoftPhone"
+        - "OtherPhone"
+        - "MobileDevice"
+        - "BLA"
+        - "Unknown"
+      sku:
+        type: "string"
+      model:
+        $ref: "#/definitions/DeviceModelResource"
+      name:
+        type: "string"
+      serial:
+        type: "string"
+      computerName:
+        type: "string"
+      extension:
+        $ref: "#/definitions/ExtensionResource"
+      phoneLines:
+        type: "array"
+        items:
+          $ref: "#/definitions/PhoneLineResource"
+      emergencyServiceAddress:
+        $ref: "#/definitions/EmergencyServiceAddressResource"
+      shipping:
+        $ref: "#/definitions/ShippingResource"
+      billingStatement:
+        $ref: "#/definitions/BillingStatementResource"
+    xml:
+      name: "device"
+      
+  SipInfoResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      domain:
+        type: "string"
+      outboundProxy:
+        type: "string"
+      userName:
+        type: "string"
+      password:
+        type: "string"
+      authorizationId:
+        type: "string"
+    xml:
+      name: "versionedResource"
+      
+  AccountOrderEndpoint:
+    type: "object"
+    properties:
+      multiPartHandler:
+        $ref: "#/definitions/MultiPartHandler"
+      accountId:
+        type: "string"
+      subscriberInfo:
+        $ref: "#/definitions/SubscriptionInfo"
+        
+  DeviceModelExtsResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      records:
+        type: "array"
+        xml:
+          name: "records"
+          wrapped: true
+        items:
+          $ref: "#/definitions/DeviceModelExtResource"
+      paging:
+        $ref: "#/definitions/Paging"
+      navigation:
+        $ref: "#/definitions/Navigation"
+    xml:
+      name: "devices"
+      
+  SipInfo:
+    type: "object"
+    properties:
+      transport:
+        type: "string"
+        enum:
+        - "UDP"
+        - "TCP"
+        - "TLS"
+        - "WS"
+        - "WSS"
+      certificate:
+        type: "string"
+      username:
+        type: "string"
+      password:
+        type: "string"
+      authorizationId:
+        type: "string"
+      domain:
+        type: "string"
+      outboundProxy:
+        type: "string"
+      wsProxy:
+        type: "string"
+        
+  SipFlags:
+    type: "object"
+    properties:
+      voipFeatureEnabled:
+        type: "boolean"
+        default: false
+      voipCountryBlocked:
+        type: "boolean"
+        default: false
+      outboundCallsEnabled:
+        type: "boolean"
+        default: false
+        
+  DeviceModelExtResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      sku:
+        type: "string"
+      type:
+        type: "string"
+      model:
+        $ref: "#/definitions/DeviceModelResource"
+    xml:
+      name: "model"
+                    
+  DeviceModelResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      id:
+        type: "string"
+      name:
+        type: "string"
+      deviceClass:
+        type: "string"
+        enum:
+        - "Unknown"
+        - "DeskPhone"
+        - "ConferencePhone"
+        - "AnalogAdapter"
+        - "CordlessPhone"
+      lineCount:
+        type: "integer"
+        format: "int32"
+      addons:
+        type: "array"
+        items:
+          $ref: "#/definitions/Addon"
+    xml:
+      name: "model"
+      
+  PhoneLineResource:
+    type: "object"
+    properties:
+      lineType:
+        type: "string"
+        enum:
+        - "Unknown"
+        - "Standalone"
+        - "BlaPrimary"
+        - "BlaSecondary"
+        - "BLF"
+        - "StandaloneFree"
+      phoneInfo:
+        $ref: "#/definitions/PhoneNumberResource"
+    xml:
+      name: "phoneLine"
+      
+  ShippingResource:
+    type: "object"
+    properties:
+      address:
+        $ref: "#/definitions/EmergencyServiceAddressResource"
+      method:
+        $ref: "#/definitions/MethodResource"
+      status:
+        type: "string"
+      carrier:
+        type: "string"
+      trackingNumber:
+        type: "string"
+    xml:
+      name: "shipping"
+
+  BillingStatementResource:
+    type: "object"
+    properties:
+      fees:
+        type: "array"
+        items:
+          $ref: "#/definitions/FeeChargeResource"
+      charges:
+        type: "array"
+        items:
+          $ref: "#/definitions/FeeChargeResource"
+      totalCharges:
+        type: "number"
+      totalFees:
+        type: "number"
+      subtotal:
+        type: "number"
+      currency:
+        type: "string"
+
+  Addon:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      count:
+        type: "integer"
+        format: "int32"
+
+  EmergencyServiceAddressResource:
+    type: "object"
+    properties:
+      street:
+        type: "string"
+      street2:
+        type: "string"
+      city:
+        type: "string"
+      state:
+        type: "string"
+      country:
+        type: "string"
+      zip:
+        type: "string"
+      customerName:
+        type: "string"
+        
+  FeeChargeResource:
+    type: "object"
+    properties:
+      description:
+        type: "string"
+      amount:
+        type: "number"
+      feature:
+        type: "string"
+        
+  MethodResource:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"                

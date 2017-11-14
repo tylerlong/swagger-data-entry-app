@@ -9,8 +9,8 @@ const Property = types.model({
   items: types.union(types.late(() => Property), types.undefined),
   default: types.union(types.boolean, types.undefined),
   readOnly: types.union(types.boolean, types.undefined),
-  minLength: types.union(types.number, types.undefined),
   maxLength: types.union(types.number, types.undefined),
+  minLength: types.union(types.number, types.undefined),
   pattern: types.union(types.string, types.undefined),
   additionalProperties: types.union(types.late(() => Property), types.undefined)
 })
