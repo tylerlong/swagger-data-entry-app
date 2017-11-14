@@ -106,7 +106,6 @@ describe('Snapshot testing', () => {
         [{}] // messaging.yml & call-log.yml entity.properties
       )
       const actual = toAndFromJson(swagger)
-      // actual.swagger = '4.0'
       expect(actual).toEqual(expected)
     }, swaggers)
   })
