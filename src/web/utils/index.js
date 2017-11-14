@@ -1,9 +1,10 @@
 import * as R from 'ramda'
+import { getType } from 'mobx-state-tree'
 
 export const update = self => {
   return (key, value) => {
-    if (self[key] === undefined) {
-      throw new Error(`Unknown key '${key}'`)
+    if (!R.has(key, getType(self).properties)) { // not a defined property in model
+      throw new Error(`Unknown property '${key}'`)
     }
     self[key] = value
   }
