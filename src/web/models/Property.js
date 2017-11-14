@@ -1,8 +1,10 @@
 import { types } from 'mobx-state-tree'
 
+import { primitiveTypes } from '../utils'
+
 const Property = types.model({
   $ref: types.union(types.string, types.undefined),
-  type: types.union(types.string, types.undefined),
+  type: types.union(types.enumeration(primitiveTypes), types.undefined),
   format: types.union(types.string, types.undefined),
   description: types.union(types.string, types.undefined),
   enum: types.union(types.array(types.string), types.undefined),

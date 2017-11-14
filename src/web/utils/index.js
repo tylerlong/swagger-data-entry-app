@@ -24,3 +24,5 @@ export const removeUnexpectedProps = (obj, unexpectedKeys = [], unexpectedValues
 export const toAndFromJson = obj => {
   return JSON.parse(JSON.stringify(obj))
 }
+
+export const primitiveTypes = ['object', 'array', 'string', 'number', 'boolean', 'integer']

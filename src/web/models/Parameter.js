@@ -1,6 +1,7 @@
 import { types } from 'mobx-state-tree'
 
 import Property from './Property'
+import { primitiveTypes } from '../utils'
 
 const Parameter = types.model({
   name: types.string,
@@ -8,7 +9,7 @@ const Parameter = types.model({
   in: types.enumeration(['query', 'header', 'path', 'formData', 'body']),
   description: types.union(types.string, types.undefined),
   required: false,
-  type: types.union(types.string, types.undefined),
+  type: types.union(types.enumeration(primitiveTypes), types.undefined),
   enum: types.union(types.array(types.string), types.undefined),
   items: types.union(Property, types.undefined),
   default: types.union(types.union(types.string, types.boolean), types.undefined),
