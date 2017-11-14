@@ -8,7 +8,8 @@ const PathItem = types.model({
   get: types.union(Operation, types.undefined),
   post: types.union(Operation, types.undefined),
   put: types.union(Operation, types.undefined),
-  delete: types.union(Operation, types.undefined)
+  delete: types.union(Operation, types.undefined),
+  head: types.union(Operation, types.undefined)
 }).actions(self => ({
   update: update(self)
 }))
