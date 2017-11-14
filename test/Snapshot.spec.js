@@ -3,7 +3,7 @@ import * as R from 'ramda'
 
 import swaggers from './swaggers'
 import Swagger from '../src/web/models/Swagger'
-import { removeUnexpectedProps } from '../src/web/utils'
+import { removeUnexpectedProps, toAndFromJson } from '../src/web/utils'
 
 test('Snapshot testing', () => {
   R.forEach(doc => {
@@ -80,9 +80,19 @@ test('Snapshot testing', () => {
     expect(swagger['x-metering-group']).toBe(doc['x-metering-group'])
 
     swagger.update('paths', doc.paths)
-    expect(swagger.paths.toJSON()).toEqual(removeUnexpectedProps(doc.paths, [], [{}]))
+    let expected = removeUnexpectedProps(doc.paths,
+      [],
+      [{}] // responses.200.headers
+    )
+    let actual = toAndFromJson(swagger.paths.toJSON())
+    expect(actual).toEqual(expected)
 
     swagger.update('definitions', doc.definitions)
-    expect(swagger.definitions.toJSON()).toEqual(removeUnexpectedProps(doc.definitions, ['xml', 'additionalProperties'], [{}]))
+    expected = removeUnexpectedProps(doc.definitions,
+      ['xml'], // xml attribute will be removed from the spec
+      [{}] // messaging.yml & call-log.yml entity.properties
+    )
+    actual = toAndFromJson(swagger.definitions.toJSON())
+    expect(actual).toEqual(expected)
   }, swaggers)
 })

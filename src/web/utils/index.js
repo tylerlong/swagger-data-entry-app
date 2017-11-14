@@ -20,3 +20,7 @@ export const removeUnexpectedProps = (obj, unexpectedKeys = [], unexpectedValues
   })
   return obj
 }
+
+export const toAndFromJson = obj => {
+  return JSON.parse(JSON.stringify(obj))
+}

@@ -11,7 +11,8 @@ const Property = types.model({
   readOnly: types.union(types.boolean, types.undefined),
   minLength: types.union(types.number, types.undefined),
   maxLength: types.union(types.number, types.undefined),
-  pattern: types.union(types.string, types.undefined)
+  pattern: types.union(types.string, types.undefined),
+  additionalProperties: types.union(types.late(() => Property), types.undefined)
 })
 
 export default Property
