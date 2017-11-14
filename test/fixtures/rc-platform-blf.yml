@@ -1,0 +1,506 @@
+---
+swagger: '2.0'
+info:
+  title: RingCentral BLF API
+  description: Busy Lamp Field API
+  version: 1.0.34
+  contact:
+    name: RingCentral Connect Platform
+    url: http://developers.ringcentral.com
+    email: platform@ringcentral.com
+  license:
+    name: RingCentral API License Agreement and Terms of Use
+    url: https://www.ringcentral.com/legal/apilitos.html
+host: platform.ringcentral.com
+schemes:
+- https
+basePath: "/restapi"
+produces:
+- application/json
+tags:
+- name: "Presence"
+x-auth-required: true
+x-service-version: "v1"
+x-service-interface: "rest"
+x-service-name: "pas"
+x-internal-api: false
+x-blacklisting-strategy: "Off"
+x-metered-api: true
+x-metering-group: "System"
+paths:
+ /v1.0/account/{accountId}/extension/{extensionId}/presence/line:
+   get:
+     tags:
+     - "Presence"
+     summary: "Get Monitored Extensions"
+     description: "<p style='font-style:italic;'>Since 1.0.13 (Release 6.5)</p><p>Returns\
+       \ list of lines - extensions which presence status can be indicated and monitored\
+       \ on BLF-enabled (Busy Lamp Field) devices.</p><h4>Required Permissions</h4><table\
+       \ class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td\
+       \ class='code'>ReadPresence</td><td>Getting user presence information</td></tr></tbody></table><h4>Usage\
+       \ Plan Group</h4><p>Light</p>"
+     operationId: "listMonitoredExtensions"
+     consumes:
+     - "application/json"
+     produces:
+     - "application/json"
+     parameters:
+     - name: "accountId"
+       in: "path"
+       description: "Internal identifier of a RingCentral account or tilde (~) to\
+         \ indicate the account logged-in within the current session"
+       required: true
+       type: "integer"
+       default: "~"
+     - name: "extensionId"
+       in: "path"
+       description: "Internal identifier of an extension or tilde (~) to indicate\
+         \ the extension assigned to the account logged-in within the current session"
+       required: true
+       type: "integer"
+       default: "~"
+     responses:
+       200:
+         description: "Success"
+         schema:
+           $ref: "#/definitions/GetMonitoredExtensionsResponse"
+     x-api-group: "extension/presence/line"
+     x-throttling-group: "Light"
+     x-metered-api: true
+     x-metering-group: "System"
+     x-app-permission: "ReadPresence"
+     x-user-permission: "ReadPresenceSettings"
+   put:
+     tags:
+     - "Presence"
+     operationId: "updatePresenceLines"
+     consumes:
+     - "multipart/mixed"
+     - "application/json"
+     produces:
+     - "multipart/mixed"
+     - "application/json"
+     parameters:
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         type: "array"
+         items:
+           $ref: "#/definitions/PresenceLineResource"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/PresenceLinesEndpoint"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/ExtensionPresenceEndpoint"
+     - name: "extensionId"
+       in: "path"
+       description: "Internal identifier of an extension or tilde (~) to indicate\
+         \ the extension assigned to the account logged-in within the current session"
+       required: true
+       type: "integer"
+       default: "~"
+     - name: "accountId"
+       in: "path"
+       description: "Internal identifier of a RingCentral account or tilde (~) to\
+         \ indicate the account logged-in within the current session"
+       required: true
+       type: "integer"
+       default: "~"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/ExtensionEndpoint"
+     responses:
+       200:
+         description: "successful operation"
+         schema:
+           type: "array"
+           items:
+             $ref: "#/definitions/PresenceLineResource"
+         headers: {}
+     x-api-group: "extension/presence/line"
+     x-throttling-group: "Medium"
+     x-metered-api: true
+     x-metering-group: "System"
+     x-app-permission: "EditPresence"
+     x-user-permission: "EditPresenceSettings"
+ /v1.0/account/{accountId}/extension/{extensionId}/presence/line/{lineId}:
+   get:
+     tags:
+     - "Presence"
+     operationId: "getPresenceLine"
+     consumes:
+     - "multipart/mixed"
+     - "application/json"
+     produces:
+     - "multipart/mixed"
+     - "application/json"
+     parameters:
+     - name: "lineId"
+       in: "path"
+       required: true
+       type: "string"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/PresenceLinesEndpoint"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/ExtensionPresenceEndpoint"
+     - name: "extensionId"
+       in: "path"
+       description: "Internal identifier of an extension or tilde (~) to indicate\
+         \ the extension assigned to the account logged-in within the current session"
+       required: true
+       type: "integer"
+       default: "~"
+     - name: "accountId"
+       in: "path"
+       description: "Internal identifier of a RingCentral account or tilde (~) to\
+         \ indicate the account logged-in within the current session"
+       required: true
+       type: "integer"
+       default: "~"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/ExtensionEndpoint"
+     responses:
+       200:
+         description: "successful operation"
+         schema:
+           $ref: "#/definitions/PresenceLineResource"
+         headers: {}
+     x-api-group: "extension/presence/line"
+     x-throttling-group: "Light"
+     x-metered-api: true
+     x-metering-group: "System"
+     x-app-permission: "ReadPresence"
+     x-user-permission: "ReadPresenceSettings"
+ /v1.0/account/{accountId}/extension/{extensionId}/presence/permission:
+   get:
+     tags:
+     - "Presence"
+     operationId: "getMonitoringExtensions"
+     consumes:
+     - "multipart/mixed"
+     - "application/json"
+     produces:
+     - "multipart/mixed"
+     - "application/json"
+     parameters:
+     - name: "page"
+       in: "query"
+       required: false
+       type: "string"
+       default: "1"
+     - name: "perPage"
+       in: "query"
+       required: false
+       type: "string"
+       default: "100"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/PresencePermissionsEndpoint"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/ExtensionPresenceEndpoint"
+     - name: "extensionId"
+       in: "path"
+       description: "Internal identifier of an extension or tilde (~) to indicate\
+         \ the extension assigned to the account logged-in within the current session"
+       required: true
+       type: "integer"
+       default: "~"
+     - name: "accountId"
+       in: "path"
+       required: true
+       type: "string"
+     - in: "body"
+       name: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/ExtensionEndpoint"
+     responses:
+       200:
+         description: "successful operation"
+         schema:
+           $ref: "#/definitions/MonitoringExtensionsResource"
+         headers: {}
+     x-api-group: "extension/presence/permission"
+     x-throttling-group: "Light"
+     x-metered-api: true
+     x-metering-group: "System"
+     x-app-permission: "ReadPresence"
+     x-user-permission: "ReadPresenceSettings"
+
+   put:
+     tags:
+     - "Presence"
+     operationId: "updateMonitoringExtensions"
+     consumes:
+     - "application/json"
+     produces:
+     - "application/json"
+     parameters:
+     - name: "extensionId"
+       in: "path"
+       description: "Internal identifier of an extension or tilde (~) to indicate\
+         \ the extension assigned to the account logged-in within the current session"
+       required: true
+       type: "string"
+       default: "~"
+     - name: "accountId"
+       in: "path"
+       required: true
+       type: "string"
+     - name: "monitoringExtensionsRequest"
+       in: "body"
+       required: false
+       schema:
+         $ref: "#/definitions/MonitoringExtensionsRequest"
+     responses:
+       200:
+         description: "Updated monitoring extensions response"
+         schema:
+           $ref: "#/definitions/UpdatedMonitoringExtensionsResponse"
+         headers: {}
+     x-api-group: "extension/presence/permission"
+     x-throttling-group: "Light"
+     x-metered-api: true
+     x-metering-group: "System"
+     x-app-permission: "EditPresence"
+     x-user-permission: "EditPresenceSettings"
+ 
+definitions:
+  GetMonitoredExtensionsResponse:
+   required:
+   - "navigation"
+   - "paging"
+   - "records"
+   properties:
+     uri:
+       type: "string"
+       description: "Canonical URI of the monitored lines (extensions) resource"
+     records:
+       type: "array"
+       description: "List of lines (extensions) the presence of which is monitored\
+         \ by the user. The first two lines always indicate the user's extension\
+         \ presence, they cannot be changed"
+       items:
+         $ref: "#/definitions/LineInfo"
+     navigation:
+       description: "Information on navigation"
+       $ref: "#/definitions/NavigationInfo"
+     paging:
+       description: "Information on paging"
+       $ref: "#/definitions/PagingInfo"
+       
+  PresenceLineResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      id:
+        type: "string"
+        xml:
+          attribute: true
+      extension:
+        $ref: "#/definitions/InlinedExtensionResource"
+    xml:
+      name: "line"
+      
+  PresenceLinesEndpoint:
+    type: "object"
+    properties:
+      multiPartHandler:
+        $ref: "#/definitions/MultiPartHandler"
+      subscriberInfo:
+        $ref: "#/definitions/SubscriptionInfo"
+        
+  ExtensionPresenceEndpoint:
+    type: "object"
+    properties:
+      multiPartHandler:
+        $ref: "#/definitions/MultiPartHandler"
+      subscriberInfo:
+        $ref: "#/definitions/SubscriptionInfo"
+        
+  PresencePermissionsEndpoint:
+    type: "object"
+    properties:
+      multiPartHandler:
+        $ref: "#/definitions/MultiPartHandler"
+      subscriberInfo:
+        $ref: "#/definitions/SubscriptionInfo"
+        
+  MonitoringExtensionsResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      records:
+        type: "array"
+        xml:
+          name: "records"
+          wrapped: true
+        items:
+          $ref: "#/definitions/MonitoringExtensionResource"
+      paging:
+        $ref: "#/definitions/Paging"
+      navigation:
+        $ref: "#/definitions/Navigation"
+    xml:
+      name: "extensions"
+  MonitoringExtensionsRequest:
+    description: "Monitoring extensions to put"
+    type: "object"
+  UpdatedMonitoringExtensionsResponse:
+    description: "Updated monitoring extensions"
+    type: "object"
+
+  GetPresenceInfo:
+    properties:
+      uri:
+        type: "string"
+        description: "Canonical URI of a presence info resource"
+      allowSeeMyPresence:
+        type: "boolean"
+        description: "If 'True' enables other extensions to see the extension presence\
+          \ status"
+      dndStatus:
+        type: "string"
+        description: "Extended DnD (Do not Disturb) status. Cannot be set for Department/Announcement/Voicemail\
+          \ (Take Messages Only)/Fax User/Shared Lines Group/Paging Only Group/IVR\
+          \ Menu/Application Extension/Park Location extensions. The 'DoNotAcceptDepartmentCalls'\
+          \ and 'TakeDepartmentCallsOnly' values are applicable only for extensions\
+          \ - members of a Department; if these values are set for department outsiders,\
+          \ the 400 Bad Request error code is returned. The 'TakeDepartmentCallsOnly'\
+          \ status can be set through the old RingCentral user interface and is available\
+          \ for some migrated accounts only."
+        enum:
+        - "TakeAllCalls"
+        - "DoNotAcceptAnyCalls"
+        - "DoNotAcceptDepartmentCalls"
+        - "TakeDepartmentCallsOnly"
+      extension:
+        description: "Information on extension, for which this presence data is returned"
+        $ref: "#/definitions/GetPresenceExtensionInfo"
+      message:
+        type: "string"
+        description: "Custom status message (as previously published by user)"
+      pickUpCallsOnHold:
+        type: "boolean"
+        description: "If 'True' enables the extension user to pick up a monitored\
+          \ line on hold"
+      presenceStatus:
+        type: "string"
+        description: "Aggregated presence status, calculated from a number of sources"
+        enum:
+        - "Offline"
+        - "Busy"
+        - "Available"
+      ringOnMonitoredCall:
+        type: "boolean"
+        description: "If 'True' enables to ring extension phone, if any user monitored\
+          \ by this extension is ringing"
+      telephonyStatus:
+        type: "string"
+        description: "Telephony presence status"
+        enum:
+        - "NoCall"
+        - "CallConnected"
+        - "Ringing"
+        - "OnHold"
+        - "ParkedCall"
+      userStatus:
+        type: "string"
+        description: "User-defined presence status (as previously published by the\
+          \ user)"
+        enum:
+        - "Offline"
+        - "Busy"
+        - "Available"
+  GetPresenceExtensionInfo:
+    properties:
+      id:
+        type: "string"
+        description: "Internal identifier of an extension"
+      uri:
+        type: "string"
+        description: "Canonical URI of an extension"
+      extensionNumber:
+        type: "string"
+        description: "Extension number (usually 3 or 4 digits)"
+
+  LineInfo:
+    properties:
+      id:
+        type: "string"
+        description: "Internal identifier of a monitored extension"
+      uri:
+        type: "string"
+        description: "Canonical URI of a monitored extension"
+      extension:
+        description: "Brief information on a monitored extension"
+        $ref: "#/definitions/ExtensionInfoMonitoredLines"
+  ExtensionInfoMonitoredLines:
+    properties:
+      id:
+        type: "string"
+        description: "Internal identifier of a monitored extension"
+      uri:
+        type: "string"
+        description: "Canonical URI of a monitored extension"
+      extensionNumber:
+        type: "string"
+        description: "Brief information on a monitored extension"
+      type:
+        type: "string"
+        description: "Type of a monitored extension"
+        enum:
+        - "User"
+        - "FaxUser"
+        - "VirtualUser"
+        - "DigitalUser"
+        - "Department"
+        - "ApplicationExtension"
+        - "ParkLocation"
+
+  MonitoringExtensionResource:
+    type: "object"
+    properties:
+      uri:
+        type: "string"
+        format: "uri"
+        xml:
+          attribute: true
+      id:
+        type: "string"
+        xml:
+          attribute: true
+      extensionNumber:
+        type: "string"
+    xml:
+      name: "extension"
