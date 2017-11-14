@@ -1,17 +1,17 @@
 import { types } from 'mobx-state-tree'
 
 const Property = types.model({
-  $ref: types.maybe(types.string),
-  type: types.maybe(types.string),
-  format: types.maybe(types.string),
-  description: types.maybe(types.string),
-  enum: types.maybe(types.array(types.string)),
-  items: types.maybe(types.late(() => Property)),
-  default: types.maybe(types.boolean),
-  readOnly: types.maybe(types.boolean),
-  minLength: types.maybe(types.number),
-  maxLength: types.maybe(types.number),
-  pattern: types.maybe(types.string)
+  $ref: types.union(types.string, types.undefined),
+  type: types.union(types.string, types.undefined),
+  format: types.union(types.string, types.undefined),
+  description: types.union(types.string, types.undefined),
+  enum: types.union(types.array(types.string), types.undefined),
+  items: types.union(types.late(() => Property), types.undefined),
+  default: types.union(types.boolean, types.undefined),
+  readOnly: types.union(types.boolean, types.undefined),
+  minLength: types.union(types.number, types.undefined),
+  maxLength: types.union(types.number, types.undefined),
+  pattern: types.union(types.string, types.undefined)
 })
 
 export default Property

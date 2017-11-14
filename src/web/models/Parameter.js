@@ -4,16 +4,16 @@ import Property from './Property'
 
 const Parameter = types.model({
   name: types.string,
-  format: types.maybe(types.string),
+  format: types.union(types.string, types.undefined),
   in: types.enumeration(['query', 'header', 'path', 'formData', 'body']),
-  description: types.maybe(types.string),
+  description: types.union(types.string, types.undefined),
   required: false,
-  type: types.maybe(types.string),
-  enum: types.maybe(types.array(types.string)),
-  items: types.maybe(Property),
-  default: types.maybe(types.union(types.string, types.boolean)),
-  schema: types.maybe(Property),
-  collectionFormat: types.maybe(types.enumeration(['csv', 'ssv', 'tsv', 'pipes', 'multi']))
+  type: types.union(types.string, types.undefined),
+  enum: types.union(types.array(types.string), types.undefined),
+  items: types.union(Property, types.undefined),
+  default: types.union(types.union(types.string, types.boolean), types.undefined),
+  schema: types.union(Property, types.undefined),
+  collectionFormat: types.union(types.enumeration(['csv', 'ssv', 'tsv', 'pipes', 'multi']), types.undefined)
 })
 
 export default Parameter

@@ -71,10 +71,10 @@ describe('Swagger', () => {
     expect(swagger['x-unknown-field']).toBe(undefined)
 
     expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms')['x-request-max-body-size']).toBe('10m')
-    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').get).toBe(null)
-    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').post).toBe(null)
-    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').put).toBe(null)
-    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').delete).toBe(null)
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').get).toBe(undefined)
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').post).toBe(undefined)
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').put).toBe(undefined)
+    expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').delete).toBe(undefined)
 
     swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms').update('x-request-max-body-size', '20m')
     expect(swagger.paths.get('/v1.0/account/{accountId}/extension/{extensionId}/sms')['x-request-max-body-size']).toBe('20m')

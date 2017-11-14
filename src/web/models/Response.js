@@ -4,7 +4,7 @@ import Property from './Property'
 
 const Response = types.model({
   description: types.string,
-  schema: types.maybe(Property)
+  schema: types.union(Property, types.undefined)
 })
 
 export default Response

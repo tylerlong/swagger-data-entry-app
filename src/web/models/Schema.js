@@ -3,8 +3,8 @@ import { types } from 'mobx-state-tree'
 import Property from './Property'
 
 const Schema = types.model({
-  required: types.maybe(types.array(types.string)),
-  type: types.maybe(types.literal('object')),
+  required: types.union(types.array(types.string), types.undefined),
+  type: types.union(types.literal('object'), types.undefined),
   properties: types.map(Property)
 })
 
