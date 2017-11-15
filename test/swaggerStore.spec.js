@@ -1,15 +1,17 @@
 /* eslint-env jest */
+import path from 'path'
+
 import swaggerStore from '../src/web/models/swaggerStore'
-import docs from './swaggers'
 
 describe('swaggerStore', () => {
   test('open swagger spec', () => {
-    expect(swaggerStore.size).toBe(0)
-    swaggerStore.loadSwagger('~/platform-public.yml', docs[0])
-    expect(swaggerStore.size).toBe(1)
-    const [key, swagger] = swaggerStore.swaggers.entries()[0]
-    expect(key).toBe('~/platform-public.yml')
-    expect(swagger.swagger).toBe('2.0')
+    expect(swaggerStore.swaggerFiles.length).toBe(0)
+    const filePath = path.join(__dirname, 'fixtures', 'rc-platform-address-book.yml')
+    swaggerStore.openSwaggerFile(filePath)
+    expect(swaggerStore.swaggerFiles.length).toBe(1)
+    const swaggerFile = swaggerStore.swaggerFiles[0]
+    expect(swaggerFile.filePath).toBe(filePath)
+    expect(swaggerFile.swagger.swagger).toBe('2.0')
   })
 
   test('create swagger spec', () => {

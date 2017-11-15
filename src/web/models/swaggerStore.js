@@ -1,19 +1,39 @@
 import { types } from 'mobx-state-tree'
+import yaml from 'js-yaml'
 
 import Swagger from './Swagger'
 
+const SwaggerFile = types.model({
+  filePath: types.string,
+  swagger: Swagger
+})
+
 const SwaggerStore = types.model({
-  swaggers: types.map(Swagger)
-}).views(self => ({
-  get size () {
-    return self.swaggers.size
-  }
-})).actions(self => ({
-  loadSwagger (filePath, obj) {
-    self.swaggers.set(filePath, Swagger.create(obj))
+  swaggerFiles: types.array(SwaggerFile)
+}).actions(self => ({
+  openSwaggerFile (filePath) {
+    const swagger = Swagger.create(yaml.safeLoad(global.fs.readFileSync(filePath, 'utf8')))
+    self.swaggerFiles.push(SwaggerFile.create({
+      filePath,
+      swagger
+    }))
+  },
+  createSwaggerFile (filePath) {
+    const swagger = Swagger.create({
+      swagger: '2.0',
+      info: {
+        title: 'title',
+        version: '1.0'
+      },
+      paths: {}
+    })
+    self.swaggerFiles.push(SwaggerFile.create({
+      filePath,
+      swagger
+    }))
   }
 }))
 
-const swaggerStore = SwaggerStore.create({ swaggers: {} })
+const swaggerStore = SwaggerStore.create({ swaggerFiles: [] })
 
 export default swaggerStore
