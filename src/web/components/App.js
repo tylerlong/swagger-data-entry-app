@@ -1,5 +1,6 @@
 import React from 'react'
 import { Tabs, Icon, Card, Button } from 'antd'
+import { observer } from 'mobx-react'
 
 import swaggerStore from '../models/swaggerStore'
 
@@ -35,9 +36,14 @@ class App extends React.Component {
             <Button onClick={this.onCreate}>Create</Button>
           </Card>
         </Tabs.TabPane>
+        {swaggerStore.swaggerFiles.map(swaggerFile => (
+          <Tabs.TabPane key={swaggerFile.filePath} tab={swaggerFile.filePath}>
+            {swaggerFile.filePath}
+          </Tabs.TabPane>
+        ))}
       </Tabs>
     )
   }
 }
 
-export default App
+export default observer(App)
