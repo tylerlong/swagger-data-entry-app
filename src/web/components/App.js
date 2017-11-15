@@ -27,9 +27,15 @@ class App extends React.Component {
     swaggerStore.createSwaggerFile(filePath)
   }
 
+  onEdit (targetKey, action) {
+    if (action === 'remove') {
+      swaggerStore.closeFile(targetKey)
+    }
+  }
+
   render () {
     return (
-      <Tabs hideAdd type='editable-card'>
+      <Tabs hideAdd type='editable-card' onEdit={this.onEdit}>
         <Tabs.TabPane key='home' closable={false} tab={<span><Icon type='home' /> Home</span>}>
           <Card title='Swagger specs' bordered={false}>
             <Button onClick={this.onOpen}>Open</Button>

@@ -1,5 +1,6 @@
 import { types, onSnapshot } from 'mobx-state-tree'
 import yaml from 'js-yaml'
+import * as R from 'ramda'
 
 import Swagger from './Swagger'
 import { toAndFromJson } from '../utils'
@@ -44,6 +45,9 @@ const SwaggerStore = types.model({
   },
   clear () {
     self.swaggerFiles = []
+  },
+  closeFile (filePath) {
+    self.swaggerFiles = R.reject(R.propEq('filePath', filePath), self.swaggerFiles)
   }
 }))
 
