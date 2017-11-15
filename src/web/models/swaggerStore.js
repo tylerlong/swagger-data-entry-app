@@ -50,8 +50,13 @@ const SwaggerStore = types.model({
       },
       paths: {}
     })
-    const swaggerFile = SwaggerFile.create({ filePath, swagger })
-    self.swaggerFiles.push(swaggerFile)
+    let swaggerFile = R.find(R.propEq('filePath', filePath), self.swaggerFiles)
+    if (swaggerFile) {
+      swaggerFile.swagger = swagger
+    } else {
+      const swaggerFile = SwaggerFile.create({ filePath, swagger })
+      self.swaggerFiles.push(swaggerFile)
+    }
     self.setActiveKey(filePath)
   },
   clear () {
