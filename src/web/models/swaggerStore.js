@@ -4,6 +4,10 @@ import * as R from 'ramda'
 
 import Swagger from './Swagger'
 import { toAndFromJson } from '../utils'
+import pkg from '../../../package.json'
+
+const productName = pkg.build.productName
+const currentWindow = global.electron.getCurrentWindow()
 
 const SwaggerFile = types.model({
   filePath: types.string,
@@ -58,6 +62,11 @@ const SwaggerStore = types.model({
   },
   setActiveKey (key) {
     self.activeKey = key
+    if (key === 'home') {
+      currentWindow.setTitle(productName)
+    } else {
+      currentWindow.setTitle(`${key} · ${productName}`)
+    }
   }
 }))
 
