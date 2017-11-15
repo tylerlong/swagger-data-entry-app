@@ -1,0 +1,1185 @@
+swagger: '2.0'
+info:
+  title: RingCentral Address Book API
+  description: Personal User Contacts Management API
+  version: 1.0.34
+  contact:
+    name: RingCentral Connect Platform
+    url: 'http://developers.ringcentral.com'
+    email: platform@ringcentral.com
+  license:
+    name: RingCentral API License Agreement and Terms of Use
+    url: 'https://www.ringcentral.com/legal/apilitos.html'
+host: platform.ringcentral.com
+schemes:
+  - https
+basePath: /restapi
+produces:
+  - application/json
+tags:
+  - name: User Contacts
+x-auth-required: true
+x-service-version: v1
+x-service-interface: rest
+x-service-name: pas
+x-internal-api: false
+x-blacklisting-strategy: 'Off'
+x-metered-api: true
+x-metering-group: System
+paths:
+  '/v1.0/account/{accountId}/extension/{extensionId}/address-book':
+    get:
+      operationId: getAddressBookLinks
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AddressBookResource'
+      x-api-group: extension/address-book
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: ReadPersonalContacts
+  '/v1.0/account/{accountId}/extension/{extensionId}/address-book-sync':
+    get:
+      tags:
+        - Address Book
+      summary: Address Book Synchronization
+      description: >-
+        <p style='font-style:italic;'></p><p></p><h4>Required
+        Permissions</h4><table
+        class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td
+        class='code'>ReadContacts</td><td>Viewing user personal
+        contacts</td></tr></tbody></table><h4>Usage Plan Group</h4><p>Heavy</p>
+      operationId: syncAddressBook
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: syncType
+          in: query
+          description: Type of synchronization. The default value is 'FSync'
+          required: false
+          type: array
+          enum:
+            - FSync
+            - ISync
+          items:
+            type: string
+          collectionFormat: multi
+        - name: syncToken
+          in: query
+          description: Value of syncToken property of the last sync request response
+          required: false
+          type: string
+        - name: perPage
+          in: query
+          description: >-
+            Number of records per page to be returned. The max number of records
+            is 250, which is also the default. For FSync ??? if the number of
+            records exceeds the parameter value (either specified or default),
+            all of the pages can be retrieved in several requests. For ISync ???
+            if the number of records exceeds the page size, the number of
+            incoming changes to this number is limited
+          required: false
+          type: integer
+        - name: pageId
+          in: query
+          description: >-
+            Internal identifier of a page. It can be obtained from the
+            'nextPageId' parameter passed in response body
+          required: false
+          type: integer
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/AddressBookSyncEndpoint'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/'
+      x-api-group: extension/address-book-sync
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: ReadPersonalContacts
+  '/v1.0/account/{accountId}/extension/{extensionId}/address-book/contact':
+    get:
+      tags:
+        - Address Book
+      summary: Get Address Book
+      description: >-
+        <p style='font-style:italic;'></p><p></p><h4>Required
+        Permissions</h4><table
+        class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td
+        class='code'>ReadContacts</td><td>Viewing user personal
+        contacts</td></tr></tbody></table><h4>Usage Plan Group</h4><p>Heavy</p>
+      operationId: listContacts
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: startsWith
+          in: query
+          description: >-
+            If specified, only contacts whose First name or Last name start with
+            the mentioned substring are returned. Case-insensitive
+          required: false
+          type: string
+        - name: sortBy
+          in: query
+          description: Sorts results by the specified property. The default is 'First Name'
+          required: false
+          type: array
+          enum:
+            - FirstName
+            - LastName
+            - Company
+          items:
+            type: string
+          collectionFormat: multi
+        - name: page
+          in: query
+          description: >-
+            Indicates the page number to retrieve. Only positive number values
+            are allowed. Default value is '1'
+          required: false
+          type: integer
+        - name: perPage
+          in: query
+          description: >-
+            Indicates the page size (number of items). If not specified, the
+            value is '100' by default
+          required: false
+          type: integer
+        - name: phoneNumber
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/'
+      x-api-group: extension/address-book/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: ReadPersonalContacts
+    post:
+      tags:
+        - Address Book
+      summary: Create Contact
+      description: >-
+        <p style='font-style:italic;'></p><p></p><h4>Required
+        Permissions</h4><table
+        class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td
+        class='code'>Contacts</td><td>Creating, viewing, editing and deleting
+        user personal contacts</td></tr><tr><td
+        class='code'>ReadContacts</td><td>Viewing user personal
+        contacts</td></tr></tbody></table><h4>Usage Plan Group</h4><p>Heavy</p>
+      operationId: createContact
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalContactResource'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/'
+      x-api-group: extension/address-book/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+    put:
+      operationId: loadContacts
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ContactsInput'
+        - name: duplicatesPolicy
+          in: query
+          required: false
+          type: string
+          enum:
+            - Overwrite
+            - Duplicate
+            - Ignore
+          default: Duplicate
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ExtensionEndpoint'
+      responses:
+        default:
+          description: successful operation
+      x-api-group: extension/address-book/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+  '/v1.0/account/{accountId}/extension/{extensionId}/address-book/contact/{contactId}':
+    get:
+      tags:
+        - Address Book
+      summary: Get Contact(s) by ID
+      description: >-
+        <p style='font-style:italic;'></p><p></p><h4>Required
+        Permissions</h4><table
+        class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td
+        class='code'>ReadContacts</td><td>Viewing user personal
+        contacts</td></tr></tbody></table><h4>Usage Plan Group</h4><p>Heavy</p>
+      operationId: loadContact
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: contactId
+          in: path
+          description: Internal identifier of a contact record in the RingCentral database
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/'
+      x-api-group: extension/address-book/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: ReadPersonalContacts
+    put:
+      tags:
+        - Address Book
+      summary: Update Contact(s) by ID
+      description: >-
+        <p style='font-style:italic;'></p><p></p><h4>Required
+        Permissions</h4><table
+        class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td
+        class='code'>Contacts</td><td>Creating, viewing, editing and deleting
+        user personal contacts</td></tr><tr><td
+        class='code'>ReadContacts</td><td>Viewing user personal
+        contacts</td></tr></tbody></table><h4>Usage Plan Group</h4><p>Heavy</p>
+      operationId: updateContact
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: contactId
+          in: path
+          description: Internal identifier of a contact record in the RingCentral database
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalContactResource'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/'
+      x-api-group: extension/address-book/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+    delete:
+      tags:
+        - Address Book
+      summary: Delete Contact(s) by ID
+      description: >-
+        <p style='font-style:italic;'></p><p></p><h4>Required
+        Permissions</h4><table
+        class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td
+        class='code'>Contacts</td><td>Creating, viewing, editing and deleting
+        user personal contacts</td></tr><tr><td
+        class='code'>ReadContacts</td><td>Viewing user personal
+        contacts</td></tr></tbody></table><h4>Usage Plan Group</h4><p>Heavy</p>
+      operationId: deleteContact
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: contactId
+          in: path
+          description: Internal identifier of a contact record in the RingCentral database
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/'
+      x-api-group: extension/address-book/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+  '/v1.0/account/{accountId}/extension/{extensionId}/address-book/group':
+    get:
+      tags:
+        - Address Book
+      summary: Get Group List
+      description: >-
+        <p style='font-style:italic;'></p><p></p><h4>Required
+        Permissions</h4><table
+        class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td
+        class='code'>ReadContacts</td><td>Viewing user personal
+        contacts</td></tr></tbody></table><h4>Usage Plan Group</h4><p>Heavy</p>
+      operationId: listAddressBookGroups
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: page
+          in: query
+          required: false
+          type: string
+          default: '1'
+        - name: perPage
+          in: query
+          required: false
+          type: string
+          default: '100'
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/'
+      x-api-group: extension/address-book/group
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: ReadPersonalContacts
+    post:
+      operationId: createGroup
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/GroupResource'
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ExtensionEndpoint'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GroupResource'
+      x-api-group: extension/address-book/group
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+  '/v1.0/account/{accountId}/extension/{extensionId}/address-book/group/{groupId}':
+    get:
+      tags:
+        - Address Book
+      summary: Get Group(s) by ID
+      description: >-
+        <p style='font-style:italic;'>Since 1.0.4 (Release 5.13)</p><p>Returns a
+        group or several groups description, including the user-defined group
+        name, number of contacts in the group, and optional note. Batch request
+        is supported, see Batch Requests for details.</p><h4>Required
+        Permissions</h4><table
+        class='fullwidth'><thead><tr><th>Permission</th><th>Description</th></tr></thead><tbody><tr><td
+        class='code'>ReadContacts</td><td>Viewing user personal
+        contacts</td></tr></tbody></table><h4>Usage Plan Group</h4><p>Heavy</p>
+      operationId: loadAddressBookGroup
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: groupId
+          in: path
+          description: Internal identifier of a group in an address book
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/'
+      x-api-group: extension/address-book/group
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: ReadPersonalContacts
+    put:
+      operationId: updateGroupInfo
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: groupId
+          format: int64
+          in: path
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/GroupResource'
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ExtensionEndpoint'
+      responses:
+        '200':
+          description: Success
+      x-api-group: extension/address-book/group
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+    delete:
+      operationId: deleteSeveralGroups
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ExtensionEndpoint'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GroupResource'
+      x-api-group: extension/address-book/group
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+  '/v1.0/account/{accountId}/extension/{extensionId}/address-book/group/{groupId}/contact':
+    get:
+      operationId: listGroupContacts
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: groupId
+          format: int64
+          in: path
+          required: true
+          type: integer
+        - name: startsWith
+          in: query
+          required: false
+          type: string
+        - name: sortBy
+          in: query
+          required: false
+          type: string
+          enum:
+            - FirstName
+            - LastName
+            - Company
+          default: FirstName
+        - name: page
+          in: query
+          required: false
+          type: string
+          default: '1'
+        - name: perPage
+          in: query
+          required: false
+          type: string
+          default: '100'
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ExtensionEndpoint'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GroupContactsCollection'
+      x-api-group: extension/address-book/group/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: EditPersonalContacts
+  '/v1.0/account/{accountId}/extension/{extensionId}/address-book/group/{groupId}/contact/{contactIds}':
+    get:
+      operationId: getSeveralGroupContacts
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: groupId
+          format: int64
+          in: path
+          required: true
+          type: integer
+        - name: contactIds
+          in: path
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ExtensionEndpoint'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BulkMultiPartPersonalContactResource'
+      x-api-group: extension/address-book/group/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: ReadPersonalContacts
+    put:
+      operationId: addSeveralContactsToGroup
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: contactIds
+          in: path
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: groupId
+          format: int64
+          in: path
+          required: true
+          type: integer
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ExtensionEndpoint'
+      responses:
+        default:
+          description: successful operation
+      x-api-group: extension/address-book/group/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+    delete:
+      operationId: deleteSeveralGroupContacts
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: groupId
+          format: int64
+          in: path
+          required: true
+          type: integer
+        - name: contactIds
+          in: path
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/PersonalAddressBookEndpoint'
+        - name: extensionId
+          in: path
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/ExtensionEndpoint'
+      responses:
+        default:
+          description: successful operation
+      x-api-group: extension/address-book/group/contact
+      x-throttling-group: Heavy
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+  '/v1.0/account/{accountId}/extension/{extensionId}/favorite':
+    get:
+      operationId: listContacts
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+      responses:
+        default:
+          description: successful operation
+      x-api-group: extension/favorite
+      x-throttling-group: Light
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: ReadContacts
+      x-user-permission: ReadPersonalContacts
+    put:
+      operationId: createContacts
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: accountId
+          in: path
+          description: >-
+            Internal identifier of a RingCentral account or tilde (~) to
+            indicate the account logged-in within the current session
+          required: true
+          type: integer
+          default: '~'
+        - name: extensionId
+          in: path
+          description: >-
+            Internal identifier of an extension or tilde (~) to indicate the
+            extension assigned to the account logged-in within the current
+            session
+          required: true
+          type: integer
+          default: '~'
+        - name: body
+          in: body
+          required: false
+          schema:
+            $ref: '#/definitions/FavoriteCollection'
+      responses:
+        default:
+          description: successful operation
+      x-api-group: extension/favorite
+      x-throttling-group: Medium
+      x-metered-api: true
+      x-metering-group: System
+      x-app-permission: Contacts
+      x-user-permission: EditPersonalContacts
+definitions:
+  PersonalAddressBookEndpoint:
+    type: object
+    properties:
+      multiPartHandler:
+        $ref: '#/definitions/MultiPartHandler'
+      addressBookLinks:
+        $ref: '#/definitions/AddressBookResource'
+      subscriberInfo:
+        $ref: '#/definitions/SubscriptionInfo'
+  AddressBookResource:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri
+      contacts:
+        $ref: '#/definitions/ResourceLink'
+      groups:
+        $ref: '#/definitions/ResourceLink'
+  FavoriteCollection:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri
+      records:
+        type: array
+        items:
+          $ref: '#/definitions/FavoriteContactResource'
+  ExtensionEndpoint:
+    type: object
+    properties:
+      multiPartHandler:
+        $ref: '#/definitions/MultiPartHandler'
+      currentExtension:
+        $ref: '#/definitions/ExtensionResource'
+      currentExtensionPermissions:
+        $ref: '#/definitions/ExtensionPermissionsResource'
+      ringOut:
+        $ref: '#/definitions/Response'
+      currentExtensionIncomingCallInformation:
+        $ref: '#/definitions/IncomingCallInformationResource'
+      subscriberInfo:
+        $ref: '#/definitions/SubscriptionInfo'
+  AddressBookSyncEndpoint:
+    type: object
+    properties:
+      multiPartHandler:
+        $ref: '#/definitions/MultiPartHandler'
+      subscriberInfo:
+        $ref: '#/definitions/SubscriptionInfo'
+  PersonalContactResource:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri
+      availability:
+        type: string
+        enum:
+          - Alive
+          - Deleted
+          - Purged
+      id:
+        type: integer
+        format: int64
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      birthday:
+        type: string
+        format: date-time
+      notes:
+        type: string
+      webPage:
+        type: string
+      company:
+        type: string
+      jobTitle:
+        type: string
+      nickName:
+        type: string
+      email:
+        type: string
+      email2:
+        type: string
+      email3:
+        type: string
+      homeAddress:
+        $ref: '#/definitions/ContactAddressInfo'
+      otherAddress:
+        $ref: '#/definitions/ContactAddressInfo'
+      homePhone:
+        type: string
+      homePhone2:
+        type: string
+      mobilePhone:
+        type: string
+      businessPhone:
+        type: string
+      callbackPhone:
+        type: string
+      carPhone:
+        type: string
+      companyPhone:
+        type: string
+      otherPhone:
+        type: string
+      businessFax:
+        type: string
+      otherFax:
+        type: string
+      businessAddress:
+        $ref: '#/definitions/ContactAddressInfo'
+      assistantPhone:
+        type: string
+      businessPhone2:
+        type: string
+  ContactsInput:
+    type: object
+    properties:
+      records:
+        type: array
+        items:
+          $ref: '#/definitions/PersonalContactResource'
+  GroupResource:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri
+      contacts:
+        $ref: '#/definitions/ResourceLink'
+      id:
+        type: integer
+        format: int64
+      notes:
+        type: string
+      groupName:
+        type: string
+      contactsCount:
+        type: integer
+        format: int32
+  GroupsCollection:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri
+      records:
+        type: array
+        items:
+          $ref: '#/definitions/GroupResource'
+      paging:
+        $ref: '#/definitions/Paging'
+      navigation:
+        $ref: '#/definitions/Navigation'
+  GroupContactsCollection:
+    type: object
+    properties:
+      uri:
+        type: string
+        format: uri
+      records:
+        type: array
+        items:
+          $ref: '#/definitions/PersonalContactResource'
+      paging:
+        $ref: '#/definitions/Paging'
+      navigation:
+        $ref: '#/definitions/Navigation'

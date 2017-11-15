@@ -11,7 +11,7 @@ beforeEach(() => {
 describe('swaggerStore', () => {
   test('open swagger spec', () => {
     expect(swaggerStore.swaggerFiles.length).toBe(0)
-    const filePath = path.join(__dirname, 'fixtures', 'rc-platform-address-book.yml')
+    const filePath = path.join(__dirname, 'fixtures', 'for-testing-only.yml')
     swaggerStore.openSwaggerFile(filePath)
     expect(swaggerStore.swaggerFiles.length).toBe(1)
     const swaggerFile = swaggerStore.swaggerFiles[0]
