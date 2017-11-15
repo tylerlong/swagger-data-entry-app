@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, onSnapshot } from 'mobx-state-tree'
 import yaml from 'js-yaml'
 
 import Swagger from './Swagger'
@@ -8,6 +8,12 @@ const SwaggerFile = types.model({
   filePath: types.string,
   swagger: Swagger
 }).actions(self => ({
+  afterCreate () {
+    self.save()
+    onSnapshot(self, newSnapshot => {
+      self.save()
+    })
+  },
   save () {
     const yamlData = yaml.safeDump(toAndFromJson(self.swagger.toJSON()))
     global.fs.writeFileSync(self.filePath, yamlData)
@@ -34,7 +40,6 @@ const SwaggerStore = types.model({
       paths: {}
     })
     const swaggerFile = SwaggerFile.create({ filePath, swagger })
-    swaggerFile.save()
     self.swaggerFiles.push(swaggerFile)
   },
   clear () {
