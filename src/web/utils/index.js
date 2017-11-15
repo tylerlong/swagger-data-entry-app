@@ -14,7 +14,7 @@ export const replace = self => {
   return obj => {
     const keys = R.keys(getType(self).properties)
     R.forEach(key => {
-      if (obj[key]) {
+      if (obj[key] !== undefined) {
         self[key] = obj[key]
       }
     }, keys)
