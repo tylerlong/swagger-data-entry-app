@@ -14,7 +14,7 @@ class App extends React.Component {
       return
     }
     const filePath = filesOpened[0]
-    swaggerStore.openSwaggerFile(filePath)
+    swaggerStore.open(filePath)
   }
 
   onCreate () {
@@ -24,12 +24,12 @@ class App extends React.Component {
     if (!filePath) {
       return
     }
-    swaggerStore.createSwaggerFile(filePath)
+    swaggerStore.create(filePath)
   }
 
   onEdit (targetKey, action) {
     if (action === 'remove') {
-      swaggerStore.closeFile(targetKey)
+      swaggerStore.close(targetKey)
     }
   }
 

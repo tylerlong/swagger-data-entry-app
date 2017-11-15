@@ -12,7 +12,7 @@ describe('swaggerStore', () => {
   test('open swagger spec', () => {
     expect(swaggerStore.swaggerFiles.length).toBe(0)
     const filePath = path.join(__dirname, 'fixtures', 'for-testing-only.yml')
-    swaggerStore.openSwaggerFile(filePath)
+    swaggerStore.open(filePath)
     expect(swaggerStore.swaggerFiles.length).toBe(1)
     const swaggerFile = swaggerStore.swaggerFiles[0]
     expect(swaggerFile.filePath).toBe(filePath)
@@ -23,7 +23,7 @@ describe('swaggerStore', () => {
     expect(swaggerStore.swaggerFiles.length).toBe(0)
     const filePath = path.join(__dirname, 'fixtures', 'does-not-exist.yml')
     expect(fs.existsSync(filePath)).toBe(false)
-    swaggerStore.createSwaggerFile(filePath)
+    swaggerStore.create(filePath)
     expect(swaggerStore.swaggerFiles.length).toBe(1)
     const swaggerFile = swaggerStore.swaggerFiles[0]
     expect(swaggerFile.filePath).toBe(filePath)

@@ -24,14 +24,14 @@ const SwaggerFile = types.model({
 const SwaggerStore = types.model({
   swaggerFiles: types.array(SwaggerFile)
 }).actions(self => ({
-  openSwaggerFile (filePath) {
+  open (filePath) {
     const swagger = Swagger.create(yaml.safeLoad(global.fs.readFileSync(filePath, 'utf8')))
     self.swaggerFiles.push(SwaggerFile.create({
       filePath,
       swagger
     }))
   },
-  createSwaggerFile (filePath) {
+  create (filePath) {
     const swagger = Swagger.create({
       swagger: '2.0',
       info: {
@@ -46,7 +46,7 @@ const SwaggerStore = types.model({
   clear () {
     self.swaggerFiles = []
   },
-  closeFile (filePath) {
+  close (filePath) {
     self.swaggerFiles = R.reject(R.propEq('filePath', filePath), self.swaggerFiles)
   }
 }))
