@@ -30,6 +30,10 @@ const SwaggerStore = types.model({
   swaggerFiles: types.array(SwaggerFile)
 }).actions(self => ({
   open (filePath) {
+    if (R.find(R.propEq('filePath', filePath), self.swaggerFiles)) {
+      self.setActiveKey(filePath)
+      return
+    }
     const swagger = Swagger.create(yaml.safeLoad(global.fs.readFileSync(filePath, 'utf8')))
     self.swaggerFiles.push(SwaggerFile.create({
       filePath,
