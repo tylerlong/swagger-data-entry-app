@@ -22,6 +22,7 @@ const SwaggerFile = types.model({
 }))
 
 const SwaggerStore = types.model({
+  activeKey: 'home',
   swaggerFiles: types.array(SwaggerFile)
 }).actions(self => ({
   open (filePath) {
@@ -30,6 +31,7 @@ const SwaggerStore = types.model({
       filePath,
       swagger
     }))
+    self.setActiveKey(filePath)
   },
   create (filePath) {
     const swagger = Swagger.create({
@@ -42,12 +44,20 @@ const SwaggerStore = types.model({
     })
     const swaggerFile = SwaggerFile.create({ filePath, swagger })
     self.swaggerFiles.push(swaggerFile)
+    self.setActiveKey(filePath)
   },
   clear () {
     self.swaggerFiles = []
+    self.setActiveKey('home')
   },
   close (filePath) {
     self.swaggerFiles = R.reject(R.propEq('filePath', filePath), self.swaggerFiles)
+    if (filePath === self.activeKey) {
+      self.setActiveKey('home')
+    }
+  },
+  setActiveKey (key) {
+    self.activeKey = key
   }
 }))
 
