@@ -45,7 +45,7 @@ const SwaggerStore = types.model({
     const swagger = Swagger.create({
       swagger: '2.0',
       info: {
-        title: 'title',
+        title: 'Awesome API',
         version: '1.0'
       },
       paths: {}

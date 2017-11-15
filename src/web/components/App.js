@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import * as R from 'ramda'
 
 import swaggerStore from '../models/swaggerStore'
+import Swagger from './Swagger'
 
 class App extends React.Component {
   onOpen () {
@@ -39,14 +40,14 @@ class App extends React.Component {
       <Tabs hideAdd type='editable-card' onEdit={this.onEdit} activeKey={swaggerStore.activeKey}
         onChange={targetKey => swaggerStore.setActiveKey(targetKey)}>
         <Tabs.TabPane key='home' closable={false} tab={<span><Icon type='home' />Home</span>}>
-          <Card title='Swagger specs' bordered={false}>
+          <Card title='Swagger Specifications' bordered={false}>
             <Button onClick={this.onOpen}>Open</Button>
             <Button onClick={this.onCreate}>Create</Button>
           </Card>
         </Tabs.TabPane>
         {swaggerStore.swaggerFiles.map(swaggerFile => (
           <Tabs.TabPane key={swaggerFile.filePath} tab={R.last(swaggerFile.filePath.split('/'))}>
-            {swaggerFile.filePath}
+            <Swagger swagger={swaggerFile.swagger} />
           </Tabs.TabPane>
         ))}
       </Tabs>
