@@ -10,6 +10,17 @@ export const update = self => {
   }
 }
 
+export const replace = self => {
+  return obj => {
+    const keys = R.keys(getType(self).properties)
+    R.forEach(key => {
+      if (obj[key]) {
+        self[key] = obj[key]
+      }
+    }, keys)
+  }
+}
+
 export const removeUnexpectedProps = (obj, unexpectedKeys = [], unexpectedValues = []) => {
   Object.entries(obj).forEach(([key, val]) => {
     if (R.contains(key, unexpectedKeys) || R.contains(val, unexpectedValues)) {
