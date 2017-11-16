@@ -37,10 +37,10 @@ class Info extends React.Component {
         <Form.Item label='Terms of Service' {...inputLayout}>
           <Input defaultValue={info.termsOfService} onChange={e => { this.form.termsOfService = e.target.value }} />
         </Form.Item>
-        {contact}
         <Form.Item {...buttonLayout}>
           <Button onClick={() => info.replace(this.form)}>Save</Button>
         </Form.Item>
+        {contact}
       </Card>
     )
   }
