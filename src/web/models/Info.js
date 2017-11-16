@@ -15,6 +15,9 @@ const Info = types.model({
   replace: replace(self),
   newContact () {
     self.contact = Contact.create({})
+  },
+  removeContact () {
+    self.contact = undefined
   }
 }))
 

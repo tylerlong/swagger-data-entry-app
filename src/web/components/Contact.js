@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { Input, Card, Form, Button } from 'antd'
+import { getParent } from 'mobx-state-tree'
 
 import { inputLayout, buttonLayout } from '../utils'
 
@@ -25,8 +26,8 @@ class Contact extends React.Component {
             <Input defaultValue={contact.email} onChange={e => { this.form.email = e.target.value }} />
           </Form.Item>
           <Form.Item {...buttonLayout}>
-            <Button onClick={() => this.props.contact.replace(this.form)}>Save</Button>
-            <Button>Delete</Button>
+            <Button onClick={() => contact.replace(this.form)}>Save</Button>
+            <Button type='danger' onClick={() => getParent(contact).removeContact()}>Delete</Button>
           </Form.Item>
         </Form>
       </Card>

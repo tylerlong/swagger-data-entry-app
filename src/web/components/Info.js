@@ -39,7 +39,7 @@ class Info extends React.Component {
         </Form.Item>
         {contact}
         <Form.Item {...buttonLayout}>
-          <Button onClick={() => this.props.info.replace(this.form)}>Save</Button>
+          <Button onClick={() => info.replace(this.form)}>Save</Button>
         </Form.Item>
       </Card>
     )
