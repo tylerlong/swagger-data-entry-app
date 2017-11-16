@@ -2,16 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Input, Card, Button, Form } from 'antd'
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 4 }
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 20 }
-  }
-}
+import { inputLayout, buttonLayout } from '../utils'
 
 class Info extends React.Component {
   constructor (props) {
@@ -23,24 +14,19 @@ class Info extends React.Component {
     const { info } = this.props
     return (
       <Card title='Info'>
-        <Form.Item label='Title' {...formItemLayout}>
+        <Form.Item label='Title' {...inputLayout}>
           <Input defaultValue={info.title} onChange={e => { this.form.title = e.target.value }} />
         </Form.Item>
-        <Form.Item label='Version' {...formItemLayout}>
+        <Form.Item label='Version' {...inputLayout}>
           <Input defaultValue={info.version} onChange={e => { this.form.version = e.target.value }} />
         </Form.Item>
-        <Form.Item label='Description' {...formItemLayout}>
+        <Form.Item label='Description' {...inputLayout}>
           <Input defaultValue={info.description} onChange={e => { this.form.description = e.target.value }} />
         </Form.Item>
-        <Form.Item label='Terms of Service' {...formItemLayout}>
+        <Form.Item label='Terms of Service' {...inputLayout}>
           <Input defaultValue={info.termsOfService} onChange={e => { this.form.termsOfService = e.target.value }} />
         </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            xs: { span: 24, offset: 0 },
-            sm: { span: 20, offset: 4 }
-          }}
-        >
+        <Form.Item {...buttonLayout}>
           <Button onClick={() => this.props.info.replace(this.form)}>Save</Button>
         </Form.Item>
       </Card>

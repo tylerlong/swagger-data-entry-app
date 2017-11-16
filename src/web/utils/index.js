@@ -37,3 +37,21 @@ export const toAndFromJson = obj => {
 }
 
 export const primitiveTypes = ['object', 'array', 'string', 'number', 'boolean', 'integer', 'file']
+
+export const inputLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 4 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 20 }
+  }
+}
+
+export const buttonLayout = {
+  wrapperCol: {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 20, offset: 4 }
+  }
+}

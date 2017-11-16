@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
   title: RingCentral Address Book API
-  description: Personal User Contacts Management API
   version: 1.0.34
+  description: Personal User Contacts Management API
   contact:
     name: RingCentral Connect Platform
     url: 'http://developers.ringcentral.com'

@@ -30,4 +30,3 @@ yarn dist
     - Operation
     - PathItem
     - https://github.com/mobxjs/mobx-state-tree/issues/520
-- Make tabs ticky on top
