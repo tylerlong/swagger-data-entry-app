@@ -18,6 +18,12 @@ const Info = types.model({
   },
   removeContact () {
     self.contact = undefined
+  },
+  newLicense () {
+    self.license = License.create({ name: '' })
+  },
+  removeLicense () {
+    self.license = undefined
   }
 }))
 

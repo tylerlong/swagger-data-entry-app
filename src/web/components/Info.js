@@ -4,6 +4,7 @@ import { Input, Card, Button, Form } from 'antd'
 
 import { inputLayout, buttonLayout } from '../utils'
 import Contact from './Contact'
+import License from './License'
 
 class Info extends React.Component {
   constructor (props) {
@@ -21,6 +22,16 @@ class Info extends React.Component {
     } else {
       contact = <Form.Item label='Contact' {...inputLayout}>
         <Button onClick={() => info.newContact()}>Add</Button>
+      </Form.Item>
+    }
+    let license = null
+    if (info.license) {
+      license = <Form.Item label='License' {...inputLayout}>
+        <License license={info.license} />
+      </Form.Item>
+    } else {
+      license = <Form.Item label='License' {...inputLayout}>
+        <Button onClick={() => info.newLicense()}>Add</Button>
       </Form.Item>
     }
     return (
@@ -41,6 +52,7 @@ class Info extends React.Component {
           <Button onClick={() => info.replace(this.form)}>Save</Button>
         </Form.Item>
         {contact}
+        {license}
       </Card>
     )
   }
