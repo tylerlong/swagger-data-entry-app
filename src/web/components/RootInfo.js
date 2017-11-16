@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Input, Card, Form, Button, Popconfirm } from 'antd'
+import { Input, Card, Form, Button, Select } from 'antd'
 
 import { inputLayout, buttonLayout } from '../utils'
 
@@ -19,6 +19,18 @@ class RootInfo extends React.Component {
         </Form.Item>
         <Form.Item label='Host' {...inputLayout}>
           <Input defaultValue={swagger.host} onChange={e => { this.form.host = e.target.value }} />
+        </Form.Item>
+        <Form.Item label='Schemes' {...inputLayout}>
+          <Select mode='multiple' defaultValue={swagger.schemes ? swagger.schemes.toJSON() : []} style={{ width: '100%' }}
+            onChange={value => { this.form.schemes = value }}>
+            <Select.Option value='https'>https</Select.Option>
+            <Select.Option value='http'>http</Select.Option>
+            <Select.Option value='ws'>ws</Select.Option>
+            <Select.Option value='wss'>wss</Select.Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label='BasePath' {...inputLayout}>
+          <Input defaultValue={swagger.basePath} onChange={e => { this.form.basePath = e.target.value }} />
         </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button onClick={() => swagger.replace(this.form)}>Save</Button>

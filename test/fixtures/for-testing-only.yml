@@ -1,4 +1,18 @@
 swagger: '2.0'
+host: platform.ringcentral.com
+schemes:
+  - https
+basePath: /restapi
+produces:
+  - application/json
+x-auth-required: true
+x-service-version: v1
+x-service-interface: rest
+x-service-name: pas
+x-internal-api: false
+x-blacklisting-strategy: 'Off'
+x-metered-api: true
+x-metering-group: System
 info:
   title: RingCentral Address Book API
   version: 1.0.34
@@ -10,22 +24,8 @@ info:
   license:
     name: RingCentral API License Agreement and Terms of Use
     url: 'https://www.ringcentral.com/legal/apilitos.html'
-host: platform.ringcentral.com
-schemes:
-  - https
-basePath: /restapi
-produces:
-  - application/json
 tags:
   - name: User Contacts
-x-auth-required: true
-x-service-version: v1
-x-service-interface: rest
-x-service-name: pas
-x-internal-api: false
-x-blacklisting-strategy: 'Off'
-x-metered-api: true
-x-metering-group: System
 paths:
   '/v1.0/account/{accountId}/extension/{extensionId}/address-book':
     get:
