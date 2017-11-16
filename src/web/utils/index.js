@@ -55,3 +55,37 @@ export const buttonLayout = {
     sm: { span: 20, offset: 4 }
   }
 }
+
+export const wrapExtensionFields = obj => {
+  Object.entries(obj).forEach(([key, val]) => {
+    if (key === 'x-extension-fields') {
+      throw new Error('The object has already been wrapped!')
+    }
+    if (typeof val === 'object') {
+      obj[key] = wrapExtensionFields(val)
+    }
+    if (R.startsWith('x-', key)) {
+      if (obj['x-extension-fields'] === undefined) {
+        obj['x-extension-fields'] = {}
+      }
+      obj['x-extension-fields'][key] = val
+      delete obj[key]
+    }
+  })
+  return obj
+}
+
+export const unwrapExtensionFields = obj => {
+  Object.entries(obj).forEach(([key, val]) => {
+    if (typeof val === 'object') {
+      obj[key] = unwrapExtensionFields(val)
+    }
+    if (key === 'x-extension-fields') {
+      Object.entries(val).forEach(([k, v]) => {
+        obj[k] = v
+      })
+      delete obj['x-extension-fields']
+    }
+  })
+  return obj
+}
