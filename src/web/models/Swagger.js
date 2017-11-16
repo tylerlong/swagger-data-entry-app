@@ -4,7 +4,7 @@ import Info from './Info'
 import Tag from './Tag'
 import PathItem from './PathItem'
 import Schema from './Schema'
-import { update } from '../utils'
+import { update, replace } from '../utils'
 
 const Swagger = types.model({
   swagger: types.literal('2.0'),
@@ -26,7 +26,8 @@ const Swagger = types.model({
   paths: types.map(PathItem),
   definitions: types.union(types.map(Schema), types.undefined)
 }).actions(self => ({
-  update: update(self)
+  update: update(self),
+  replace: replace(self)
 }))
 
 export default Swagger
