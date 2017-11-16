@@ -3,7 +3,7 @@ import yaml from 'js-yaml'
 import * as R from 'ramda'
 
 import Swagger from './Swagger'
-import { toAndFromJson } from '../utils'
+import { toAndFromJson, wrapExtensionFields, unwrapExtensionFields } from '../utils'
 import pkg from '../../../package.json'
 
 const productName = pkg.build.productName
@@ -20,7 +20,7 @@ const SwaggerFile = types.model({
     })
   },
   save () {
-    const yamlData = yaml.safeDump(toAndFromJson(self.swagger.toJSON()))
+    const yamlData = yaml.safeDump(unwrapExtensionFields(toAndFromJson(self.swagger.toJSON())))
     global.fs.writeFileSync(self.filePath, yamlData)
   }
 }))
@@ -34,7 +34,7 @@ const SwaggerStore = types.model({
       self.setActiveKey(filePath)
       return
     }
-    const swagger = Swagger.create(yaml.safeLoad(global.fs.readFileSync(filePath, 'utf8')))
+    const swagger = Swagger.create(wrapExtensionFields(yaml.safeLoad(global.fs.readFileSync(filePath, 'utf8'))))
     self.swaggerFiles.push(SwaggerFile.create({
       filePath,
       swagger
