@@ -21,12 +21,13 @@ export const replace = self => {
   }
 }
 
-export const removeUnexpectedProps = (obj, unexpectedKeys = [], unexpectedValues = []) => {
-  Object.entries(obj).forEach(([key, val]) => {
-    if (R.contains(key, unexpectedKeys) || R.contains(val, unexpectedValues)) {
+export const removeUnexpectedProps = (o, unexpectedKeys = [], unexpectedValues = []) => {
+  const obj = R.clone(o)
+  Object.keys(obj).forEach(key => {
+    if (R.contains(key, unexpectedKeys) || R.contains(obj[key], unexpectedValues)) {
       delete obj[key]
-    } else if (typeof val === 'object') {
-      obj[key] = removeUnexpectedProps(val, unexpectedKeys, unexpectedValues)
+    } else if (typeof obj[key] === 'object') {
+      obj[key] = removeUnexpectedProps(obj[key], unexpectedKeys, unexpectedValues)
     }
   })
   return obj

@@ -13,21 +13,32 @@ const Swagger = types.model({
   basePath: types.union(types.string, types.undefined),
   consumes: types.union(types.array(types.string), types.undefined),
   produces: types.union(types.array(types.string), types.undefined),
-  'x-auth-required': types.union(types.boolean, types.undefined),
-  'x-service-version': types.union(types.string, types.undefined),
-  'x-service-interface': types.union(types.string, types.undefined),
-  'x-service-name': types.union(types.string, types.undefined),
-  'x-internal-api': types.union(types.boolean, types.undefined),
-  'x-blacklisting-strategy': types.union(types.string, types.undefined),
-  'x-metered-api': types.union(types.boolean, types.undefined),
-  'x-metering-group': types.union(types.string, types.undefined),
+  'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean)), types.undefined),
+  // 'x-auth-required': types.union(types.boolean, types.undefined),
+  // 'x-service-version': types.union(types.string, types.undefined),
+  // 'x-service-interface': types.union(types.string, types.undefined),
+  // 'x-service-name': types.union(types.string, types.undefined),
+  // 'x-internal-api': types.union(types.boolean, types.undefined),
+  // 'x-blacklisting-strategy': types.union(types.string, types.undefined),
+  // 'x-metered-api': types.union(types.boolean, types.undefined),
+  // 'x-metering-group': types.union(types.string, types.undefined),
   info: Info,
   tags: types.union(types.array(Tag), types.undefined),
   paths: types.map(PathItem),
   definitions: types.union(types.map(Schema), types.undefined)
-}).actions(self => ({
+}).views(self => ({
+  extensionField (key) {
+    if (self['x-extension-fields'] === undefined) {
+      return undefined
+    }
+    return self['x-extension-fields'].get(key)
+  }
+})).actions(self => ({
   update: update(self),
-  replace: replace(self)
+  replace: replace(self),
+  updateExtensionField (key, val) {
+    self['x-extension-fields'].set(key, val)
+  }
 }))
 
 export default Swagger
