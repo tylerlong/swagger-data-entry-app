@@ -32,6 +32,16 @@ class RootInfo extends React.Component {
         <Form.Item label='BasePath' {...inputLayout}>
           <Input defaultValue={swagger.basePath} onChange={e => { this.form.basePath = e.target.value }} />
         </Form.Item>
+        <Form.Item label='Consumes' {...inputLayout}>
+          <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
+            defaultValue={swagger.consumes ? swagger.consumes.toJSON() : []}
+            onChange={value => { this.form.consumes = value }} />
+        </Form.Item>
+        <Form.Item label='Produces' {...inputLayout}>
+          <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
+            defaultValue={swagger.produces ? swagger.produces.toJSON() : []}
+            onChange={value => { this.form.produces = value }} />
+        </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button onClick={() => swagger.replace(this.form)}>Save</Button>
         </Form.Item>
