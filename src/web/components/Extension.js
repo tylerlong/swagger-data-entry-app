@@ -11,10 +11,12 @@ class Extension extends BaseComponent {
       dataSource: [
         {
           key: 'x-aaa',
+          name: 'x-aaa',
           value: 'bbb'
         },
         {
           key: 'x-ccc',
+          name: 'x-ccc',
           value: false
         }
       ]
@@ -25,10 +27,10 @@ class Extension extends BaseComponent {
   keyColumn () {
     return {
       title: 'Key',
-      dataIndex: 'key',
+      dataIndex: 'name',
       width: '25%',
       render: (text, record, index) => {
-        return <Input value={text} onChange={e => { this.setStateProp('dataSource', index, 'key', e.target.value) }} />
+        return <Input value={text} onChange={e => { this.setStateProp('dataSource', index, 'name', e.target.value) }} />
       }
     }
   }
