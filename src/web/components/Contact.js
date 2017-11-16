@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Input, Card, Form, Button } from 'antd'
+import { Input, Card, Form, Button, Popconfirm } from 'antd'
 import { getParent } from 'mobx-state-tree'
 
 import { inputLayout, buttonLayout } from '../utils'
@@ -27,7 +27,9 @@ class Contact extends React.Component {
           </Form.Item>
           <Form.Item {...buttonLayout}>
             <Button onClick={() => contact.replace(this.form)}>Save</Button>
-            <Button type='danger' onClick={() => getParent(contact).removeContact()}>Delete</Button>
+            <Popconfirm placement='top' title='Are you sure?' onConfirm={() => getParent(contact).removeContact()} okText='Yes' cancelText='No'>
+              <Button type='danger'>Delete</Button>
+            </Popconfirm>
           </Form.Item>
         </Form>
       </Card>
