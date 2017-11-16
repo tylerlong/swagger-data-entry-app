@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Table, Button, Icon, Input, Radio } from 'antd'
+import { Card, Table, Button, Icon, Input, Popconfirm } from 'antd'
 import * as R from 'ramda'
 
 import BaseComponent from './BaseComponent'
@@ -11,17 +11,15 @@ class Extension extends BaseComponent {
       dataSource: [
         {
           key: 'x-aaa',
-          type: 'string',
           value: 'bbb'
         },
         {
           key: 'x-ccc',
-          type: 'boolean',
           value: false
         }
       ]
     }
-    this.columns = [this.keyColumn(), this.typeColumn(), this.valueColumn()]
+    this.columns = [this.keyColumn(), this.valueColumn(), this.deleteColumn()]
   }
 
   keyColumn () {
@@ -35,37 +33,25 @@ class Extension extends BaseComponent {
     }
   }
 
-  typeColumn () {
-    return {
-      title: 'Type',
-      dataIndex: 'type',
-      width: '25%',
-      render: (text, record, index) => {
-        return <Radio.Group onChange={e => { this.setStateProp('dataSource', index, 'type', e.target.value) }} value={text}>
-          <Radio.Button value='string'>string</Radio.Button>
-          <Radio.Button value='boolean'>boolean</Radio.Button>
-        </Radio.Group>
-      }
-    }
-  }
-
   valueColumn () {
     return {
       title: 'Value',
       dataIndex: 'value',
       width: '50%',
       render: (text, record, index) => {
-        const type = this.getStateProp('dataSource', index, 'type')
-        if (type === 'string') {
-          return <Input value={text} onChange={e => { this.setStateProp('dataSource', index, 'value', e.target.value) }} />
-        }
-        if (type === 'boolean') {
-          return <Radio.Group onChange={e => { this.setStateProp('dataSource', index, 'value', e.target.value) }} value={text}>
-            <Radio.Button value>true</Radio.Button>
-            <Radio.Button value={false}>false</Radio.Button>
-          </Radio.Group>
-        }
-        throw new Error(`Unknown type ${type}`)
+        return <Input value={text} onChange={e => { this.setStateProp('dataSource', index, 'value', e.target.value) }} />
+      }
+    }
+  }
+
+  deleteColumn () {
+    return {
+      title: 'Delete',
+      width: '25%',
+      render: (text, record, index) => {
+        return <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ dataSource: R.remove(index, 1, this.state.dataSource) }) }} okText='Yes' cancelText='No'>
+          <Button type='danger'>Delete</Button>
+        </Popconfirm>
       }
     }
   }
