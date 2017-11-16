@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { Input, Card, Form, Button, Select } from 'antd'
 
 import { inputLayout, buttonLayout } from '../utils'
+import Extension from './Extension'
 
 class RootInfo extends React.Component {
   constructor (props) {
@@ -44,6 +45,9 @@ class RootInfo extends React.Component {
         </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button onClick={() => swagger.replace(this.form)}>Save</Button>
+        </Form.Item>
+        <Form.Item label='Extension Fields' {...inputLayout}>
+          <Extension />
         </Form.Item>
       </Card>
     )
