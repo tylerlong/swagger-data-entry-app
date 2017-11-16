@@ -1,11 +1,8 @@
 /* eslint-env jest */
 import { wrapExtensionFields, unwrapExtensionFields } from '../src/web/utils'
 
-let original = null
-let wrapped = null
-
-beforeEach(() => {
-  original = {
+describe('Extension fields', () => {
+  const original = {
     a: 'a',
     'x-b': 'b',
     c: 'c',
@@ -17,7 +14,8 @@ beforeEach(() => {
       'x-h': 'h'
     }
   }
-  wrapped = {
+
+  const wrapped = {
     a: 'a',
     c: 'c',
     e: {
@@ -35,9 +33,7 @@ beforeEach(() => {
       }
     }
   }
-})
 
-describe('Extension fields', () => {
   test('Wrap extension fields', () => {
     expect(wrapExtensionFields(original)).toEqual(wrapped)
   })

@@ -56,32 +56,34 @@ export const buttonLayout = {
   }
 }
 
-export const wrapExtensionFields = obj => {
-  Object.entries(obj).forEach(([key, val]) => {
+export const wrapExtensionFields = o => {
+  const obj = R.clone(o)
+  Object.keys(obj).forEach(key => {
     if (key === 'x-extension-fields') {
       throw new Error('The object has already been wrapped!')
     }
-    if (typeof val === 'object') {
-      obj[key] = wrapExtensionFields(val)
+    if (typeof obj[key] === 'object') {
+      obj[key] = wrapExtensionFields(obj[key])
     }
     if (R.startsWith('x-', key)) {
       if (obj['x-extension-fields'] === undefined) {
         obj['x-extension-fields'] = {}
       }
-      obj['x-extension-fields'][key] = val
+      obj['x-extension-fields'][key] = obj[key]
       delete obj[key]
     }
   })
   return obj
 }
 
-export const unwrapExtensionFields = obj => {
-  Object.entries(obj).forEach(([key, val]) => {
-    if (typeof val === 'object') {
-      obj[key] = unwrapExtensionFields(val)
+export const unwrapExtensionFields = o => {
+  const obj = R.clone(o)
+  Object.keys(obj).forEach(key => {
+    if (typeof obj[key] === 'object') {
+      obj[key] = unwrapExtensionFields(obj[key])
     }
     if (key === 'x-extension-fields') {
-      Object.entries(val).forEach(([k, v]) => {
+      Object.entries(obj[key]).forEach(([k, v]) => {
         obj[k] = v
       })
       delete obj['x-extension-fields']
