@@ -22,9 +22,6 @@ class License extends React.Component {
           <Form.Item label='Url' {...inputLayout}>
             <Input defaultValue={license.url} onChange={e => { this.form.url = e.target.value }} />
           </Form.Item>
-          <Form.Item label='Email' {...inputLayout}>
-            <Input defaultValue={license.email} onChange={e => { this.form.email = e.target.value }} />
-          </Form.Item>
           <Form.Item {...buttonLayout}>
             <Button onClick={() => license.replace(this.form)}>Save</Button>
             <Popconfirm placement='top' title='Are you sure?' onConfirm={() => getParent(license).removeLicense()} okText='Yes' cancelText='No'>

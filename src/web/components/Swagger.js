@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Card } from 'antd'
+import { Tabs } from 'antd'
 
 import Info from './Info'
 
@@ -9,9 +9,11 @@ class Swagger extends React.Component {
     const { swagger } = this.props
     const { info } = swagger
     return (
-      <Card title={`${info.title} ${info.version}`}>
-        <Info info={info} />
-      </Card>
+      <Tabs tabPosition='left'>
+        <Tabs.TabPane tab='Info' key='info'>
+          <Info info={info} />
+        </Tabs.TabPane>
+      </Tabs>
     )
   }
 }
