@@ -47,7 +47,7 @@ class RootInfo extends React.Component {
           <Button onClick={() => swagger.replace(this.form)}>Save</Button>
         </Form.Item>
         <Form.Item label='Extension Fields' {...inputLayout}>
-          <Extension />
+          <Extension swagger={swagger} />
         </Form.Item>
       </Card>
     )

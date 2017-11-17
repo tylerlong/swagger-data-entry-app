@@ -1,25 +1,25 @@
 import React from 'react'
 import { Card, Table, Button, Icon, Input, Popconfirm } from 'antd'
 import * as R from 'ramda'
+import uuidv1 from 'uuid/v1'
 
 import BaseComponent from './BaseComponent'
 
 class Extension extends BaseComponent {
   constructor (props) {
     super(props)
-    this.state = {
-      dataSource: [
-        {
-          key: 'x-aaa',
-          name: 'x-aaa',
-          value: 'bbb'
-        },
-        {
-          key: 'x-ccc',
-          name: 'x-ccc',
-          value: false
-        }
-      ]
+    if (this.props.swagger['x-extension-fields']) {
+      this.state = {
+        dataSource: this.props.swagger['x-extension-fields'].entries().map(([k, v]) => ({
+          key: uuidv1(),
+          name: k,
+          value: v
+        }))
+      }
+    } else {
+      this.state = {
+        dataSource: []
+      }
     }
     this.columns = [this.keyColumn(), this.valueColumn(), this.deleteColumn()]
   }
@@ -30,7 +30,7 @@ class Extension extends BaseComponent {
       dataIndex: 'name',
       width: '25%',
       render: (text, record, index) => {
-        return <Input value={text} onChange={e => { this.setStateProp('dataSource', index, 'name', e.target.value) }} />
+        return <Input placeholder='x-key' value={text} onChange={e => { this.setStateProp('dataSource', index, 'name', e.target.value) }} />
       }
     }
   }
@@ -41,7 +41,7 @@ class Extension extends BaseComponent {
       dataIndex: 'value',
       width: '50%',
       render: (text, record, index) => {
-        return <Input value={text} onChange={e => { this.setStateProp('dataSource', index, 'value', e.target.value) }} />
+        return <Input placeholder='value' value={text} onChange={e => { this.setStateProp('dataSource', index, 'value', e.target.value) }} />
       }
     }
   }
@@ -63,7 +63,7 @@ class Extension extends BaseComponent {
       <Card>
         <Table size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={this.state.dataSource.length > 10 ? {} : false} />
         <div style={{ marginTop: 16 }}>
-          <Button onClick={e => { this.setState({ dataSource: R.append({ name: '', type: 'string', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
+          <Button onClick={e => { this.setState({ dataSource: R.append({ key: uuidv1(), name: '', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
           <Button><Icon type='save' />Save</Button>
         </div>
       </Card>

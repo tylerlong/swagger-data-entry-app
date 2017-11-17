@@ -31,7 +31,8 @@
     "mobx-state-tree": "^1.1.0",
     "ramda": "^0.25.0",
     "react": "^16.1.0",
-    "react-dom": "^16.1.0"
+    "react-dom": "^16.1.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
