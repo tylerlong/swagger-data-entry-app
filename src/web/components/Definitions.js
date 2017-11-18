@@ -1,20 +1,43 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Card, Collapse } from 'antd'
+import { Card, Collapse, Button } from 'antd'
+import uuidv1 from 'uuid/v1'
 
 class Definitions extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = this.getState()
+  }
+
+  getState () {
+    const { swagger } = this.props
+    if (swagger.definitions === undefined) {
+      return { models: [] }
+    }
+    return {
+      models: swagger.definitions.keys.map(name => ({
+        uuid: uuidv1(),
+        name,
+        schema: swagger[name]
+      }))
+    }
   }
 
   render () {
+    let models = null
+    if (this.state.models.length > 0) {
+      models = <Collapse accordion>
+        {this.state.models.map(model => (
+          <Collapse.Panel header={model.name} key={model.uuid}>
+            {model.name}
+          </Collapse.Panel>))}
+      </Collapse>
+    }
     return (
       <Card title='Definitions'>
-        <Collapse accordion>
-          <Collapse.Panel header='hello header' key='1'>hello</Collapse.Panel>
-          <Collapse.Panel header='world header' key='2'>world</Collapse.Panel>
-        </Collapse>
+        { models }
+        <Button>Add</Button>
+        <Button>Save</Button>
       </Card>
     )
   }

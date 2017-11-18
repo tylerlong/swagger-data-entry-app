@@ -27,7 +27,7 @@ class Swagger extends React.Component {
           <Paths />
         </Tabs.TabPane>
         <Tabs.TabPane tab='Definitions' key='definitions'>
-          <Definitions />
+          <Definitions swagger={swagger} />
         </Tabs.TabPane>
       </Tabs>
     )
