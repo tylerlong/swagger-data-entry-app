@@ -2,24 +2,20 @@ import React from 'react'
 import { Card, Table, Button, Icon, Input, Popconfirm } from 'antd'
 import * as R from 'ramda'
 import uuidv1 from 'uuid/v1'
+import { getParent } from 'mobx-state-tree'
+import { observer } from 'mobx-react'
 
 import BaseComponent from './BaseComponent'
 
 class Extension extends BaseComponent {
   constructor (props) {
     super(props)
-    if (this.props.swagger['x-extension-fields']) {
-      this.state = {
-        dataSource: this.props.swagger['x-extension-fields'].entries().map(([k, v]) => ({
-          key: uuidv1(),
-          name: k,
-          value: v
-        }))
-      }
-    } else {
-      this.state = {
-        dataSource: []
-      }
+    this.state = {
+      dataSource: this.props.extensionFields.entries().map(([k, v]) => ({
+        key: uuidv1(),
+        name: k,
+        value: v
+      }))
     }
     this.columns = [this.keyColumn(), this.valueColumn(), this.deleteColumn()]
   }
@@ -66,7 +62,7 @@ class Extension extends BaseComponent {
           <Button onClick={e => { this.setState({ dataSource: R.append({ key: uuidv1(), name: '', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
           <Button onClick={e => {
             console.log('save extensions')
-            this.props.swagger.replaceExtensionFields(this.state.dataSource.map(item => ([item.name, item.value])))
+            getParent(this.props.extensionFields).replaceExtensionFields(this.state.dataSource.map(item => ([item.name, item.value])))
           }} ><Icon type='save' />Save</Button>
         </div>
       </Card>
@@ -74,4 +70,4 @@ class Extension extends BaseComponent {
   }
 }
 
-export default Extension
+export default observer(Extension)
