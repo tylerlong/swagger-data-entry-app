@@ -75,7 +75,7 @@ paths:
       x-throttling-group: "Heavy"
       x-metered-api: true
       x-metering-group: "Time-based"
-      x-app-permission: "RingOut"      
+      x-app-permission: "RingOut"
   /v1.0/account/{accountId}/extension/{extensionId}/ring-out/{ringoutId}:
     get:
       tags:
@@ -471,7 +471,7 @@ paths:
       x-metered-api: true
       x-metering-group: "Time-based"
       x-app-permission: "EditExtensions"
-      
+
   /v1.0/account/{accountId}/verification-call:
     post:
       tags:
@@ -570,7 +570,7 @@ paths:
       x-metered-api: true
       x-metering-group: "System"
       x-app-permission: "Accounts"
-               
+
 definitions:
 
   MakeRingOutRequest:
@@ -598,7 +598,7 @@ definitions:
         description: "Optional. Dialing plan country data. If not specified, then\
           \ extension home country is applied by default"
         $ref: "#/definitions/MakeRingOutCoutryInfo"
-        
+
   GetRingOutStatusResponse:
     properties:
       id:
@@ -674,23 +674,6 @@ definitions:
         $ref: "#/definitions/RingOutCountry"
     xml:
       name: "ringOut"
-      
-  GreetingRecordingCallType:
-        description: "GreetingRecordingCallType"
-        type: string
-        enum: &GREETING_RECORDING_CALL_TYPE
-        - "Introductory"
-        - "Announcement"
-        - "ConnectingMessage"
-        - "Unavailable"
-        - "Company"
-        - "Voicemail"
-        - "VoiceName"
-        - "InterruptPrompt"
-        - "StartRecording"
-        - "StopRecording"
-        - "AutomaticRecording"
-        - "IvrMenu"
   GreetingRecordingCallAnsweringRule:
     type: "object"
     properties:
@@ -706,23 +689,25 @@ definitions:
     properties:
       type:
         type: string
-        enum: *GREETING_RECORDING_CALL_TYPE
+        enum:
+        - "Introductory"
+        - "Announcement"
+        - "ConnectingMessage"
+        - "Unavailable"
+        - "Company"
+        - "Voicemail"
+        - "VoiceName"
+        - "InterruptPrompt"
+        - "StartRecording"
+        - "StopRecording"
+        - "AutomaticRecording"
+        - "IvrMenu"
       answeringRule:
         $ref: "#/definitions/GreetingRecordingCallAnsweringRule"
       phoneNumber:
         type: string
       forwardingPhone:
         $ref: "#/definitions/GreetingRecordingCallForwardingNumber"
-  GreetingRecordingCallStatusInfo:
-    description: "Status of greeting recording call"
-    type: string
-    enum:
-    - "Connecting"
-    - "InProgress"
-    - "CannotReach"
-    - "Completed"
-    - "Invalid"
-    - "Error"
   GreetingRecordingCallResponseResource:
     type: "object"
     properties:
@@ -731,8 +716,15 @@ definitions:
       uri:
         type: string
       status:
-        $ref: "#/definitions/GreetingRecordingCallStatusInfo"
-
+        description: "Status of greeting recording call"
+        type: string
+        enum:
+        - "Connecting"
+        - "InProgress"
+        - "CannotReach"
+        - "Completed"
+        - "Invalid"
+        - "Error"
   MakeRingOutCallerInfoRequestFrom:
     properties:
       phoneNumber:
@@ -762,7 +754,7 @@ definitions:
         type: "string"
     xml:
       name: "ringOutFromInfo"
-      
+
   RingOutPhoneNumberInfo:
     type: "object"
     properties:
@@ -770,7 +762,7 @@ definitions:
         type: "string"
     xml:
       name: "ringOutPhoneNumberInfo"
-      
+
   RingOutCountry:
     type: "object"
     properties:

@@ -35,7 +35,7 @@ x-internal-api: false
 x-blacklisting-strategy: "Off"
 x-metered-api: true
 x-metering-group: "System"
-paths:  
+paths:
   /v1.0/account:
     post:
       tags:
@@ -889,7 +889,7 @@ paths:
       x-metering-group: "System"
       x-app-permission: "EditAccounts"
       x-user-permission: "AddRemoveUsers"
-    
+
   /v1.0/account/{accountId}/extension/{extensionId}/caller-id:
     get:
       tags:
@@ -1312,7 +1312,7 @@ paths:
       x-app-permission: EditExtensions
       x-user-permission: EditOutboundFaxSettings
       x-api-group: extension/email-to-fax
- 
+
   /v1.0/account/{accountId}/extension/{extensionId}/grant:
     get:
       tags:
@@ -1900,7 +1900,7 @@ paths:
       x-metering-group: "System"
       x-app-permission: "ReadAccounts"
       x-user-permission: "ReadExtensions"
-  
+
   /v1.0/account/{accountId}/extension/{extensionId}/reporting/settings:
     get:
       tags:
@@ -2077,7 +2077,7 @@ paths:
       x-metering-group: "System"
       x-app-permission: "EditReportingSettings"
       x-user-permission: "EditReportSettings"
-  
+
   /v1.0/account/{accountId}/extension/{extensionId}/user-groups:
     get:
       tags:
@@ -2160,7 +2160,7 @@ paths:
       x-metering-group: "System"
       x-app-permission: "EditExtensions"
       x-user-permission: "UserGroups"
-  
+
   /v1.0/account/{accountId}/extension/{extensionId}/validate:
     post:
       tags:
@@ -2409,10 +2409,10 @@ paths:
       x-metering-group: "System"
       x-app-permission: EditLiveReports
       x-user-permission: EditLiveReports
-      x-api-group: account/live-reporting/dashboards    
+      x-api-group: account/live-reporting/dashboards
     get:
       tags:
-      - License Management      
+      - License Management
       consumes:
       - application/json
       produces:
@@ -2435,7 +2435,7 @@ paths:
   /v1.0/account/{accountId}/live-reporting/dashboards/{dashboardId}:
     get:
       tags:
-      - License Management      
+      - License Management
       consumes:
       - application/json
       produces:
@@ -2461,7 +2461,7 @@ paths:
           description: Success
     put:
       tags:
-      - License Management      
+      - License Management
       consumes:
       - application/json
       produces:
@@ -2487,7 +2487,7 @@ paths:
           description: Success
     delete:
       tags:
-      - License Management      
+      - License Management
       consumes:
       - application/json
       produces:
@@ -2541,7 +2541,7 @@ paths:
   /v1.0/account/{accountId}/paging-only-groups/{pagingOnlyGroupId}/users:
     get:
       tags:
-      - Specific Extension Settings      
+      - Specific Extension Settings
       consumes:
       - "application/json"
       produces:
@@ -2567,7 +2567,7 @@ paths:
   /v1.0/account/{accountId}/paging-only-groups/{pagingOnlyGroupId}/devices:
     get:
       tags:
-      - Specific Extension Settings      
+      - Specific Extension Settings
       consumes:
       - "application/json"
       produces:
@@ -2594,7 +2594,7 @@ paths:
   /v1.0/account/{accountId}/park-locations/{parkLocationId}/users:
     get:
       tags:
-      - Specific Extension Settings      
+      - Specific Extension Settings
       consumes:
       - "application/json"
       produces:
@@ -2620,7 +2620,7 @@ paths:
   /v1.0/account/{accountId}/park-locations/{parkLocationId}/bulk-assign:
     post:
       tags:
-      - Specific Extension Settings      
+      - Specific Extension Settings
       consumes:
       - "application/json"
       produces:
@@ -3042,7 +3042,7 @@ paths:
       x-app-permission: "EditAccounts"
     get:
       tags:
-      - Multisite Accounts      
+      - Multisite Accounts
       consumes:
       - "application/json"
       produces:
@@ -3064,7 +3064,7 @@ paths:
   /v1.0/account/{accountId}/sites/{siteId}:
     get:
       tags:
-      - Multisite Accounts      
+      - Multisite Accounts
       consumes:
       - "application/json"
       produces:
@@ -3089,7 +3089,7 @@ paths:
       x-user-permission: "ReadExtensions"
     put:
       tags:
-      - Multisite Accounts      
+      - Multisite Accounts
       consumes:
       - "application/json"
       produces:
@@ -3114,7 +3114,7 @@ paths:
       x-user-permission: "Sites"
     delete:
       tags:
-      - Multisite Accounts      
+      - Multisite Accounts
       consumes:
       - "application/json"
       produces:
@@ -3140,7 +3140,7 @@ paths:
   /v1.0/account/{accountId}/sites/{siteId}/bulk-assign:
     post:
       tags:
-      - Multisite Accounts      
+      - Multisite Accounts
       consumes:
       - "application/json"
       produces:
@@ -3166,7 +3166,7 @@ paths:
   /v1.0/account/{accountId}/sites/{siteId}/members:
     get:
       tags:
-      - Multisite Accounts      
+      - Multisite Accounts
       consumes:
       - "application/json"
       produces:
@@ -3241,7 +3241,7 @@ paths:
       x-app-permission: "ReadAccounts"
     post:
       tags:
-      - Account Provisioning      
+      - Account Provisioning
       operationId: "createUserGroup"
       consumes:
       - "application/json"
@@ -3458,7 +3458,7 @@ paths:
       x-metered-api: true
       x-metering-group: "System"
       x-app-permission: "ReadAccounts"
-  
+
   /v1.0/account/{accountId}/validate:
     post:
       tags:
@@ -4328,7 +4328,7 @@ paths:
           schema:
             $ref: "#/definitions/VersioningResource"
           headers: {}
-      x-api-group: "versioning"  
+      x-api-group: "versioning"
       x-throttling-group: "Unknown"
       x-metered-api: true
       x-metering-group: "System"
@@ -4356,19 +4356,13 @@ paths:
           schema:
             $ref: "#/definitions/SubResource"
           headers: {}
-      x-api-group: "versioning/subresource"  
+      x-api-group: "versioning/subresource"
       x-throttling-group: "Unknown"
       x-metered-api: true
       x-metering-group: "System"
 
 
 definitions:
-  CalLDirection:
-      type: "string"
-      enum:
-      - StartRecording
-      - StopRecording
-      - AutomaticRecording
   BulkAccountCallRecordingsResource:
     properties:
       addedExtensions:
@@ -4392,8 +4386,11 @@ definitions:
       type:
         type: "string"
       callDirection:
-        schema:
-          $ref: "#/definitions/CallDirection"
+        type: "string"
+        enum:
+        - StartRecording
+        - StopRecording
+        - AutomaticRecording
   CallRecordingSettingsResource:
     properties:
       onDemand:
@@ -4404,16 +4401,17 @@ definitions:
           $ref: "#/definitions/AutomaticRecordingResource"
       greetings:
         schema:
-          $ref: "#/definitions/GreetingResourceList"
-  GreetingResourceList:
-    type: "array"
-    items:
-      $ref: "#/definitions/GreetingResource"
+          type: "array"
+          items:
+            $ref: "#/definitions/GreetingResource"
   GreetingResource:
     properties:
       type:
-        schema:
-          $ref: "#/definitions/CallDirection"
+        type: "string"
+        enum:
+        - StartRecording
+        - StopRecording
+        - AutomaticRecording
       preset:
         schema:
           $ref: "#/definitions/NamedResource"

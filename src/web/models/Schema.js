@@ -6,10 +6,8 @@ import { primitiveTypes } from '../utils'
 const Schema = types.model({
   required: types.union(types.array(types.string), types.undefined),
   type: types.union(types.enumeration(primitiveTypes), types.undefined),
-  properties: types.union(types.map(Property), types.undefined),
   description: types.union(types.string, types.undefined),
-  enum: types.union(types.array(types.string), types.undefined),
-  items: types.union(types.late(() => Property), types.undefined)
+  properties: types.union(types.map(Property), types.undefined)
 })
 
 export default Schema
