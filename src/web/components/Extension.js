@@ -84,7 +84,7 @@ class Extension extends BaseComponent {
             getParent(this.props.extensionFields).replaceExtensionFields(this.normalizedKVs())
             this.setState(this.getState())
           }} ><Icon type='save' />Save</Button>
-          <ul>
+          <ul style={{ marginTop: '8px' }}>
             <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to do so</li>
             <li><Icon type='pushpin' /> "yes" and "no" values will be converted to boolean</li>
           </ul>
