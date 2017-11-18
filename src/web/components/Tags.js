@@ -1,7 +1,8 @@
 import React from 'react'
-import { Card, Input, Popconfirm, Button, Table } from 'antd'
+import { Card, Input, Popconfirm, Button, Table, Icon } from 'antd'
 import * as R from 'ramda'
 import uuidv1 from 'uuid/v1'
+import { observer } from 'mobx-react'
 
 import BaseComponent from './BaseComponent'
 
@@ -48,11 +49,27 @@ class Tags extends BaseComponent {
     }
   }
 
+  normalizedTags () {
+    return R.pipe(
+      R.reverse,
+      R.uniqBy(item => item.name),
+      R.reject(item => R.isNil(item.name) || R.isEmpty(item.name)),
+      R.reverse
+    )(this.state.dataSource)
+  }
+
   render () {
     return <Card title='Tags'>
       <Table size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={this.state.dataSource.length > 10 ? {} : false} />
+      <div style={{ marginTop: 16 }}>
+        <Button onClick={e => { this.setState({ dataSource: R.append({ key: uuidv1(), name: '', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
+        <Button onClick={e => {
+          this.props.swagger.update('tags', this.normalizedTags())
+          this.setState(this.getState())
+        }} ><Icon type='save' />Save</Button>
+      </div>
     </Card>
   }
 }
 
-export default Tags
+export default observer(Tags)
