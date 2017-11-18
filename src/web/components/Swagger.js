@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Tabs } from 'antd'
 
-import RootInfo from './RootInfo'
+import SwaggerFields from './SwaggerFields'
 import Info from './Info'
 import Tags from './Tags'
 
@@ -13,7 +13,7 @@ class Swagger extends React.Component {
     return (
       <Tabs tabPosition='left'>
         <Tabs.TabPane tab='Swagger' key='swagger'>
-          <RootInfo swagger={swagger} />
+          <SwaggerFields swagger={swagger} />
         </Tabs.TabPane>
         <Tabs.TabPane tab='Info' key='info'>
           <Info info={info} />

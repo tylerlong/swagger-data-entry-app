@@ -5,7 +5,7 @@ import { Input, Card, Form, Button, Select } from 'antd'
 import { inputLayout, buttonLayout } from '../utils'
 import Extension from './Extension'
 
-class RootInfo extends React.Component {
+class SwaggerFields extends React.Component {
   constructor (props) {
     super(props)
     this.form = {}
@@ -57,4 +57,4 @@ class RootInfo extends React.Component {
   }
 }
 
-export default observer(RootInfo)
+export default observer(SwaggerFields)
