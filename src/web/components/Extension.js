@@ -20,6 +20,16 @@ class Extension extends BaseComponent {
     this.columns = [this.keyColumn(), this.valueColumn(), this.deleteColumn()]
   }
 
+  loadState () {
+    this.setState({
+      dataSource: this.props.extensionFields.entries().map(([k, v]) => ({
+        key: uuidv1(),
+        name: k,
+        value: v
+      }))
+    })
+  }
+
   keyColumn () {
     return {
       title: 'Key',
@@ -54,6 +64,22 @@ class Extension extends BaseComponent {
     }
   }
 
+  normalizedKVs () {
+    return this.state.dataSource.map(item => {
+      let key = item.name
+      if (!key.startsWith('x-')) {
+        key = `x-${item.name}`
+      }
+      let value = item.value
+      if (value === 'true') {
+        value = true
+      } else if (value === 'false') {
+        value = false
+      }
+      return [ key, value ]
+    })
+  }
+
   render () {
     return (
       <Card>
@@ -61,9 +87,13 @@ class Extension extends BaseComponent {
         <div style={{ marginTop: 16 }}>
           <Button onClick={e => { this.setState({ dataSource: R.append({ key: uuidv1(), name: '', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
           <Button onClick={e => {
-            console.log('save extensions')
-            getParent(this.props.extensionFields).replaceExtensionFields(this.state.dataSource.map(item => ([item.name, item.value])))
+            getParent(this.props.extensionFields).replaceExtensionFields(this.normalizedKVs())
+            this.loadState()
           }} ><Icon type='save' />Save</Button>
+          <ul>
+            <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to</li>
+            <li><Icon type='pushpin' /> "yes" and "no" values will be converted to boolean</li>
+          </ul>
         </div>
       </Card>
     )
