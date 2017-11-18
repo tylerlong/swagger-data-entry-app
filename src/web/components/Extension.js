@@ -11,7 +11,33 @@ class Extension extends BaseComponent {
   constructor (props) {
     super(props)
     this.state = this.getState()
-    this.columns = [this.keyColumn(), this.valueColumn(), this.deleteColumn()]
+    this.columns = [
+      {
+        title: 'Key',
+        dataIndex: 'name',
+        width: '25%',
+        render: (text, record, index) => {
+          return <Input placeholder='x-key' value={text} onChange={e => { this.setStateProp('dataSource', index, 'name', e.target.value) }} />
+        }
+      },
+      {
+        title: 'Value',
+        dataIndex: 'value',
+        width: '50%',
+        render: (text, record, index) => {
+          return <Input placeholder='value' value={text} onChange={e => { this.setStateProp('dataSource', index, 'value', e.target.value) }} />
+        }
+      },
+      {
+        title: 'Delete',
+        width: '25%',
+        render: (text, record, index) => {
+          return <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ dataSource: R.remove(index, 1, this.state.dataSource) }) }} okText='Yes' cancelText='No'>
+            <Button type='danger'>Delete</Button>
+          </Popconfirm>
+        }
+      }
+    ]
   }
 
   getState () {
@@ -21,40 +47,6 @@ class Extension extends BaseComponent {
         name: k,
         value: v
       }))
-    }
-  }
-
-  keyColumn () {
-    return {
-      title: 'Key',
-      dataIndex: 'name',
-      width: '25%',
-      render: (text, record, index) => {
-        return <Input placeholder='x-key' value={text} onChange={e => { this.setStateProp('dataSource', index, 'name', e.target.value) }} />
-      }
-    }
-  }
-
-  valueColumn () {
-    return {
-      title: 'Value',
-      dataIndex: 'value',
-      width: '50%',
-      render: (text, record, index) => {
-        return <Input placeholder='value' value={text} onChange={e => { this.setStateProp('dataSource', index, 'value', e.target.value) }} />
-      }
-    }
-  }
-
-  deleteColumn () {
-    return {
-      title: 'Delete',
-      width: '25%',
-      render: (text, record, index) => {
-        return <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ dataSource: R.remove(index, 1, this.state.dataSource) }) }} okText='Yes' cancelText='No'>
-          <Button type='danger'>Delete</Button>
-        </Popconfirm>
-      }
     }
   }
 
