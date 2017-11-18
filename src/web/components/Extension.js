@@ -10,24 +10,18 @@ import BaseComponent from './BaseComponent'
 class Extension extends BaseComponent {
   constructor (props) {
     super(props)
-    this.state = {
+    this.state = this.getState()
+    this.columns = [this.keyColumn(), this.valueColumn(), this.deleteColumn()]
+  }
+
+  getState () {
+    return {
       dataSource: this.props.extensionFields.entries().map(([k, v]) => ({
         key: uuidv1(),
         name: k,
         value: v
       }))
     }
-    this.columns = [this.keyColumn(), this.valueColumn(), this.deleteColumn()]
-  }
-
-  loadState () {
-    this.setState({
-      dataSource: this.props.extensionFields.entries().map(([k, v]) => ({
-        key: uuidv1(),
-        name: k,
-        value: v
-      }))
-    })
   }
 
   keyColumn () {
@@ -88,7 +82,7 @@ class Extension extends BaseComponent {
           <Button onClick={e => { this.setState({ dataSource: R.append({ key: uuidv1(), name: '', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
           <Button onClick={e => {
             getParent(this.props.extensionFields).replaceExtensionFields(this.normalizedKVs())
-            this.loadState()
+            this.setState(this.getState())
           }} ><Icon type='save' />Save</Button>
           <ul>
             <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to</li>
