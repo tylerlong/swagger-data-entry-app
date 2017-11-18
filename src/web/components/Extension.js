@@ -64,7 +64,10 @@ class Extension extends BaseComponent {
         <Table size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={this.state.dataSource.length > 10 ? {} : false} />
         <div style={{ marginTop: 16 }}>
           <Button onClick={e => { this.setState({ dataSource: R.append({ key: uuidv1(), name: '', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
-          <Button><Icon type='save' />Save</Button>
+          <Button onClick={e => {
+            console.log('save extensions')
+            this.props.swagger.replaceExtensionFields(this.state.dataSource.map(item => ([item.name, item.value])))
+          }} ><Icon type='save' />Save</Button>
         </div>
       </Card>
     )

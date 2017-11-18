@@ -5,6 +5,7 @@ import Tag from './Tag'
 import PathItem from './PathItem'
 import Schema from './Schema'
 import { update, replace } from '../utils'
+import * as R from 'ramda'
 
 const Swagger = types.model({
   swagger: types.literal('2.0'),
@@ -36,8 +37,17 @@ const Swagger = types.model({
 })).actions(self => ({
   update: update(self),
   replace: replace(self),
+  initExtensionFields () {
+    self['x-extension-fields'] = {}
+  },
   updateExtensionField (key, val) {
     self['x-extension-fields'].set(key, val)
+  },
+  replaceExtensionFields (fields) {
+    self['x-extension-fields'] = {}
+    R.forEach(([k, v]) => {
+      self.updateExtensionField(k, v)
+    }, fields)
   }
 }))
 
