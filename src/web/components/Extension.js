@@ -85,7 +85,7 @@ class Extension extends BaseComponent {
             this.setState(this.getState())
           }} ><Icon type='save' />Save</Button>
           <ul>
-            <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to</li>
+            <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to do so</li>
             <li><Icon type='pushpin' /> "yes" and "no" values will be converted to boolean</li>
           </ul>
         </div>
