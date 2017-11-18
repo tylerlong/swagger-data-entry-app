@@ -9,7 +9,7 @@ import Tags from './Tags'
 class Swagger extends React.Component {
   render () {
     const { swagger } = this.props
-    const { info, tags } = swagger
+    const { info } = swagger
     return (
       <Tabs tabPosition='left'>
         <Tabs.TabPane tab='Swagger' key='swagger'>
@@ -19,7 +19,7 @@ class Swagger extends React.Component {
           <Info info={info} />
         </Tabs.TabPane>
         <Tabs.TabPane tab='Tags' key='tags'>
-          <Tags tags={tags} />
+          <Tags swagger={swagger} />
         </Tabs.TabPane>
       </Tabs>
     )
