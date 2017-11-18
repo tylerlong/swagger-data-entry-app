@@ -5,6 +5,8 @@ import { Tabs } from 'antd'
 import SwaggerFields from './SwaggerFields'
 import Info from './Info'
 import Tags from './Tags'
+import Paths from './Paths'
+import Definitions from './Definitions'
 
 class Swagger extends React.Component {
   render () {
@@ -20,6 +22,12 @@ class Swagger extends React.Component {
         </Tabs.TabPane>
         <Tabs.TabPane tab='Tags' key='tags'>
           <Tags swagger={swagger} />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab='Paths' key='paths'>
+          <Paths />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab='Definitions' key='definitions'>
+          <Definitions />
         </Tabs.TabPane>
       </Tabs>
     )
