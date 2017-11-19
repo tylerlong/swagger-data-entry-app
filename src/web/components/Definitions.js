@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Card, Collapse, Button, Icon } from 'antd'
+import { Card, Collapse, Button, Icon, Popconfirm } from 'antd'
 import uuidv1 from 'uuid/v1'
 import * as R from 'ramda'
 
@@ -35,6 +35,9 @@ class Definitions extends React.Component {
       models = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setState({ activeKey: targetKey }) }}>
         {this.state.models.map(model => (
           <Collapse.Panel header={model.name} key={model.uuid}>
+            <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ models: R.reject(m => m.uuid === model.uuid, this.state.models) }) }} okText='Yes' cancelText='No'>
+              <Button type='danger'><Icon type='delete' /> Delete</Button>
+            </Popconfirm>
             <Schema schema={model.schema} />
           </Collapse.Panel>))}
       </Collapse>
