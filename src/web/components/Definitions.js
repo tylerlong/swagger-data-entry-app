@@ -6,6 +6,7 @@ import * as R from 'ramda'
 
 import Schema from './Schema'
 import { inputLayout } from '../utils'
+import SchemaModel from '../models/Schema'
 
 class Definitions extends React.Component {
   constructor (props) {
@@ -65,7 +66,7 @@ class Definitions extends React.Component {
             const uuid = uuidv1()
             this.setState({
               activeKey: uuid,
-              models: R.append({ uuid, name: 'ModelName', schema: {} }, this.state.models)
+              models: R.append({ uuid, name: 'ModelName', schema: SchemaModel.create({}) }, this.state.models)
             })
           }}><Icon type='plus' />Add</Button>
           <Button type='primary' onClick={e => {
