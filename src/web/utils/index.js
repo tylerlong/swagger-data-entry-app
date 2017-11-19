@@ -11,11 +11,15 @@ export const update = self => {
 }
 
 export const replace = self => {
-  return obj => {
+  return (obj, removeEmpty = false) => {
     const keys = R.keys(getType(self).properties)
     R.forEach(key => {
       if (obj[key] !== undefined) {
-        self[key] = obj[key]
+        if (removeEmpty && R.isEmpty(obj[key])) {
+          self[key] = undefined
+        } else {
+          self[key] = obj[key]
+        }
       }
     }, keys)
   }
