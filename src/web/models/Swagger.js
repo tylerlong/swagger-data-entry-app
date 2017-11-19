@@ -40,6 +40,21 @@ const Swagger = types.model({
     R.forEach(([k, v]) => {
       self.updateExtensionField(k, v)
     }, fields)
+  },
+  updateDefinitions (definitions) {
+    if (self.definitions === undefined) {
+      self.definitions = {}
+    }
+    const oldKeys = R.keys(self.definitions.toJSON())
+    const newKeys = R.keys(definitions)
+    R.forEach(key => self.definitions.delete(key))(R.difference(oldKeys, newKeys))
+    R.forEach(key => {
+      let value = definitions[key]
+      if (value.toJSON) {
+        value = value.toJSON()
+      }
+      self.definitions.set(key, value)
+    })(newKeys)
   }
 }))
 
