@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Icon, Button } from 'antd'
+import { Form, Input, Icon, Button, Select } from 'antd'
 
 import { inputLayout, buttonLayout } from '../utils'
 
@@ -23,6 +23,11 @@ class Property extends React.Component {
         </Form.Item>
         <Form.Item label='Description' {...inputLayout}>
           <Input defaultValue={property.description} onChange={e => { this.form.description = e.target.value }} />
+        </Form.Item>
+        <Form.Item label='Enum' {...inputLayout}>
+          <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
+            defaultValue={property.enum ? property.enum.toJSON() : []}
+            onChange={value => { this.form.enum = value }} />
         </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button onClick={() => property.replace(this.form, true)} type='primary'><Icon type='save' /> Save</Button>
