@@ -69,7 +69,7 @@ class Definitions extends React.Component {
             })
           }}><Icon type='plus' />Add</Button>
           <Button type='primary' onClick={e => {
-            swagger.updateDefinitions(this.getDefinitions())
+            swagger.update('definitions', this.getDefinitions())
             this.setState({ models: this.getModels() })
           }}><Icon type='save' />Save</Button>
         </div>
