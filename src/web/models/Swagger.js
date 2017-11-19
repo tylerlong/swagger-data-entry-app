@@ -48,13 +48,7 @@ const Swagger = types.model({
     const oldKeys = R.keys(self.definitions.toJSON())
     const newKeys = R.keys(definitions)
     R.forEach(key => self.definitions.delete(key))(R.difference(oldKeys, newKeys))
-    R.forEach(key => {
-      let value = definitions[key]
-      if (value.toJSON) {
-        value = value.toJSON()
-      }
-      self.definitions.set(key, value)
-    })(newKeys)
+    R.forEach(key => self.definitions.set(key, definitions[key]))(newKeys)
   }
 }))
 

@@ -25,7 +25,7 @@ class Definitions extends React.Component {
       R.map(name => ({
         uuid: uuidv1(),
         name,
-        schema: swagger.definitions.get(name)
+        schema: swagger.definitions.get(name).toJSON()
       })),
       R.sortBy(R.prop('name'))
     )(swagger.definitions.toJSON())
