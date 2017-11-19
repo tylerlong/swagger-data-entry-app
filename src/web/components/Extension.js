@@ -33,7 +33,7 @@ class Extension extends BaseComponent {
         width: '25%',
         render: (text, record, index) => {
           return <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ dataSource: R.remove(index, 1, this.state.dataSource) }) }} okText='Yes' cancelText='No'>
-            <Button type='danger'>Delete</Button>
+            <Button type='danger'><Icon type='delete' /> Delete</Button>
           </Popconfirm>
         }
       }
@@ -75,7 +75,7 @@ class Extension extends BaseComponent {
           <Button onClick={e => {
             getParent(this.props.extensionFields).replaceExtensionFields(this.normalizedKVs())
             this.setState(this.getState())
-          }} ><Icon type='save' />Save</Button>
+          }} type='primary'><Icon type='save' />Save</Button>
           <ul style={{ marginTop: '8px' }}>
             <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to do so</li>
             <li><Icon type='pushpin' /> "yes" and "no" values will be converted to boolean</li>

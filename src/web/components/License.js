@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Input, Card, Form, Button, Popconfirm } from 'antd'
+import { Input, Card, Form, Button, Popconfirm, Icon } from 'antd'
 import { getParent } from 'mobx-state-tree'
 
 import { inputLayout, buttonLayout } from '../utils'
@@ -23,9 +23,9 @@ class License extends React.Component {
             <Input defaultValue={license.url} onChange={e => { this.form.url = e.target.value }} />
           </Form.Item>
           <Form.Item {...buttonLayout}>
-            <Button onClick={() => license.replace(this.form)}>Save</Button>
+            <Button onClick={() => license.replace(this.form)} type='primary'><Icon type='save' /> Save</Button>
             <Popconfirm placement='top' title='Are you sure?' onConfirm={() => getParent(license).removeLicense()} okText='Yes' cancelText='No'>
-              <Button type='danger'>Delete</Button>
+              <Button type='danger'><Icon type='delete' /> Delete</Button>
             </Popconfirm>
           </Form.Item>
         </Form>

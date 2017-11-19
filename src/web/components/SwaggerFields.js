@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Input, Card, Form, Button, Select } from 'antd'
+import { Input, Card, Form, Button, Select, Icon } from 'antd'
 
 import { inputLayout, buttonLayout } from '../utils'
 import Extension from './Extension'
@@ -47,7 +47,7 @@ class SwaggerFields extends React.Component {
             onChange={value => { this.form.produces = value }} />
         </Form.Item>
         <Form.Item {...buttonLayout}>
-          <Button onClick={() => swagger.replace(this.form)}>Save</Button>
+          <Button onClick={() => swagger.replace(this.form)} type='primary'><Icon type='save' /> Save</Button>
         </Form.Item>
         <Form.Item label='Extension Fields' {...inputLayout}>
           <Extension extensionFields={swagger['x-extension-fields']} />

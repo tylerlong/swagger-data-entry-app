@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Input, Card, Button, Form } from 'antd'
+import { Input, Card, Button, Form, Icon } from 'antd'
 
 import { inputLayout, buttonLayout } from '../utils'
 import Contact from './Contact'
@@ -49,7 +49,7 @@ class Info extends React.Component {
           <Input defaultValue={info.termsOfService} onChange={e => { this.form.termsOfService = e.target.value }} />
         </Form.Item>
         <Form.Item {...buttonLayout}>
-          <Button onClick={() => info.replace(this.form)}>Save</Button>
+          <Button onClick={() => info.replace(this.form)} type='primary'><Icon type='save' /> Save</Button>
         </Form.Item>
         {contact}
         {license}

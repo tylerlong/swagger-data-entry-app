@@ -32,7 +32,7 @@ class Tags extends BaseComponent {
         width: '25%',
         render: (text, record, index) => {
           return <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ dataSource: R.remove(index, 1, this.state.dataSource) }) }} okText='Yes' cancelText='No'>
-            <Button type='danger'>Delete</Button>
+            <Button type='danger'><Icon type='delete' /> Delete</Button>
           </Popconfirm>
         }
       }
@@ -66,7 +66,7 @@ class Tags extends BaseComponent {
         <Button onClick={e => {
           this.props.swagger.update('tags', this.normalizedTags())
           this.setState(this.getState())
-        }} ><Icon type='save' />Save</Button>
+        }} type='primary'><Icon type='save' />Save</Button>
       </div>
     </Card>
   }
