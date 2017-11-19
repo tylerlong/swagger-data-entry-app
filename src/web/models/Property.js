@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-import { primitiveTypes } from '../utils'
+import { primitiveTypes, update } from '../utils'
 
 const Property = types.model({
   $ref: types.union(types.string, types.undefined),
@@ -16,6 +16,8 @@ const Property = types.model({
   pattern: types.union(types.string, types.undefined),
   additionalProperties: types.union(types.late(() => Property), types.undefined),
   schema: types.union(types.late(() => Property), types.undefined)
-})
+}).actions(self => ({
+  update: update(self)
+}))
 
 export default Property
