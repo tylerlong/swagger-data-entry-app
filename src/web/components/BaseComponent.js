@@ -13,7 +13,12 @@ class BaseComponent extends React.Component {
     if (this.state === undefined || arguments.length < 2) {
       return
     }
-    this.setState(R.set(R.lensPath(R.init(arguments)), R.last(arguments), this.state))
+    const lastArgument = R.last(arguments)
+    if (typeof lastArgument === 'function') {
+      this.setState(R.over(R.lensPath(R.init(arguments)), lastArgument, this.state))
+    } else {
+      this.setState(R.set(R.lensPath(R.init(arguments)), lastArgument, this.state))
+    }
   }
 }
 
