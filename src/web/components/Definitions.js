@@ -71,7 +71,7 @@ class Definitions extends BaseComponent {
           }}><Icon type='plus' />Add</Button>
           <Button type='primary' onClick={e => {
             getParent(definitions).update('definitions', this.getDefinitions())
-            this.setState({ models: this.getModels() })
+            this.setStateProp('models', this.getModels())
           }}><Icon type='save' />Save</Button>
         </div>
       </Card>
