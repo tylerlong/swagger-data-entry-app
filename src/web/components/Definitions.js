@@ -42,14 +42,14 @@ class Definitions extends React.Component {
     let models = null
     if (this.state.models.length > 0) {
       models = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setState({ activeKey: targetKey }) }}>
-        {this.state.models.map(model => (
+        {this.state.models.map((model, index) => (
           <Collapse.Panel header={model.name} key={model.uuid}>
-            <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ models: R.reject(m => m.uuid === model.uuid, this.state.models) }) }} okText='Yes' cancelText='No'>
+            <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ models: R.remove(index, 1, this.state.models) }) }} okText='Yes' cancelText='No'>
               <Button type='danger'><Icon type='delete' /> Delete</Button>
             </Popconfirm>
             <Form.Item label='Name' {...inputLayout}>
               <Input defaultValue={model.name} onChange={e => {
-                this.state.models[R.findIndex(R.propEq('uuid', model.uuid), this.state.models)].name = e.target.value
+                this.state.models[index].name = e.target.value
               }} />
             </Form.Item>
             <Schema schema={model.schema} />
