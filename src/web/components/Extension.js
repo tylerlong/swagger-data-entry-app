@@ -32,7 +32,8 @@ class Extension extends BaseComponent {
         title: 'Delete',
         width: '25%',
         render: (text, record, index) => {
-          return <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ dataSource: R.remove(index, 1, this.state.dataSource) }) }} okText='Yes' cancelText='No'>
+          return <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
+            onConfirm={() => { this.setStateProp('dataSource', R.remove(index, 1)) }}>
             <Button type='danger'><Icon type='delete' /> Delete</Button>
           </Popconfirm>
         }
@@ -71,10 +72,12 @@ class Extension extends BaseComponent {
       <Card>
         <Table size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={this.state.dataSource.length > 10 ? {} : false} />
         <div style={{ marginTop: 16 }}>
-          <Button onClick={e => { this.setState({ dataSource: R.append({ key: uuidv1(), name: '', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
+          <Button onClick={e => { this.setStateProp('dataSource', R.append({ key: uuidv1(), name: '', value: '' })) }}>
+            <Icon type='plus' />Add
+          </Button>
           <Button onClick={e => {
-            getParent(this.props.extensionFields).replaceExtensionFields(this.normalizedKVs())
-            this.setState(this.getState())
+            getParent(this.props.extensionFields).replaceExtensionFields(this.normalizedKVs()) // sync state to store
+            this.setState(this.getState()) // sync store to state
           }} type='primary'><Icon type='save' />Save</Button>
           <ul style={{ marginTop: '8px' }}>
             <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to do so</li>

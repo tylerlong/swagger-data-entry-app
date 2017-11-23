@@ -68,8 +68,8 @@ class Tags extends BaseComponent {
           <Icon type='plus' />Add
         </Button>
         <Button onClick={e => {
-          getParent(this.props.tags).update('tags', this.normalizedTags())
-          this.setState(this.getState()) // trigger render()
+          getParent(this.props.tags).update('tags', this.normalizedTags()) // sync state to store
+          this.setState(this.getState()) // sync store to state
         }} type='primary'>
           <Icon type='save' />Save
         </Button>
