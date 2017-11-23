@@ -8,8 +8,9 @@ import { getParent } from 'mobx-state-tree'
 import Schema from './Schema'
 import { inputLayout } from '../utils'
 import SchemaModel from '../models/Schema'
+import BaseComponent from './BaseComponent'
 
-class Definitions extends React.Component {
+class Definitions extends BaseComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -44,7 +45,8 @@ class Definitions extends React.Component {
       models = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setState({ activeKey: targetKey }) }}>
         {this.state.models.map((model, index) => (
           <Collapse.Panel header={model.name} key={model.uuid}>
-            <Popconfirm placement='top' title='Are you sure?' onConfirm={() => { this.setState({ models: R.remove(index, 1, this.state.models) }) }} okText='Yes' cancelText='No'>
+            <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
+              onConfirm={() => { this.setStateProp('models', R.remove(index, 1)) }} >
               <Button type='danger'><Icon type='delete' /> Delete</Button>
             </Popconfirm>
             <Form.Item label='Name' {...inputLayout}>
