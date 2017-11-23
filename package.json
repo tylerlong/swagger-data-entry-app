@@ -88,6 +88,7 @@
   },
   "jest": {
     "setupFiles": [
+      "./test/polyfill.js",
       "./test/setup.js"
     ]
   }
