@@ -42,7 +42,7 @@ class Definitions extends BaseComponent {
     const { definitions } = this.props
     let models = null
     if (this.state.models.length > 0) {
-      models = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setState({ activeKey: targetKey }) }}>
+      models = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
         {this.state.models.map((model, index) => (
           <Collapse.Panel header={model.name} key={model.uuid}>
             <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
@@ -50,9 +50,7 @@ class Definitions extends BaseComponent {
               <Button type='danger'><Icon type='delete' /> Delete</Button>
             </Popconfirm>
             <Form.Item label='Name' {...inputLayout}>
-              <Input defaultValue={model.name} onChange={e => {
-                this.state.models[index].name = e.target.value
-              }} />
+              <Input defaultValue={model.name} onChange={e => { this.state.models[index].name = e.target.value }} />
             </Form.Item>
             <Schema schema={model.schema} />
           </Collapse.Panel>))}
@@ -64,10 +62,8 @@ class Definitions extends BaseComponent {
         <div style={{ marginTop: '16px' }}>
           <Button onClick={e => {
             const uuid = uuidv1()
-            this.setState({
-              activeKey: uuid,
-              models: R.append({ uuid, name: 'ModelName', schema: SchemaModel.create({}) }, this.state.models)
-            })
+            this.setStateProp('models', R.append({ uuid, name: 'ModelName', schema: SchemaModel.create({}) }))
+            this.setStateProp('activeKey', uuid)
           }}><Icon type='plus' />Add</Button>
           <Button type='primary' onClick={e => {
             getParent(definitions).update('definitions', this.getDefinitions())
