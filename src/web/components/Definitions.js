@@ -14,11 +14,11 @@ class Definitions extends BaseComponent {
   constructor (props) {
     super(props)
     this.state = {
-      models: this.getModels()
+      models: this.fromStore()
     }
   }
 
-  getModels () {
+  fromStore () {
     const { definitions } = this.props
     return R.pipe(
       R.keys,
@@ -31,7 +31,7 @@ class Definitions extends BaseComponent {
     )(definitions.toJSON())
   }
 
-  getDefinitions () {
+  toStore () {
     return R.pipe(
       R.map(model => ([model.name, model.schema.toJSON()])),
       R.fromPairs
@@ -66,8 +66,8 @@ class Definitions extends BaseComponent {
             this.setStateProp('activeKey', uuid)
           }}><Icon type='plus' />Add</Button>
           <Button type='primary' onClick={e => {
-            getParent(definitions).update('definitions', this.getDefinitions())
-            this.setStateProp('models', this.getModels())
+            getParent(definitions).update('definitions', this.toStore()) // sync state to store
+            this.setStateProp('models', this.fromStore()) // sync store to state
           }}><Icon type='save' />Save</Button>
         </div>
       </Card>

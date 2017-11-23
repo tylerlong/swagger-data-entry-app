@@ -63,7 +63,7 @@ class Extension extends BaseComponent {
       } else if (value === 'false') {
         value = false
       }
-      return [ key, value ]
+      return [key, value]
     })
   }
 
