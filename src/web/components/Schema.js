@@ -2,6 +2,7 @@ import React from 'react'
 import { Input, Form, Select, Card, Collapse, Popconfirm, Button, Icon } from 'antd'
 import * as R from 'ramda'
 import uuidv1 from 'uuid/v1'
+import { getParent } from 'mobx-state-tree'
 
 import { inputLayout } from '../utils'
 import Property from './Property'
@@ -40,7 +41,7 @@ class Schema extends BaseComponent {
   }
 
   render () {
-    const { schema } = this.props
+    const { name, schema } = this.props
     let properties = null
     if (this.state.properties.length > 0) {
       properties = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
@@ -60,6 +61,9 @@ class Schema extends BaseComponent {
     }
     return (
       <div>
+        <Form.Item label='Name' {...inputLayout}>
+          <Input defaultValue={name} onChange={e => { getParent(getParent(schema)).renameDefinition(name, e.target.value) }} />
+        </Form.Item>
         <Form.Item label='Type' {...inputLayout}>
           <Input value='object' disabled />
         </Form.Item>

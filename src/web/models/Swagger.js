@@ -40,6 +40,22 @@ const Swagger = types.model({
     R.forEach(([k, v]) => {
       self.updateExtensionField(k, v)
     }, fields)
+  },
+  removeDefinition (name) {
+    self.definitions.delete(name)
+  },
+  newDefinition (uuid) {
+    self.definitions.set(uuid, {})
+  },
+  renameDefinition (name, newName) {
+    if (newName === name) {
+      return
+    }
+    if (self.definitions.has(newName)) {
+      return
+    }
+    self.definitions.set(newName, self.definitions.get(name).toJSON())
+    self.definitions.delete(name)
   }
 }))
 
