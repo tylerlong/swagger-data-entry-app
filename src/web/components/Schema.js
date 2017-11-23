@@ -81,7 +81,7 @@ class Schema extends BaseComponent {
             }}><Icon type='plus' />Add</Button>
             <Button type='primary' onClick={e => {
               schema.update('properties', this.toStore()) // sync state to store
-              this.setState({ properties: this.fromStore() }) // sync store to state
+              this.setStateProp('properties', this.fromStore()) // sync store to state
             }}><Icon type='save' />Save</Button>
           </div>
         </Card>
