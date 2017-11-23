@@ -39,26 +39,24 @@ class Definitions extends BaseComponent {
   }
 
   render () {
-    let definitions = null
-    if (this.state.definitions.length > 0) {
-      definitions = <Collapse accordion activeKey={this.state.activeKey}
-        onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
-        {this.state.definitions.map((model, index) => (
-          <Collapse.Panel header={model.name} key={model.uuid}>
-            <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-              onConfirm={() => { this.setStateProp('definitions', R.remove(index, 1)) }} >
-              <Button type='danger'><Icon type='delete' /> Delete</Button>
-            </Popconfirm>
-            <Form.Item label='Name' {...inputLayout}>
-              <Input defaultValue={model.name} onChange={e => { this.state.definitions[index].name = e.target.value }} />
-            </Form.Item>
-            <Schema schema={model.schema} />
-          </Collapse.Panel>))}
-      </Collapse>
-    }
     return (
       <Card title='Definitions'>
-        {definitions}
+        {this.state.definitions.length < 1 ? null : (
+          <Collapse accordion activeKey={this.state.activeKey}
+            onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
+            {this.state.definitions.map((model, index) => (
+              <Collapse.Panel header={model.name} key={model.uuid}>
+                <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
+                  onConfirm={() => { this.setStateProp('definitions', R.remove(index, 1)) }} >
+                  <Button type='danger'><Icon type='delete' /> Delete</Button>
+                </Popconfirm>
+                <Form.Item label='Name' {...inputLayout}>
+                  <Input defaultValue={model.name} onChange={e => { this.state.definitions[index].name = e.target.value }} />
+                </Form.Item>
+                <Schema schema={model.schema} />
+              </Collapse.Panel>))}
+          </Collapse>
+        )}
         <div style={{ marginTop: '16px' }}>
           <Button onClick={e => {
             const uuid = uuidv1()
