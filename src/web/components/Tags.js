@@ -3,6 +3,7 @@ import { Card, Input, Popconfirm, Button, Table, Icon } from 'antd'
 import * as R from 'ramda'
 import uuidv1 from 'uuid/v1'
 import { observer } from 'mobx-react'
+import { getParent } from 'mobx-state-tree'
 
 import BaseComponent from './BaseComponent'
 
@@ -41,7 +42,7 @@ class Tags extends BaseComponent {
 
   getState () {
     return {
-      dataSource: (this.props.swagger.tags || []).map(tag => ({
+      dataSource: (this.props.tags || []).map(tag => ({
         key: uuidv1(),
         name: tag.name,
         description: tag.description
@@ -64,7 +65,7 @@ class Tags extends BaseComponent {
       <div style={{ marginTop: 16 }}>
         <Button onClick={e => { this.setState({ dataSource: R.append({ key: uuidv1(), name: '', value: '' }, this.state.dataSource) }) }}><Icon type='plus' />Add</Button>
         <Button onClick={e => {
-          this.props.swagger.update('tags', this.normalizedTags())
+          getParent(this.props.tags).update('tags', this.normalizedTags())
           this.setState(this.getState())
         }} type='primary'><Icon type='save' />Save</Button>
       </div>

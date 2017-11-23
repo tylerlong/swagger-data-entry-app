@@ -9,9 +9,15 @@ import Paths from './Paths'
 import Definitions from './Definitions'
 
 class Swagger extends React.Component {
+  constructor (props) {
+    super(props)
+    if (props.swagger.tags === undefined) {
+      props.swagger.tags = []
+    }
+  }
   render () {
     const { swagger } = this.props
-    const { info } = swagger
+    const { info, tags } = swagger
     return (
       <Tabs tabPosition='left'>
         <Tabs.TabPane tab='Swagger' key='swagger'>
@@ -21,7 +27,7 @@ class Swagger extends React.Component {
           <Info info={info} />
         </Tabs.TabPane>
         <Tabs.TabPane tab='Tags' key='tags'>
-          <Tags swagger={swagger} />
+          <Tags tags={tags} />
         </Tabs.TabPane>
         <Tabs.TabPane tab='Paths' key='paths'>
           <Paths />
