@@ -9,11 +9,14 @@ class Property extends React.Component {
     this.form = {}
   }
   render () {
-    const { property } = this.props
+    const { name, property } = this.props
     return (
       <div>
+        <Form.Item label='Name' {...inputLayout}>
+          <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} placeholder='todo: implement rename property' />
+        </Form.Item>
         <Form.Item label='$ref' {...inputLayout}>
-          <Input defaultValue={property['$ref']} onChange={e => { this.form['$ref'] = e.target.value }} />
+          <Input defaultValue={property.$ref} onChange={e => { this.form.$ref = e.target.value }} />
         </Form.Item>
         <Form.Item label='Type' {...inputLayout}>
           <Input defaultValue={property.type} onChange={e => { this.form.type = e.target.value }} />

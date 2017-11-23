@@ -9,7 +9,16 @@ const Schema = types.model({
   required: types.union(types.array(types.string), types.undefined),
   properties: types.union(types.map(Property), types.undefined)
 }).actions(self => ({
-  update: update(self)
+  update: update(self),
+  initProperties () {
+    self.properties = {}
+  },
+  removeProperty (name) {
+    self.properties.delete(name)
+  },
+  newProperty (uuid) {
+    self.properties.set(uuid, {})
+  }
 }))
 
 export default Schema
