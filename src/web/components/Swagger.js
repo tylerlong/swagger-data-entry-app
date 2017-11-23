@@ -11,13 +11,17 @@ import Definitions from './Definitions'
 class Swagger extends React.Component {
   constructor (props) {
     super(props)
-    if (props.swagger.tags === undefined) {
-      props.swagger.tags = []
+    const { swagger } = props
+    if (swagger.tags === undefined) {
+      swagger.tags = []
+    }
+    if (swagger.definitions === undefined) {
+      swagger.definitions = {}
     }
   }
   render () {
     const { swagger } = this.props
-    const { info, tags } = swagger
+    const { info, tags, definitions } = swagger
     return (
       <Tabs tabPosition='left'>
         <Tabs.TabPane tab='Swagger' key='swagger'>
@@ -33,7 +37,7 @@ class Swagger extends React.Component {
           <Paths />
         </Tabs.TabPane>
         <Tabs.TabPane tab='Definitions' key='definitions'>
-          <Definitions swagger={swagger} />
+          <Definitions definitions={definitions} />
         </Tabs.TabPane>
       </Tabs>
     )

@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { Card, Collapse, Button, Icon, Popconfirm, Input, Form } from 'antd'
 import uuidv1 from 'uuid/v1'
 import * as R from 'ramda'
+import { getParent } from 'mobx-state-tree'
 
 import Schema from './Schema'
 import { inputLayout } from '../utils'
@@ -17,19 +18,16 @@ class Definitions extends React.Component {
   }
 
   getModels () {
-    const { swagger } = this.props
-    if (swagger.definitions === undefined) {
-      return []
-    }
+    const { definitions } = this.props
     return R.pipe(
       R.keys,
       R.map(name => ({
         uuid: uuidv1(),
         name,
-        schema: swagger.definitions.get(name)
+        schema: definitions.get(name)
       })),
       R.sortBy(R.prop('name'))
-    )(swagger.definitions.toJSON())
+    )(definitions.toJSON())
   }
 
   getDefinitions () {
@@ -40,7 +38,7 @@ class Definitions extends React.Component {
   }
 
   render () {
-    const { swagger } = this.props
+    const { definitions } = this.props
     let models = null
     if (this.state.models.length > 0) {
       models = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setState({ activeKey: targetKey }) }}>
@@ -70,7 +68,7 @@ class Definitions extends React.Component {
             })
           }}><Icon type='plus' />Add</Button>
           <Button type='primary' onClick={e => {
-            swagger.update('definitions', this.getDefinitions())
+            getParent(definitions).update('definitions', this.getDefinitions())
             this.setState({ models: this.getModels() })
           }}><Icon type='save' />Save</Button>
         </div>
