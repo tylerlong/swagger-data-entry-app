@@ -14,7 +14,7 @@ class Definitions extends BaseComponent {
   constructor (props) {
     super(props)
     this.state = {
-      models: this.fromStore()
+      definitions: this.fromStore()
     }
   }
 
@@ -35,22 +35,22 @@ class Definitions extends BaseComponent {
     return R.pipe(
       R.map(model => ([model.name, model.schema.toJSON()])),
       R.fromPairs
-    )(this.state.models)
+    )(this.state.definitions)
   }
 
   render () {
-    const { definitions } = this.props
-    let models = null
-    if (this.state.models.length > 0) {
-      models = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
-        {this.state.models.map((model, index) => (
+    let definitions = null
+    if (this.state.definitions.length > 0) {
+      definitions = <Collapse accordion activeKey={this.state.activeKey}
+        onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
+        {this.state.definitions.map((model, index) => (
           <Collapse.Panel header={model.name} key={model.uuid}>
             <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-              onConfirm={() => { this.setStateProp('models', R.remove(index, 1)) }} >
+              onConfirm={() => { this.setStateProp('definitions', R.remove(index, 1)) }} >
               <Button type='danger'><Icon type='delete' /> Delete</Button>
             </Popconfirm>
             <Form.Item label='Name' {...inputLayout}>
-              <Input defaultValue={model.name} onChange={e => { this.state.models[index].name = e.target.value }} />
+              <Input defaultValue={model.name} onChange={e => { this.state.definitions[index].name = e.target.value }} />
             </Form.Item>
             <Schema schema={model.schema} />
           </Collapse.Panel>))}
@@ -58,16 +58,16 @@ class Definitions extends BaseComponent {
     }
     return (
       <Card title='Definitions'>
-        {models}
+        {definitions}
         <div style={{ marginTop: '16px' }}>
           <Button onClick={e => {
             const uuid = uuidv1()
-            this.setStateProp('models', R.append({ uuid, name: 'ModelName', schema: SchemaModel.create({}) }))
+            this.setStateProp('definitions', R.append({ uuid, name: 'ModelName', schema: SchemaModel.create({}) }))
             this.setStateProp('activeKey', uuid)
           }}><Icon type='plus' />Add</Button>
           <Button type='primary' onClick={e => {
-            getParent(definitions).update('definitions', this.toStore()) // sync state to store
-            this.setStateProp('models', this.fromStore()) // sync store to state
+            getParent(this.props.definitions).update('definitions', this.toStore()) // sync state to store
+            this.setStateProp('definitions', this.fromStore()) // sync store to state
           }}><Icon type='save' />Save</Button>
         </div>
       </Card>
