@@ -8,7 +8,7 @@ const Property = types.model({
   format: types.union(types.string, types.undefined),
   description: types.union(types.string, types.undefined),
   enum: types.union(types.array(types.string), types.undefined),
-  default: types.union(types.boolean, types.undefined),
+  default: types.union(types.string, types.boolean, types.undefined),
   readOnly: types.union(types.boolean, types.undefined),
   maxLength: types.union(types.number, types.undefined),
   minLength: types.union(types.number, types.undefined),
