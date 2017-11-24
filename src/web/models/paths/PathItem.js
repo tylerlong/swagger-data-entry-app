@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 
 import Operation from './Operation'
-import { update } from '../utils'
+import { update } from '../../utils'
 
 const PathItem = types.model({
   // 'x-request-max-body-size': types.union(types.string, types.undefined),

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import Schema from '../src/web/models/Schema'
+import Schema from '../src/web/models/definitions/Schema'
 
 describe('Schema', () => {
   test('Create empty schema', () => {

@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 
-import Property from './Property'
-import { primitiveTypes } from '../utils'
+import Property from '../definitions/Property'
+import { primitiveTypes } from '../../utils'
 
 const Parameter = types.model({
   name: types.string,

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import Parameter from '../src/web/models/Parameter'
+import Parameter from '../src/web/models/paths/Parameter'
 
 describe('Parameter', () => {
   test('Create parameter', () => {

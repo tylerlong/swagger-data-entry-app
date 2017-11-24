@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import PathItem from '../src/web/models/PathItem'
+import PathItem from '../src/web/models/paths/PathItem'
 import { wrapExtensionFields } from '../src/web/utils'
 
 describe('PathItem', () => {

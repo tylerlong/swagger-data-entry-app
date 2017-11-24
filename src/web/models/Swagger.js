@@ -1,9 +1,9 @@
 import { types } from 'mobx-state-tree'
 
 import Info from './info/Info'
-import Tag from './Tag'
-import PathItem from './PathItem'
-import Schema from './Schema'
+import Tag from './tags/Tag'
+import PathItem from './paths/PathItem'
+import Schema from './definitions/Schema'
 import { update, replace } from '../utils'
 import * as R from 'ramda'
 

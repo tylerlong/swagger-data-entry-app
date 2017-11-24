@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import Response from '../src/web/models/Response'
+import Response from '../src/web/models/paths/Response'
 
 describe('Response', () => {
   test('Create response', () => {

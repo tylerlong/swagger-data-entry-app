@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-import Property from './Property'
+import Property from '../definitions/Property'
 
 const Response = types.model({
   description: types.string,
