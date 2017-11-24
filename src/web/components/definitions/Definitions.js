@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { Card, Collapse, Button, Icon, Popconfirm } from 'antd'
 import { getParent } from 'mobx-state-tree'
 import uuidv1 from 'uuid/v1'
+import * as R from 'ramda'
 
 import Schema from './Schema'
 import BaseComponent from '../common/BaseComponent'
@@ -20,7 +21,7 @@ class Definitions extends BaseComponent {
         {definitions.size < 1 ? null : (
           <Collapse accordion activeKey={this.state.activeKey}
             onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
-            {definitions.entries().map(([name, schema]) => (
+            {R.sortBy(R.prop(0), definitions.entries()).map(([name, schema]) => (
               <Collapse.Panel header={name} key={name}>
                 <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
                   onConfirm={() => { getParent(definitions).removeDefinition(name) }} >
