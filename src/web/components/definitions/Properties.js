@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Card, Collapse, Popconfirm, Button, Icon } from 'antd'
+import { Card, Collapse, Button, Icon } from 'antd'
 import { getParent } from 'mobx-state-tree'
 import uuidv1 from 'uuid/v1'
 import * as R from 'ramda'

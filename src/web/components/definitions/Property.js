@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Input, Icon, Button, Select, Card, Popconfirm } from 'antd'
 import { getParent } from 'mobx-state-tree'
+import { observer } from 'mobx-react'
 
 import { inputLayout, buttonLayout } from '../../utils'
 
@@ -11,20 +12,26 @@ class Property extends React.Component {
   }
 
   render () {
-    const { name, property } = this.props
+    const { name, property, fixedName } = this.props
     let items = null
     if (property.items) {
-      items = <Property property={property.items} />
+      items = <Property name='items' property={property.items} fixedName />
     } else {
       items = <Button onClick={() => property.newItems()}>Add</Button>
     }
     return (
       <div>
         <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-          onConfirm={() => { getParent(getParent(property)).removeProperty(name) }}>
+          onConfirm={() => {
+            if (fixedName) { // property.items
+              getParent(property).removeProperty(name)
+            } else {
+              getParent(getParent(property)).removeProperty(name) // schema.properties
+            }
+          }}>
           <Button type='danger'><Icon type='delete' /> Delete</Button>
         </Popconfirm>
-        {name === undefined ? null : (
+        {fixedName ? null : (
           <Form.Item label='Name' {...inputLayout}>
             <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
           </Form.Item>
@@ -49,7 +56,7 @@ class Property extends React.Component {
         <Form.Item {...buttonLayout}>
           <Button onClick={() => {
             property.replace(this.form, true)
-            if (this.form.name) {
+            if (!fixedName && this.form.name) {
               getParent(getParent(property)).renameProperty(name, this.form.name)
             }
           }} type='primary'><Icon type='save' /> Save</Button>
@@ -62,4 +69,4 @@ class Property extends React.Component {
   }
 }
 
-export default Property
+export default observer(Property)

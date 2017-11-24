@@ -20,8 +20,8 @@ const Property = types.model({
   newItems () {
     self.items = {}
   },
-  removeItems () {
-    self.items = undefined
+  removeProperty (name) {
+    self[name] = undefined
   }
 }))
 
