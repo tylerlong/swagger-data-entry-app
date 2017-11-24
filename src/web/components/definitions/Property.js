@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Icon, Button, Select } from 'antd'
+import { Form, Input, Icon, Button, Select, Card } from 'antd'
 import { getParent } from 'mobx-state-tree'
 
 import { inputLayout, buttonLayout } from '../../utils'
@@ -12,11 +12,19 @@ class Property extends React.Component {
 
   render () {
     const { name, property } = this.props
+    let items = null
+    if (property.items) {
+      items = <Property property={property.items} />
+    } else {
+      items = <Button onClick={() => property.newItems()}>Add</Button>
+    }
     return (
       <div>
-        <Form.Item label='Name' {...inputLayout}>
-          <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
-        </Form.Item>
+        {name === undefined ? null : (
+          <Form.Item label='Name' {...inputLayout}>
+            <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
+          </Form.Item>
+        )}
         <Form.Item label='$ref' {...inputLayout}>
           <Input defaultValue={property.$ref} onChange={e => { this.form.$ref = e.target.value }} />
         </Form.Item>
@@ -42,6 +50,9 @@ class Property extends React.Component {
             }
           }} type='primary'><Icon type='save' /> Save</Button>
         </Form.Item>
+        <Card title='Items'>
+          {items}
+        </Card>
       </div>
     )
   }
