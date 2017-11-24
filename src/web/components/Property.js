@@ -9,6 +9,7 @@ class Property extends React.Component {
     super(props)
     this.form = {}
   }
+
   render () {
     const { name, property } = this.props
     return (

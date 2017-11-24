@@ -19,6 +19,7 @@ class Swagger extends React.Component {
       swagger.definitions = {} // todo: this should throw exception because not modified via actions
     }
   }
+
   render () {
     const { swagger } = this.props
     const { info, tags, definitions } = swagger
