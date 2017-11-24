@@ -18,6 +18,16 @@ const Schema = types.model({
   },
   newProperty (uuid) {
     self.properties.set(uuid, {})
+  },
+  renameProperty (name, newName) {
+    if (name === newName) {
+      return
+    }
+    if (self.properties.has(newName)) {
+      return
+    }
+    self.properties.set(newName, self.properties.get(name).toJSON())
+    self.properties.delete(name)
   }
 }))
 

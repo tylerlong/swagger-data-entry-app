@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Icon, Button, Select } from 'antd'
+import { getParent } from 'mobx-state-tree'
 
 import { inputLayout, buttonLayout } from '../utils'
 
@@ -13,7 +14,7 @@ class Property extends React.Component {
     return (
       <div>
         <Form.Item label='Name' {...inputLayout}>
-          <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} placeholder='todo: implement rename property' />
+          <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
         </Form.Item>
         <Form.Item label='$ref' {...inputLayout}>
           <Input defaultValue={property.$ref} onChange={e => { this.form.$ref = e.target.value }} />
@@ -33,7 +34,12 @@ class Property extends React.Component {
             onChange={value => { this.form.enum = value }} />
         </Form.Item>
         <Form.Item {...buttonLayout}>
-          <Button onClick={() => property.replace(this.form, true)} type='primary'><Icon type='save' /> Save</Button>
+          <Button onClick={() => {
+            property.replace(this.form, true)
+            if (this.form.name) {
+              getParent(getParent(property)).renameProperty(name, this.form.name)
+            }
+          }} type='primary'><Icon type='save' /> Save</Button>
         </Form.Item>
       </div>
     )
