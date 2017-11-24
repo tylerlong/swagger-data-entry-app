@@ -20,20 +20,6 @@ class Schema extends BaseComponent {
 
   render () {
     const { name, schema } = this.props
-    let properties = null
-    if (schema.properties.size > 0) {
-      properties = <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
-        {schema.properties.entries().map(([name, property]) => (
-          <Collapse.Panel header={name} key={name}>
-            <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-              onConfirm={() => { schema.removeProperty(name) }}>
-              <Button type='danger'><Icon type='delete' /> Delete</Button>
-            </Popconfirm>
-            <Property name={name} property={property} />
-          </Collapse.Panel>
-      ))}
-      </Collapse>
-    }
     return (
       <div>
         <Form.Item label='Name' {...inputLayout}>
@@ -55,7 +41,19 @@ class Schema extends BaseComponent {
               this.setStateProp('properties', this.fromStore()) // sync store to state
             }}><Icon type='save' />Save</Button> */}
         <Card title='Properties'>
-          {properties}
+          {schema.properties.size < 1 ? null : (
+            <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
+              {schema.properties.entries().map(([name, property]) => (
+                <Collapse.Panel header={name} key={name}>
+                  <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
+                    onConfirm={() => { schema.removeProperty(name) }}>
+                    <Button type='danger'><Icon type='delete' /> Delete</Button>
+                  </Popconfirm>
+                  <Property name={name} property={property} />
+                </Collapse.Panel>
+              ))}
+            </Collapse>
+          )}
           <div style={{ marginTop: '16px' }}>
             <Button onClick={e => {
               const uuid = uuidv1()
