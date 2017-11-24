@@ -4,7 +4,7 @@ import uuidv1 from 'uuid/v1'
 import { getParent } from 'mobx-state-tree'
 import { observer } from 'mobx-react'
 
-import { inputLayout } from '../utils'
+import { inputLayout, buttonLayout } from '../utils'
 import Property from './Property'
 import BaseComponent from './BaseComponent'
 
@@ -16,6 +16,7 @@ class Schema extends BaseComponent {
       schema.initProperties()
     }
     this.state = {}
+    this.form = {}
   }
 
   render () {
@@ -23,23 +24,27 @@ class Schema extends BaseComponent {
     return (
       <div>
         <Form.Item label='Name' {...inputLayout}>
-          <Input defaultValue={name} onChange={e => { getParent(getParent(schema)).renameDefinition(name, e.target.value) }} />
+          <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
         </Form.Item>
         <Form.Item label='Type' {...inputLayout}>
           <Input value='object' disabled />
         </Form.Item>
         <Form.Item label='Description' {...inputLayout}>
-          <Input defaultValue={schema.description} onChange={e => { schema.update('description', e.target.value) }} />
+          <Input defaultValue={schema.description} onChange={e => { this.form.description = e.target.value }} />
         </Form.Item>
         <Form.Item label='Required' {...inputLayout}>
           <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
             defaultValue={schema.required ? schema.required.toJSON() : []}
-            onChange={value => { schema.update('required', value) }} />
+            onChange={value => { this.form.required = value }} />
         </Form.Item>
-        {/* <Button type='primary' onClick={e => {
-              schema.update('properties', this.toStore()) // sync state to store
-              this.setStateProp('properties', this.fromStore()) // sync store to state
-            }}><Icon type='save' />Save</Button> */}
+        <Form.Item {...buttonLayout}>
+          <Button type='primary' onClick={e => {
+            schema.replace(this.form, true)
+            if (this.form.name) {
+              getParent(getParent(schema)).renameDefinition(name, this.form.name)
+            }
+          }}><Icon type='save' />Save</Button>
+        </Form.Item>
         <Card title='Properties'>
           {schema.properties.size < 1 ? null : (
             <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>

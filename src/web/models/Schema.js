@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 
 import Property from './Property'
-import { update } from '../utils'
+import { update, replace } from '../utils'
 
 const Schema = types.model({
   type: types.union(types.literal('object'), types.undefined),
@@ -10,6 +10,7 @@ const Schema = types.model({
   properties: types.union(types.map(Property), types.undefined)
 }).actions(self => ({
   update: update(self),
+  replace: replace(self),
   initProperties () {
     self.properties = {}
   },
