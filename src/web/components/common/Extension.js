@@ -43,11 +43,11 @@ class Extension extends BaseComponent {
 
   getState () {
     return {
-      dataSource: this.props.extensionFields.entries().map(([k, v]) => ({
+      dataSource: R.sortBy(R.prop('name'))(this.props.extensionFields.entries().map(([k, v]) => ({
         key: uuidv1(),
         name: k,
         value: v
-      }))
+      })))
     }
   }
 
