@@ -11,8 +11,10 @@ const Schema = types.model({
 }).actions(self => ({
   update: update(self),
   replace: replace(self),
-  initProperties () {
-    self.properties = {}
+  init () {
+    if (self.properties === undefined) {
+      self.properties = {}
+    }
   },
   removeProperty (name) {
     self.properties.delete(name)

@@ -9,9 +9,6 @@ class SwaggerFields extends React.Component {
   constructor (props) {
     super(props)
     this.form = {}
-    if (this.props.swagger['x-extension-fields'] === undefined) {
-      props.swagger.initExtensionFields()
-    }
   }
 
   render () {

@@ -29,11 +29,16 @@ const Swagger = types.model({
 })).actions(self => ({
   update: update(self),
   replace: replace(self),
-  initTags () {
-    self.tags = []
-  },
-  initExtensionFields () {
-    self['x-extension-fields'] = {}
+  init () {
+    if (self.tags === undefined) {
+      self.tags = []
+    }
+    if (self['x-extension-fields'] === undefined) {
+      self['x-extension-fields'] = {}
+    }
+    if (self.definitions === undefined) {
+      self.definitions = {}
+    }
   },
   updateExtensionField (key, val) {
     self['x-extension-fields'].set(key, val)
@@ -43,9 +48,6 @@ const Swagger = types.model({
     R.forEach(([k, v]) => {
       self.updateExtensionField(k, v)
     }, fields)
-  },
-  initDefinitions () {
-    self.definitions = {}
   },
   removeDefinition (name) {
     self.definitions.delete(name)

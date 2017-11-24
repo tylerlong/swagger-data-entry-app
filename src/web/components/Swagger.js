@@ -12,12 +12,7 @@ class Swagger extends React.Component {
   constructor (props) {
     super(props)
     const { swagger } = props
-    if (swagger.tags === undefined) {
-      swagger.initTags()
-    }
-    if (swagger.definitions === undefined) {
-      swagger.initDefinitions()
-    }
+    swagger.init()
   }
 
   render () {

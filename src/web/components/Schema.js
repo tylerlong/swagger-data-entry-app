@@ -12,9 +12,7 @@ class Schema extends BaseComponent {
   constructor (props) {
     super(props)
     const { schema } = props
-    if (schema.properties === undefined) {
-      schema.initProperties()
-    }
+    schema.init()
     this.state = {}
     this.form = {}
   }
