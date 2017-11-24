@@ -4366,14 +4366,11 @@ definitions:
   BulkAccountCallRecordingsResource:
     properties:
       addedExtensions:
-        schema:
-          $ref: "#/definitions/CallRecordingExtensionResource"
+        $ref: "#/definitions/CallRecordingExtensionResource"
       updatedExtensions:
-        schema:
-          $ref: "#/definitions/CallRecordingExtensionResource"
+        $ref: "#/definitions/CallRecordingExtensionResource"
       removedExtensions:
-        schema:
-          $ref: "#/definitions/CallRecordingExtensionResource"
+        $ref: "#/definitions/CallRecordingExtensionResource"
   CallRecordingExtensionResource:
     properties:
       id:
@@ -4394,16 +4391,13 @@ definitions:
   CallRecordingSettingsResource:
     properties:
       onDemand:
-        schema:
-          $ref: "#/definitions/OnDemandResource"
+        $ref: "#/definitions/OnDemandResource"
       automatic:
-        schema:
-          $ref: "#/definitions/AutomaticRecordingResource"
+        $ref: "#/definitions/AutomaticRecordingResource"
       greetings:
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/GreetingResource"
+        type: "array"
+        items:
+          $ref: "#/definitions/GreetingResource"
   GreetingResource:
     properties:
       type:
@@ -4413,11 +4407,9 @@ definitions:
         - StopRecording
         - AutomaticRecording
       preset:
-        schema:
-          $ref: "#/definitions/NamedResource"
+        $ref: "#/definitions/NamedResource"
       custom:
-        schema:
-          $ref: "#/definitions/NamedResource"
+        $ref: "#/definitions/NamedResource"
   NamedResource:
     properties:
       uri:
