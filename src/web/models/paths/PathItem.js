@@ -1,7 +1,6 @@
 import { types } from 'mobx-state-tree'
 
 import Operation from './Operation'
-import { update } from '../../utils'
 
 const PathItem = types.model({
   // 'x-request-max-body-size': types.union(types.string, types.undefined),
@@ -19,7 +18,6 @@ const PathItem = types.model({
     return self['x-extension-fields'].get(key)
   }
 })).actions(self => ({
-  update: update(self),
   updateExtensionField (key, val) {
     self['x-extension-fields'].set(key, val)
   }
