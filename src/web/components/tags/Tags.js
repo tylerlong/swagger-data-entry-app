@@ -5,7 +5,7 @@ import uuidv1 from 'uuid/v1'
 import { observer } from 'mobx-react'
 import { getParent } from 'mobx-state-tree'
 
-import BaseComponent from './BaseComponent'
+import BaseComponent from '../common/BaseComponent'
 
 class Tags extends BaseComponent {
   constructor (props) {

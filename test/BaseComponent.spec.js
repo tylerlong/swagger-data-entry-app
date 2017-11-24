@@ -3,7 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import * as R from 'ramda'
 
-import BaseComponent from '../src/web/components/BaseComponent'
+import BaseComponent from '../src/web/components/common/BaseComponent'
 
 class MyComponent extends BaseComponent {
   constructor (props) {

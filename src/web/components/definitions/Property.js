@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, Icon, Button, Select } from 'antd'
 import { getParent } from 'mobx-state-tree'
 
-import { inputLayout, buttonLayout } from '../utils'
+import { inputLayout, buttonLayout } from '../../utils'
 
 class Property extends React.Component {
   constructor (props) {

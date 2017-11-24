@@ -5,7 +5,7 @@ import { getParent } from 'mobx-state-tree'
 import uuidv1 from 'uuid/v1'
 
 import Schema from './Schema'
-import BaseComponent from './BaseComponent'
+import BaseComponent from '../common/BaseComponent'
 
 class Definitions extends BaseComponent {
   constructor (props) {

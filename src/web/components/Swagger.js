@@ -4,9 +4,9 @@ import { Tabs } from 'antd'
 
 import SwaggerFields from './SwaggerFields'
 import Info from './info/Info'
-import Tags from './Tags'
-import Paths from './Paths'
-import Definitions from './Definitions'
+import Tags from './tags/Tags'
+import Paths from './paths/Paths'
+import Definitions from './definitions/Definitions'
 
 class Swagger extends React.Component {
   constructor (props) {

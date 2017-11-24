@@ -3,7 +3,7 @@ import { Input, Form, Select, Button, Icon } from 'antd'
 import { getParent } from 'mobx-state-tree'
 import { observer } from 'mobx-react'
 
-import { inputLayout, buttonLayout } from '../utils'
+import { inputLayout, buttonLayout } from '../../utils'
 import Properties from './Properties'
 
 class Schema extends React.Component {

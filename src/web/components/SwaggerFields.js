@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { Input, Card, Form, Button, Select, Icon } from 'antd'
 
 import { inputLayout, buttonLayout } from '../utils'
-import Extension from './Extension'
+import Extension from './common/Extension'
 
 class SwaggerFields extends React.Component {
   constructor (props) {
