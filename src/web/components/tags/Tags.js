@@ -43,11 +43,11 @@ class Tags extends BaseComponent {
 
   fromStore () {
     return {
-      dataSource: (this.props.tags || []).map(tag => ({
+      dataSource: R.sortBy(R.prop('name'))((this.props.tags || []).map(tag => ({
         key: uuidv1(),
         name: tag.name,
         description: tag.description
-      }))
+      })))
     }
   }
 

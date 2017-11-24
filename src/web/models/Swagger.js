@@ -4,7 +4,7 @@ import Info from './info/Info'
 import Tag from './tags/Tag'
 import PathItem from './paths/PathItem'
 import Schema from './definitions/Schema'
-import { replace } from '../utils'
+import { update, replace } from '../utils'
 import * as R from 'ramda'
 
 const Swagger = types.model({
@@ -27,6 +27,7 @@ const Swagger = types.model({
     return self['x-extension-fields'].get(key)
   }
 })).actions(self => ({
+  update: update(self),
   replace: replace(self),
   init () {
     if (self.tags === undefined) {
