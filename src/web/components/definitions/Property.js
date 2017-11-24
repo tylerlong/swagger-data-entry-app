@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Icon, Button, Select, Card } from 'antd'
+import { Form, Input, Icon, Button, Select, Card, Popconfirm } from 'antd'
 import { getParent } from 'mobx-state-tree'
 
 import { inputLayout, buttonLayout } from '../../utils'
@@ -20,6 +20,10 @@ class Property extends React.Component {
     }
     return (
       <div>
+        <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
+          onConfirm={() => { getParent(getParent(property)).removeProperty(name) }}>
+          <Button type='danger'><Icon type='delete' /> Delete</Button>
+        </Popconfirm>
         {name === undefined ? null : (
           <Form.Item label='Name' {...inputLayout}>
             <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
