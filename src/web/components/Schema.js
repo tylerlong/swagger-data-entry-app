@@ -1,19 +1,16 @@
 import React from 'react'
-import { Input, Form, Select, Card, Collapse, Popconfirm, Button, Icon } from 'antd'
-import uuidv1 from 'uuid/v1'
+import { Input, Form, Select, Button, Icon } from 'antd'
 import { getParent } from 'mobx-state-tree'
 import { observer } from 'mobx-react'
 
 import { inputLayout, buttonLayout } from '../utils'
-import Property from './Property'
-import BaseComponent from './BaseComponent'
+import Properties from './Properties'
 
-class Schema extends BaseComponent {
+class Schema extends React.Component {
   constructor (props) {
     super(props)
     const { schema } = props
     schema.init()
-    this.state = {}
     this.form = {}
   }
 
@@ -43,28 +40,7 @@ class Schema extends BaseComponent {
             }
           }}><Icon type='save' />Save</Button>
         </Form.Item>
-        <Card title='Properties'>
-          {schema.properties.size < 1 ? null : (
-            <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
-              {schema.properties.entries().map(([name, property]) => (
-                <Collapse.Panel header={name} key={name}>
-                  <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-                    onConfirm={() => { schema.removeProperty(name) }}>
-                    <Button type='danger'><Icon type='delete' /> Delete</Button>
-                  </Popconfirm>
-                  <Property name={name} property={property} />
-                </Collapse.Panel>
-              ))}
-            </Collapse>
-          )}
-          <div style={{ marginTop: '16px' }}>
-            <Button onClick={e => {
-              const uuid = uuidv1()
-              schema.newProperty(uuid)
-              this.setStateProp('activeKey', uuid)
-            }}><Icon type='plus' />Add</Button>
-          </div>
-        </Card>
+        <Properties properties={schema.properties} />
       </div>
     )
   }
