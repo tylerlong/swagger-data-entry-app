@@ -17,7 +17,13 @@ class Property extends React.Component {
     if (property.items) {
       items = <Property name='items' property={property.items} fixedName />
     } else {
-      items = <Button onClick={() => property.newItems()}>Add</Button>
+      items = <Button onClick={() => property.newProperty('items')}>Add</Button>
+    }
+    let additionalProperties = null
+    if (property.additionalProperties) {
+      additionalProperties = <Property name='additionalProperties' property={property.additionalProperties} fixedName />
+    } else {
+      additionalProperties = <Button onClick={() => property.newProperty('additionalProperties')}>Add</Button>
     }
     return (
       <div>
@@ -77,6 +83,9 @@ class Property extends React.Component {
         </Form.Item>
         <Card title='Items'>
           {items}
+        </Card>
+        <Card title='AdditionalProperties'>
+          {additionalProperties}
         </Card>
       </div>
     )
