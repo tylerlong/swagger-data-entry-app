@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import Info from '../src/web/models/Info'
+import Info from '../src/web/models/info/Info'
 
 describe('Info', () => {
   test('Create info', () => {

@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Input, Card, Button, Form, Icon } from 'antd'
 
-import { inputLayout, buttonLayout } from '../utils'
+import { inputLayout, buttonLayout } from '../../utils'
 import Contact from './Contact'
 import License from './License'
 

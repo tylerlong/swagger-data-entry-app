@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { Input, Card, Form, Button, Popconfirm, Icon } from 'antd'
 import { getParent } from 'mobx-state-tree'
 
-import { inputLayout, buttonLayout } from '../utils'
+import { inputLayout, buttonLayout } from '../../utils'
 
 class License extends React.Component {
   constructor (props) {

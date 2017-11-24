@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-import { replace } from '../utils'
+import { replace } from '../../utils'
 
 const Contact = types.model({
   name: types.union(types.string, types.undefined),

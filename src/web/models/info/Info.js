@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree'
 
 import Contact from './Contact'
 import License from './License'
-import { replace } from '../utils'
+import { replace } from '../../utils'
 
 const Info = types.model({
   title: types.string,

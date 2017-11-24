@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-import Info from './Info'
+import Info from './info/Info'
 import Tag from './Tag'
 import PathItem from './PathItem'
 import Schema from './Schema'

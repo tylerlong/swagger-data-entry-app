@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { Tabs } from 'antd'
 
 import SwaggerFields from './SwaggerFields'
-import Info from './Info'
+import Info from './info/Info'
 import Tags from './Tags'
 import Paths from './Paths'
 import Definitions from './Definitions'
