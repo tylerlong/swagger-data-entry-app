@@ -13,10 +13,10 @@ class Swagger extends React.Component {
     super(props)
     const { swagger } = props
     if (swagger.tags === undefined) {
-      swagger.tags = [] // todo: this should throw exception because not modified via actions
+      swagger.initTags()
     }
     if (swagger.definitions === undefined) {
-      swagger.definitions = {} // todo: this should throw exception because not modified via actions
+      swagger.initDefinitions()
     }
   }
 

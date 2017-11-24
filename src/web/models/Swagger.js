@@ -29,6 +29,9 @@ const Swagger = types.model({
 })).actions(self => ({
   update: update(self),
   replace: replace(self),
+  initTags () {
+    self.tags = []
+  },
   initExtensionFields () {
     self['x-extension-fields'] = {}
   },
@@ -40,6 +43,9 @@ const Swagger = types.model({
     R.forEach(([k, v]) => {
       self.updateExtensionField(k, v)
     }, fields)
+  },
+  initDefinitions () {
+    self.definitions = {}
   },
   removeDefinition (name) {
     self.definitions.delete(name)
