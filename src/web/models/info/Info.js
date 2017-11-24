@@ -14,13 +14,13 @@ const Info = types.model({
 }).actions(self => ({
   replace: replace(self),
   newContact () {
-    self.contact = Contact.create({})
+    self.contact = {}
   },
   removeContact () {
     self.contact = undefined
   },
   newLicense () {
-    self.license = License.create({ name: '' })
+    self.license = { name: '' }
   },
   removeLicense () {
     self.license = undefined
