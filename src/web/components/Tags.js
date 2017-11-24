@@ -10,7 +10,7 @@ import BaseComponent from './BaseComponent'
 class Tags extends BaseComponent {
   constructor (props) {
     super(props)
-    this.state = this.getState()
+    this.state = this.fromStore()
     this.columns = [
       {
         title: 'Name',
@@ -41,7 +41,7 @@ class Tags extends BaseComponent {
     ]
   }
 
-  getState () {
+  fromStore () {
     return {
       dataSource: (this.props.tags || []).map(tag => ({
         key: uuidv1(),
@@ -51,7 +51,7 @@ class Tags extends BaseComponent {
     }
   }
 
-  normalizedTags () {
+  toStore () {
     return R.pipe(
       R.reverse,
       R.uniqBy(item => item.name),
@@ -68,8 +68,8 @@ class Tags extends BaseComponent {
           <Icon type='plus' />Add
         </Button>
         <Button onClick={e => {
-          getParent(this.props.tags).update('tags', this.normalizedTags()) // sync state to store
-          this.setState(this.getState()) // sync store to state
+          getParent(this.props.tags).update('tags', this.toStore()) // sync state to store
+          this.setState(this.fromStore()) // sync store to state
         }} type='primary'>
           <Icon type='save' />Save
         </Button>
