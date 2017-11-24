@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Icon, Button, Select, Card, Popconfirm, Checkbox } from 'antd'
+import { Form, Input, Icon, Button, Select, Card, Popconfirm, Checkbox, InputNumber } from 'antd'
 import { getParent } from 'mobx-state-tree'
 import { observer } from 'mobx-react'
 
@@ -72,6 +72,15 @@ class Property extends React.Component {
         </Form.Item>
         <Form.Item label='ReadOnly' {...inputLayout}>
           <Checkbox onChange={e => { this.form.readOnly = e.target.checked ? true : '' }}>Checkbox</Checkbox>
+        </Form.Item>
+        <Form.Item label='MaxLength' {...inputLayout}>
+          <InputNumber min={0} defaultValue={1000} onChange={value => { this.form.maxLength = value }} />
+        </Form.Item>
+        <Form.Item label='MinLength' {...inputLayout}>
+          <InputNumber min={0} defaultValue={0} onChange={value => { this.form.minLength = value }} />
+        </Form.Item>
+        <Form.Item label='Pattern' {...inputLayout}>
+          <Input defaultValue={property.pattern} onChange={e => { this.form.pattern = e.target.value }} />
         </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button onClick={() => {
