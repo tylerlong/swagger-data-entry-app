@@ -29,4 +29,3 @@ yarn dist
     - Swagger
     - Operation
     - PathItem
-    - https://github.com/mobxjs/mobx-state-tree/issues/520
