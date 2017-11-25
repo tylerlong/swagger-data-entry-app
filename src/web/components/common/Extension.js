@@ -58,9 +58,9 @@ class Extension extends BaseComponent {
         key = `x-${item.name}`
       }
       let value = item.value
-      if (value === 'true') {
+      if (value === 'true' || value === 'yes') {
         value = true
-      } else if (value === 'false') {
+      } else if (value === 'false' || value === 'no') {
         value = false
       }
       return [key, value]
@@ -81,7 +81,7 @@ class Extension extends BaseComponent {
           }} type='primary'><Icon type='save' />Save</Button>
           <ul style={{ marginTop: '8px' }}>
             <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to do so</li>
-            <li><Icon type='pushpin' /> "yes" and "no" values will be converted to boolean</li>
+            <li><Icon type='pushpin' /> "true", "yes", "false" and "no" will be converted to boolean</li>
           </ul>
         </div>
       </Card>
