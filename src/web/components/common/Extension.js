@@ -81,7 +81,7 @@ class Extension extends BaseComponent {
           }}><Icon type='save' />Save</Button>
           <ul style={{ marginTop: '8px' }}>
             <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to do so</li>
-            <li><Icon type='pushpin' /> "true", "yes", "false" and "no" will be converted to boolean</li>
+            <li><Icon type='pushpin' /> "true", "yes", "false" and "no" will be converted to booleans</li>
           </ul>
         </div>
       </Card>

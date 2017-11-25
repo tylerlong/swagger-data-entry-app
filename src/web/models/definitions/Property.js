@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree'
 
-import { primitiveTypes, replace } from '../../utils'
+import { primitiveTypes, update, replace } from '../../utils'
 
 const Property = types.model({
   $ref: types.union(types.string, types.undefined),
@@ -16,6 +16,7 @@ const Property = types.model({
   items: types.union(types.late(() => Property), types.undefined),
   additionalProperties: types.union(types.late(() => Property), types.undefined)
 }).actions(self => ({
+  update: update(self),
   replace: replace(self),
   newProperty (name) {
     self[name] = {}
