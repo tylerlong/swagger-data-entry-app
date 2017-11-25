@@ -29,3 +29,4 @@ yarn dist
     - Swagger
     - Operation
     - PathItem
+- CMD - S to save everything

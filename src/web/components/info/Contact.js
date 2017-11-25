@@ -26,7 +26,7 @@ class Contact extends React.Component {
     return (
       <Card>
         <Form>
-          <Button onClick={() => contact.replace(this.form)} type='primary'><Icon type='save' /> Save</Button>
+          <Button onClick={() => contact.replace(this.form)}><Icon type='save' /> Save</Button>
           <OptionalFields
             optionalFields={this.optionalFields}
             defaultValues={this.defaultValues}

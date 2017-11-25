@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { Input, Card, Button, Form, Icon, Checkbox } from 'antd'
 import * as R from 'ramda'
 
-import { inputLayout, buttonLayout } from '../../utils'
+import { inputLayout } from '../../utils'
 import Contact from './Contact'
 import License from './License'
 
@@ -31,6 +31,7 @@ class Info extends React.Component {
     const { info } = this.props
     return (
       <Card title='Info'>
+        <Button onClick={() => info.replace(this.form)}><Icon type='save' /> Save</Button>
         <Form.Item label='Title' {...inputLayout}>
           <Input defaultValue={info.title} onChange={e => { this.form.title = e.target.value }} />
         </Form.Item>
@@ -54,9 +55,6 @@ class Info extends React.Component {
             {component()}
           </Form.Item>
         )) }
-        <Form.Item {...buttonLayout}>
-          <Button onClick={() => info.replace(this.form)} type='primary'><Icon type='save' /> Save</Button>
-        </Form.Item>
       </Card>
     )
   }
