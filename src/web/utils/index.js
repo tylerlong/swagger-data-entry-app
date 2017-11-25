@@ -10,17 +10,12 @@ export const update = self => {
   }
 }
 
-// todo: do not provide removeEmpty feature
 export const replace = self => {
-  return (obj, removeEmpty = false) => {
+  return obj => {
     const keys = R.keys(getType(self).properties)
     R.forEach(key => {
-      if (obj[key] !== undefined) {
-        if (removeEmpty && R.isEmpty(obj[key])) {
-          self[key] = undefined
-        } else {
-          self[key] = obj[key]
-        }
+      if (self[key] !== undefined && obj[key] !== undefined) {
+        self[key] = obj[key]
       }
     }, keys)
   }

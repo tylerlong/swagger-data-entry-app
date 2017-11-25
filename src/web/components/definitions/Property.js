@@ -84,7 +84,7 @@ class Property extends React.Component {
         </Form.Item>
         <Form.Item {...buttonLayout}>
           <Button onClick={() => {
-            property.replace(this.form, true)
+            property.replace(this.form)
             if (!fixedName && this.form.name) {
               getParent(getParent(property)).renameProperty(name, this.form.name)
             }
