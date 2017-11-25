@@ -13,10 +13,11 @@ class OptionalFields extends React.Component {
         {R.keys(optionalFields).map(name => {
           return <Checkbox checked={model[name] !== undefined} key={name} onChange={e => {
             if (e.target.checked) {
-              model.update(name, defaultValues[name])
-            } else {
-              model.update(name, undefined)
+              model.update(name, form[name] || defaultValues[name]) // restore
               delete form[name]
+            } else {
+              form[name] = model[name] // backup
+              model.update(name, undefined)
             }
           }}>{name}</Checkbox>
         })}

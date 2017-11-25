@@ -26,4 +26,3 @@ yarn dist
 ## Todo
 
 - CMD - S to save everything
-- Remove then add back, should reserve contents
