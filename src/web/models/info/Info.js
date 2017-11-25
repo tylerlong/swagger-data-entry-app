@@ -13,19 +13,7 @@ const Info = types.model({
   license: types.union(License, types.undefined)
 }).actions(self => ({
   update: update(self),
-  replace: replace(self),
-  newContact () {
-    self.contact = {}
-  },
-  removeContact () {
-    self.contact = undefined
-  },
-  newLicense () {
-    self.license = { name: '' }
-  },
-  removeLicense () {
-    self.license = undefined
-  }
+  replace: replace(self)
 }))
 
 export default Info
