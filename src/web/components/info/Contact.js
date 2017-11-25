@@ -32,14 +32,6 @@ class Contact extends React.Component {
           <Button type='danger'><Icon type='delete' /> Delete</Button>
         </Popconfirm>
         <Form>
-          { R.toPairs(this.fields).map(([name, component]) => contact[name] === undefined ? null : (
-            <Form.Item label={name} {...inputLayout} key={name}>
-              {component()}
-            </Form.Item>
-          )) }
-          <Form.Item {...buttonLayout}>
-            <Button onClick={() => contact.replace(this.form)} type='primary'><Icon type='save' /> Save</Button>
-          </Form.Item>
           <Form.Item label='Optional fields' {...inputLayout}>
             {R.keys(this.fields).map(name => {
               return <Checkbox checked={contact[name] !== undefined} key={name} onChange={e => {
@@ -51,6 +43,14 @@ class Contact extends React.Component {
                 }
               }}>{name}</Checkbox>
             })}
+          </Form.Item>
+          { R.toPairs(this.fields).map(([name, component]) => contact[name] === undefined ? null : (
+            <Form.Item label={name} {...inputLayout} key={name}>
+              {component()}
+            </Form.Item>
+          )) }
+          <Form.Item {...buttonLayout}>
+            <Button onClick={() => contact.replace(this.form)} type='primary'><Icon type='save' /> Save</Button>
           </Form.Item>
         </Form>
       </Card>
