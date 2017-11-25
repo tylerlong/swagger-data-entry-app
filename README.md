@@ -25,8 +25,5 @@ yarn dist
 
 ## Todo
 
-- better way to handle 'x-prop-name'
-    - Swagger
-    - Operation
-    - PathItem
 - CMD - S to save everything
+- Remove then add back, should reserve contents

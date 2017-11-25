@@ -3,7 +3,6 @@ import { types } from 'mobx-state-tree'
 import Operation from './Operation'
 
 const PathItem = types.model({
-  // 'x-request-max-body-size': types.union(types.string, types.undefined),
   'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean)), types.undefined),
   get: types.union(Operation, types.undefined),
   post: types.union(Operation, types.undefined),
