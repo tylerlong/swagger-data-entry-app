@@ -16,7 +16,7 @@ class OptionalFields extends React.Component {
               model.update(name, form[name] || defaultValues[name]) // restore
               delete form[name]
             } else {
-              form[name] = model[name] // backup
+              form[name] = model[name].toJSON ? model[name].toJSON() : model[name] // backup
               model.update(name, undefined)
             }
           }}>{name}</Checkbox>
