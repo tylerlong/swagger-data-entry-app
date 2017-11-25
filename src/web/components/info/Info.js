@@ -1,11 +1,11 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Input, Card, Button, Form, Icon, Checkbox } from 'antd'
-import * as R from 'ramda'
+import { Input, Card, Button, Form, Icon } from 'antd'
 
 import { inputLayout } from '../../utils'
 import Contact from './Contact'
 import License from './License'
+import OptionalFields from '../common/OptionalFields'
 
 class Info extends React.Component {
   constructor (props) {
@@ -17,7 +17,6 @@ class Info extends React.Component {
       termsOfService: () => <Input defaultValue={info.termsOfService} onChange={e => { this.form.termsOfService = e.target.value }} />,
       contact: () => <Contact contact={info.contact} />,
       license: () => <License license={info.license} />
-
     }
     this.defaultValues = {
       description: '',
@@ -38,23 +37,11 @@ class Info extends React.Component {
         <Form.Item label='Version' {...inputLayout}>
           <Input defaultValue={info.version} onChange={e => { this.form.version = e.target.value }} />
         </Form.Item>
-        <Form.Item label='Optional fields' {...inputLayout}>
-          {R.keys(this.optionalFields).map(name => {
-            return <Checkbox checked={info[name] !== undefined} key={name} onChange={e => {
-              if (e.target.checked) {
-                info.update(name, this.defaultValues[name])
-              } else {
-                info.update(name, undefined)
-                delete this.form[name]
-              }
-            }}>{name}</Checkbox>
-          })}
-        </Form.Item>
-        { R.toPairs(this.optionalFields).map(([name, component]) => info[name] === undefined ? null : (
-          <Form.Item label={name} {...inputLayout} key={name}>
-            {component()}
-          </Form.Item>
-        )) }
+        <OptionalFields
+          optionalFields={this.optionalFields}
+          defaultValues={this.defaultValues}
+          model={info}
+          form={this.form} />
       </Card>
     )
   }
