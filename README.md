@@ -26,3 +26,4 @@ yarn dist
 ## Todo
 
 - CMD - S to save everything
+- CMD - R auto load the current file

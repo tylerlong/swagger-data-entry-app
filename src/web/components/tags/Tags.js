@@ -56,7 +56,8 @@ class Tags extends BaseComponent {
       R.reverse,
       R.uniqBy(item => item.name),
       R.reject(item => R.isNil(item.name) || R.isEmpty(item.name)),
-      R.reverse
+      R.reverse,
+      R.map(item => R.assoc('description', R.isEmpty(item.description) ? undefined : item.description, item))
     )(this.state.dataSource)
   }
 
