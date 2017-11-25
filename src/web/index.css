@@ -1,3 +1,7 @@
 .ant-btn {
   margin-right: 8px;
 }
+
+.ant-form-item-label {
+  text-transform: capitalize;
+}

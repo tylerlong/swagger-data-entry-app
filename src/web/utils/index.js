@@ -10,6 +10,7 @@ export const update = self => {
   }
 }
 
+// todo: do not provide removeEmpty feature
 export const replace = self => {
   return (obj, removeEmpty = false) => {
     const keys = R.keys(getType(self).properties)
