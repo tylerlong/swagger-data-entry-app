@@ -88,7 +88,7 @@ class Property extends React.Component {
             if (!fixedName && this.form.name) {
               getParent(getParent(property)).renameProperty(name, this.form.name)
             }
-          }} type='primary'><Icon type='save' /> Save</Button>
+          }}><Icon type='save' /> Save</Button>
         </Form.Item>
         <Card title='Items'>
           {items}

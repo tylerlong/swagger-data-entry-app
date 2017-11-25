@@ -78,7 +78,7 @@ class Extension extends BaseComponent {
           <Button onClick={e => {
             getParent(this.props.extensionFields).replaceExtensionFields(this.normalizedKVs()) // sync state to store
             this.setState(this.getState()) // sync store to state
-          }} type='primary'><Icon type='save' />Save</Button>
+          }}><Icon type='save' />Save</Button>
           <ul style={{ marginTop: '8px' }}>
             <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to do so</li>
             <li><Icon type='pushpin' /> "true", "yes", "false" and "no" will be converted to boolean</li>

@@ -33,7 +33,7 @@ class Schema extends React.Component {
             onChange={value => { this.form.required = value }} />
         </Form.Item>
         <Form.Item {...buttonLayout}>
-          <Button type='primary' onClick={e => {
+          <Button onClick={e => {
             schema.replace(this.form)
             if (this.form.name) {
               getParent(getParent(schema)).renameDefinition(name, this.form.name)
