@@ -61,14 +61,14 @@ class Extension extends BaseComponent {
   render () {
     return (
       <Card>
-        <Button onClick={e => { this.setStateProp('dataSource', R.append({ key: uuidv1(), name: '', value: '' })) }}>
+        <Button style={{ marginLeft: '8px' }} onClick={e => { this.setStateProp('dataSource', R.append({ key: uuidv1(), name: '', value: '' })) }}>
           <Icon type='plus' />Add
         </Button>
         <Button onClick={e => {
           getParent(this.props.extensionFields).replaceExtensionFields(this.toStore()) // sync state to store
           this.setState(this.fromStore()) // sync store to state
         }}><Icon type='save' />Save</Button>
-        <Table showHeader={false} size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={false} />
+        <Table style={{ marginTop: '8px' }} showHeader={false} size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={false} />
         <ul style={{ marginTop: '8px' }}>
           <li><Icon type='pushpin' /> "x-" will be prepended to names if you forget to do so</li>
           <li><Icon type='pushpin' /> Clear name followed by saving to <span style={{ color: 'red' }}>delete</span> a row</li>
