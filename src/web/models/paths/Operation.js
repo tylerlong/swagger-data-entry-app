@@ -31,6 +31,22 @@ const Operation = types.model({
   },
   removeParameter (name) {
     self.parameters = R.reject(p => p.name === name, self.parameters)
+  },
+  removeResponse (name) {
+    self.responses.delete(name)
+  },
+  newResponse (uuid) {
+    self.responses.set(uuid, { description: '' })
+  },
+  renameResponse (name, newName) {
+    if (name === newName) {
+      return
+    }
+    if (self.responses.has(newName)) {
+      return
+    }
+    self.responses.set(newName, self.responses.get(name).toJSON())
+    self.responses.delete(name)
   }
 }))
 

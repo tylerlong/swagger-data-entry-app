@@ -14,7 +14,7 @@ class Operation extends React.Component {
     this.form = {}
     const { operation } = props
     this.requiredFields = {
-      responses: <Responses parameters={operation.responses} />
+      responses: <Responses responses={operation.responses} />
     }
     this.optionalFields = {
       tags: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
