@@ -3,7 +3,7 @@ import { Form, Input, Icon, Button, Select, Checkbox, InputNumber, Card } from '
 import { getParent } from 'mobx-state-tree'
 import { observer } from 'mobx-react'
 
-import { inputLayout, buttonLayout } from '../../utils'
+import { inputLayout } from '../../utils'
 import OptionalFields from '../common/OptionalFields'
 
 class Property extends React.Component {
@@ -57,6 +57,12 @@ class Property extends React.Component {
     const { name, property } = this.props
     return (
       <div>
+        <Button onClick={() => {
+          property.replace(this.form)
+          if (name && this.form.name) {
+            getParent(getParent(property)).renameProperty(name, this.form.name)
+          }
+        }}><Icon type='save' /> Save</Button>
         {name === undefined ? null : (
           <Form.Item label='Name' {...inputLayout}>
             <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
@@ -68,14 +74,6 @@ class Property extends React.Component {
           model={property}
           form={this.form}
           tooltips={this.tooltips} />
-        <Form.Item {...buttonLayout}>
-          <Button onClick={() => {
-            property.replace(this.form)
-            if (name && this.form.name) {
-              getParent(getParent(property)).renameProperty(name, this.form.name)
-            }
-          }}><Icon type='save' /> Save</Button>
-        </Form.Item>
       </div>
     )
   }
