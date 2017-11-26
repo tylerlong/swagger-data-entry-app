@@ -10,7 +10,7 @@ import BaseComponent from './BaseComponent'
 class Extension extends BaseComponent {
   constructor (props) {
     super(props)
-    this.state = this.getState()
+    this.state = this.fromStore()
     this.columns = [
       {
         dataIndex: 'name',
@@ -38,7 +38,7 @@ class Extension extends BaseComponent {
     ]
   }
 
-  getState () {
+  fromStore () {
     return {
       dataSource: R.sortBy(R.prop('name'))(this.props.extensionFields.entries().map(([k, v]) => ({
         key: uuidv1(),
@@ -48,7 +48,7 @@ class Extension extends BaseComponent {
     }
   }
 
-  normalizedKVs () {
+  toStore () {
     return this.state.dataSource.map(item => {
       let key = item.name
       if (!key.startsWith('x-')) {
@@ -73,8 +73,8 @@ class Extension extends BaseComponent {
             <Icon type='plus' />Add
           </Button>
           <Button onClick={e => {
-            getParent(this.props.extensionFields).replaceExtensionFields(this.normalizedKVs()) // sync state to store
-            this.setState(this.getState()) // sync store to state
+            getParent(this.props.extensionFields).replaceExtensionFields(this.toStore()) // sync state to store
+            this.setState(this.fromStore()) // sync store to state
           }}><Icon type='save' />Save</Button>
           <ul style={{ marginTop: '8px' }}>
             <li><Icon type='pushpin' /> "x-" will be prepended to keys if you forget to do so</li>
