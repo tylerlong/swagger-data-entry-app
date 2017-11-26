@@ -37,7 +37,7 @@ class Schema extends React.Component {
     const { name, schema } = this.props
     return (
       <div>
-        <Button style={{ marginTop: '16px' }} onClick={e => {
+        <Button onClick={e => {
           schema.replace(this.form)
           if (this.form.name) {
             getParent(getParent(schema)).renameDefinition(name, this.form.name)

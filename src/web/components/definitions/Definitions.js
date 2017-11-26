@@ -21,14 +21,16 @@ class Definitions extends BaseComponent {
         {definitions.size < 1 ? null : (
           <Collapse accordion activeKey={this.state.activeKey}
             onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
-            {R.sortBy(R.prop(0), definitions.entries()).map(([name, schema]) => (
-              <Collapse.Panel header={name} key={name}>
-                <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-                  onConfirm={() => { getParent(definitions).removeDefinition(name) }} >
-                  <Button type='danger'><Icon type='delete' /> Delete</Button>
-                </Popconfirm>
+            {R.sortBy(R.prop(0), definitions.entries()).map(([name, schema]) => {
+              const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
+                onConfirm={() => { getParent(definitions).removeDefinition(name) }}
+                onClick={e => e.stopPropagation()}>
+                <Button type='danger'><Icon type='delete' /> Delete</Button>
+              </Popconfirm>
+              return <Collapse.Panel header={<span>{name} {deleteButton}</span>} key={name}>
                 <Schema name={name} schema={schema} />
-              </Collapse.Panel>))}
+              </Collapse.Panel>
+            })}
           </Collapse>
         )}
         <div style={{ marginTop: '16px' }}>
