@@ -5,6 +5,7 @@ import { observer } from 'mobx-react'
 
 import RequiredFields from '../common/RequiredFields'
 import OptionalFields from '../common/OptionalFields'
+import { primitiveTypes } from '../../utils'
 
 class Property extends React.Component {
   constructor (props) {
@@ -17,7 +18,12 @@ class Property extends React.Component {
     }
     this.optionalFields = {
       $ref: () => <Input defaultValue={property.$ref} onChange={e => { this.form.$ref = e.target.value }} />,
-      type: () => <Input defaultValue={property.type} onChange={e => { this.form.type = e.target.value }} />,
+      type: () => (
+        <Select defaultValue={property.type} style={{ width: '100%' }}
+          onChange={value => { this.form.type = value }}>
+          {primitiveTypes.map(type => <Select.Option value={type} key={type}>{type}</Select.Option>)}
+        </Select>
+      ),
       format: () => <Input defaultValue={property.format} onChange={e => { this.form.format = e.target.value }} />,
       description: () => <Input defaultValue={property.description} onChange={e => { this.form.description = e.target.value }} />,
       enum: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
