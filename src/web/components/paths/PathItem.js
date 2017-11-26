@@ -17,11 +17,11 @@ class PathItem extends React.Component {
       name: <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
     }
     this.optionalFields = {
-      get: () => <Operation />,
-      post: () => <Operation />,
-      put: () => <Operation />,
-      delete: () => <Operation />,
-      head: () => <Operation />,
+      get: () => <Operation operation={pathItem.get} />,
+      post: () => <Operation operation={pathItem.post} />,
+      put: () => <Operation operation={pathItem.put} />,
+      delete: () => <Operation operation={pathItem.delete} />,
+      head: () => <Operation operation={pathItem.head} />,
       'x-extension-fields': () => <Extension extensionFields={pathItem['x-extension-fields']} />
     }
     this.defaultValues = {

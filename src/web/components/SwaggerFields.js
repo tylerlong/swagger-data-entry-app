@@ -27,11 +27,9 @@ class SwaggerFields extends React.Component {
       ),
       basePath: () => <Input defaultValue={swagger.basePath} onChange={e => { this.form.basePath = e.target.value }} />,
       consumes: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
-        defaultValue={swagger.consumes.toJSON()}
-        onChange={value => { this.form.consumes = value }} />,
+        defaultValue={swagger.consumes.toJSON()} onChange={value => { this.form.consumes = value }} />,
       produces: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
-        defaultValue={swagger.produces.toJSON()}
-        onChange={value => { this.form.produces = value }} />,
+        defaultValue={swagger.produces.toJSON()} onChange={value => { this.form.produces = value }} />,
       'x-extension-fields': () => <Extension extensionFields={swagger['x-extension-fields']} />
     }
     this.defaultValues = {

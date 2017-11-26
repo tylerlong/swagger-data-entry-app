@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree'
 
 import Parameter from './Parameter'
 import Response from './Response'
+import { update, replace } from '../../utils'
 
 const Operation = types.model({
   tags: types.union(types.array(types.string), types.undefined),
@@ -21,6 +22,8 @@ const Operation = types.model({
     return self['x-extension-fields'].get(name)
   }
 })).actions(self => ({
+  update: update(self),
+  replace: replace(self),
   updateExtensionField (name, val) {
     self['x-extension-fields'].set(name, val)
   }
