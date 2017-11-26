@@ -6,6 +6,9 @@ import { Tooltip, Icon, Table } from 'antd'
 class RequiredFields extends React.Component {
   render () {
     const { requiredFields, tooltips } = this.props
+    if (R.isEmpty(requiredFields)) {
+      return null
+    }
     const columns = [
       {
         dataIndex: 'name',

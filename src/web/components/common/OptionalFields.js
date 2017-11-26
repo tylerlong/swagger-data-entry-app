@@ -6,6 +6,9 @@ import { observer } from 'mobx-react'
 class OptionalFields extends React.Component {
   render () {
     const { optionalFields, defaultValues, model, form, tooltips } = this.props
+    if (R.isEmpty(optionalFields)) {
+      return null
+    }
     const columns = [
       {
         dataIndex: 'name',
