@@ -20,7 +20,7 @@ class Operation extends React.Component {
       tags: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={operation.tags.toJSON()} onChange={value => { this.form.tags = value }} />,
       summary: () => <Input defaultValue={operation.summary} onChange={e => { this.form.summary = e.target.value }} />,
-      description: () => <Input defaultValue={operation.description} onChange={e => { this.form.description = e.target.value }} />,
+      description: () => <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} defaultValue={operation.description} onChange={e => { this.form.description = e.target.value }} />,
       operationId: () => <Input defaultValue={operation.operationId} onChange={e => { this.form.operationId = e.target.value }} />,
       consumes: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={operation.consumes.toJSON()} onChange={value => { this.form.consumes = value }} />,

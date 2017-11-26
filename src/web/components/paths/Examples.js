@@ -25,7 +25,7 @@ class Examples extends BaseComponent {
         dataIndex: 'content',
         width: '75%',
         render: (text, record, index) => {
-          return <Input.TextArea rows={4} placeholder='content' value={text} onChange={e => { this.setStateProp('dataSource', index, 'content', e.target.value) }} />
+          return <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} placeholder='content' value={text} onChange={e => { this.setStateProp('dataSource', index, 'content', e.target.value) }} />
         }
       }
     ]

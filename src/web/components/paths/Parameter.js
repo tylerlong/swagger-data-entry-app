@@ -20,7 +20,7 @@ class Parameter extends React.Component {
     }
     this.optionalFields = {
       format: () => <Input defaultValue={parameter.format} onChange={e => { this.form.format = e.target.value }} />,
-      description: () => <Input defaultValue={parameter.description} onChange={e => { this.form.description = e.target.value }} />,
+      description: () => <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} defaultValue={parameter.description} onChange={e => { this.form.description = e.target.value }} />,
       required: () => <Checkbox onChange={e => { this.form.required = e.target.checked }} />,
       type: () => (
         <Select defaultValue={parameter.type} style={{ width: '100%' }}

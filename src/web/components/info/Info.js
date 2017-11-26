@@ -17,7 +17,7 @@ class Info extends React.Component {
       version: <Input defaultValue={info.version} onChange={e => { this.form.version = e.target.value }} />
     }
     this.optionalFields = {
-      description: () => <Input defaultValue={info.description} onChange={e => { this.form.description = e.target.value }} />,
+      description: () => <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} defaultValue={info.description} onChange={e => { this.form.description = e.target.value }} />,
       termsOfService: () => <Input defaultValue={info.termsOfService} onChange={e => { this.form.termsOfService = e.target.value }} />,
       contact: () => <Contact contact={info.contact} />,
       license: () => <License license={info.license} />

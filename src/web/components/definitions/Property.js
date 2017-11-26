@@ -25,7 +25,7 @@ class Property extends React.Component {
         </Select>
       ),
       format: () => <Input defaultValue={property.format} onChange={e => { this.form.format = e.target.value }} />,
-      description: () => <Input defaultValue={property.description} onChange={e => { this.form.description = e.target.value }} />,
+      description: () => <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} defaultValue={property.description} onChange={e => { this.form.description = e.target.value }} />,
       enum: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={property.enum.toJSON()} onChange={value => { this.form.enum = value }} />,
       default: () => <Input defaultValue={property.default} onChange={e => {
