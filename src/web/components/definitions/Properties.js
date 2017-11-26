@@ -17,7 +17,7 @@ class Properties extends BaseComponent {
   render () {
     const { properties } = this.props
     return (
-      <Card title='Properties'>
+      <Card>
         {properties.size < 1 ? null : (
           <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
             {R.sortBy(R.prop(0), properties.entries()).map(([name, property]) => (

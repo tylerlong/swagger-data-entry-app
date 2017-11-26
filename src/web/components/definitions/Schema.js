@@ -15,7 +15,8 @@ class Schema extends React.Component {
     this.form = {}
     this.requiredFields = {
       name: <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />,
-      type: <Input value='object' disabled />
+      type: <Input value='object' disabled />,
+      properties: <Properties properties={schema.properties} />
     }
     this.optionalFields = {
       description: () => <Input defaultValue={schema.description} onChange={e => { this.form.description = e.target.value }} />,
@@ -51,7 +52,6 @@ class Schema extends React.Component {
           model={schema}
           form={this.form}
           tooltips={this.tooltips} />
-        <Properties properties={schema.properties} />
       </div>
     )
   }
