@@ -3,6 +3,7 @@ import { types } from 'mobx-state-tree'
 import Parameter from './Parameter'
 import Response from './Response'
 import { update, replace } from '../../utils'
+import * as R from 'ramda'
 
 const Operation = types.model({
   tags: types.union(types.array(types.string), types.undefined),
@@ -26,6 +27,12 @@ const Operation = types.model({
   replace: replace(self),
   updateExtensionField (name, val) {
     self['x-extension-fields'].set(name, val)
+  },
+  replaceExtensionFields (fields) {
+    self['x-extension-fields'] = {}
+    R.forEach(([name, val]) => {
+      self.updateExtensionField(name, val)
+    }, fields)
   }
 }))
 

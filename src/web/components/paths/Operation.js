@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { Select, Card, Button, Icon, Input } from 'antd'
 
 import OptionalFields from '../common/OptionalFields'
+import Extension from '../common/Extension'
 
 class Operation extends React.Component {
   constructor (props) {
@@ -18,7 +19,8 @@ class Operation extends React.Component {
       consumes: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={operation.consumes.toJSON()} onChange={value => { this.form.consumes = value }} />,
       produces: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
-        defaultValue={operation.produces.toJSON()} onChange={value => { this.form.produces = value }} />
+        defaultValue={operation.produces.toJSON()} onChange={value => { this.form.produces = value }} />,
+      'x-extension-fields': () => <Extension extensionFields={operation['x-extension-fields']} />
     }
     this.defaultValues = {
       tags: [],
@@ -26,7 +28,8 @@ class Operation extends React.Component {
       description: '',
       operationId: '',
       consumes: [],
-      produces: []
+      produces: [],
+      'x-extension-fields': {}
     }
   }
 
