@@ -6,6 +6,7 @@ import { observer } from 'mobx-react'
 import RequiredFields from '../common/RequiredFields'
 import OptionalFields from '../common/OptionalFields'
 import Property from '../definitions/Property'
+import Examples from './Examples'
 
 class Response extends React.Component {
   constructor (props) {
@@ -21,7 +22,7 @@ class Response extends React.Component {
     }
     this.optionalFields = {
       schema: () => <Card><Property property={response.schema} /></Card>,
-      examples: () => 'Examples'
+      examples: () => <Examples examples={response.examples} />
     }
     this.defaultValues = {
       schema: {},
