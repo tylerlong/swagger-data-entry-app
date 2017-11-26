@@ -37,7 +37,7 @@ class Property extends React.Component {
         }
         this.form.default = value
       }} />,
-      readOnly: () => <Checkbox onChange={e => { this.form.readOnly = e.target.checked }} />,
+      readOnly: () => <Checkbox defaultChecked={property.readOnly} onChange={e => { this.form.readOnly = e.target.checked }} />,
       maxLength: () => <InputNumber min={0} defaultValue={1000} onChange={value => { this.form.maxLength = value }} />,
       minLength: () => <InputNumber min={0} defaultValue={0} onChange={value => { this.form.minLength = value }} />,
       pattern: () => <Input defaultValue={property.pattern} onChange={e => { this.form.pattern = e.target.value }} />,
