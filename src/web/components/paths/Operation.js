@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Select, Card, Button, Icon } from 'antd'
+import { Select, Card, Button, Icon, Input } from 'antd'
 
 import OptionalFields from '../common/OptionalFields'
 
@@ -11,10 +11,22 @@ class Operation extends React.Component {
     const { operation } = props
     this.optionalFields = {
       tags: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
-        defaultValue={operation.tags.toJSON()} onChange={value => { this.form.tags = value }} />
+        defaultValue={operation.tags.toJSON()} onChange={value => { this.form.tags = value }} />,
+      summary: () => <Input defaultValue={operation.summary} onChange={e => { this.form.summary = e.target.value }} />,
+      description: () => <Input defaultValue={operation.description} onChange={e => { this.form.description = e.target.value }} />,
+      operationId: () => <Input defaultValue={operation.operationId} onChange={e => { this.form.operationId = e.target.value }} />,
+      consumes: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
+        defaultValue={operation.consumes.toJSON()} onChange={value => { this.form.consumes = value }} />,
+      produces: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
+        defaultValue={operation.produces.toJSON()} onChange={value => { this.form.produces = value }} />
     }
     this.defaultValues = {
-      tags: []
+      tags: [],
+      summary: '',
+      description: '',
+      operationId: '',
+      consumes: [],
+      produces: []
     }
   }
 
