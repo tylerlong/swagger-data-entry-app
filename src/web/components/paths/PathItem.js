@@ -43,7 +43,7 @@ class PathItem extends React.Component {
         <Button onClick={e => {
           pathItem.replace(this.form)
           if (this.form.name) {
-            getParent(getParent(pathItem)).renameDefinition(name, this.form.name)
+            getParent(getParent(pathItem)).renamePath(name, this.form.name)
           }
         }}><Icon type='save' />Save</Button>
         <RequiredFields
