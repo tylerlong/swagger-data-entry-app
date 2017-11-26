@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Input, Card, Form, Button, Icon } from 'antd'
+import { Input, Card, Button, Icon } from 'antd'
 
 import OptionalFields from '../common/OptionalFields'
 import RequiredFields from '../common/RequiredFields'
@@ -25,15 +25,13 @@ class License extends React.Component {
     const { license } = this.props
     return (
       <Card>
-        <Form>
-          <Button onClick={() => license.replace(this.form)}><Icon type='save' /> Save</Button>
-          <RequiredFields requiredFields={this.requiredFields} />
-          <OptionalFields
-            optionalFields={this.optionalFields}
-            defaultValues={this.defaultValues}
-            model={license}
-            form={this.form} />
-        </Form>
+        <Button onClick={() => license.replace(this.form)}><Icon type='save' /> Save</Button>
+        <RequiredFields requiredFields={this.requiredFields} />
+        <OptionalFields
+          optionalFields={this.optionalFields}
+          defaultValues={this.defaultValues}
+          model={license}
+          form={this.form} />
       </Card>
     )
   }

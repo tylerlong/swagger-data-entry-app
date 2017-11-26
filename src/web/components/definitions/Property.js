@@ -1,16 +1,20 @@
 import React from 'react'
-import { Form, Input, Icon, Button, Select, Checkbox, InputNumber, Card } from 'antd'
+import { Input, Icon, Button, Select, Checkbox, InputNumber, Card } from 'antd'
 import { getParent } from 'mobx-state-tree'
 import { observer } from 'mobx-react'
 
-import { inputLayout } from '../../utils'
+import RequiredFields from '../common/RequiredFields'
 import OptionalFields from '../common/OptionalFields'
 
 class Property extends React.Component {
   constructor (props) {
     super(props)
     this.form = {}
-    const { property } = props
+    const { name, property } = props
+    this.requiredFields = {}
+    if (name) {
+      this.requiredFields.name = <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
+    }
     this.optionalFields = {
       $ref: () => <Input defaultValue={property.$ref} onChange={e => { this.form.$ref = e.target.value }} />,
       type: () => <Input defaultValue={property.type} onChange={e => { this.form.type = e.target.value }} />,
@@ -63,11 +67,7 @@ class Property extends React.Component {
             getParent(getParent(property)).renameProperty(name, this.form.name)
           }
         }}><Icon type='save' /> Save</Button>
-        {name === undefined ? null : (
-          <Form.Item label='Name' {...inputLayout}>
-            <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
-          </Form.Item>
-        )}
+        <RequiredFields requiredFields={this.requiredFields} />
         <OptionalFields
           optionalFields={this.optionalFields}
           defaultValues={this.defaultValues}

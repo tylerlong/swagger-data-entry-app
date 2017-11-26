@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Input, Card, Form, Button, Icon } from 'antd'
+import { Input, Card, Button, Icon } from 'antd'
 
 import OptionalFields from '../common/OptionalFields'
 
@@ -25,14 +25,12 @@ class Contact extends React.Component {
     const { contact } = this.props
     return (
       <Card>
-        <Form>
-          <Button onClick={() => contact.replace(this.form)}><Icon type='save' /> Save</Button>
-          <OptionalFields
-            optionalFields={this.optionalFields}
-            defaultValues={this.defaultValues}
-            model={contact}
-            form={this.form} />
-        </Form>
+        <Button onClick={() => contact.replace(this.form)}><Icon type='save' /> Save</Button>
+        <OptionalFields
+          optionalFields={this.optionalFields}
+          defaultValues={this.defaultValues}
+          model={contact}
+          form={this.form} />
       </Card>
     )
   }
