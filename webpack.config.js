@@ -30,7 +30,8 @@ const webConfig = {
               'react'
             ],
             plugins: [
-              ['import', { libraryName: 'antd', style: 'css' }]
+              ['import', { libraryName: 'antd', style: 'css' }],
+              'transform-object-rest-spread'
             ]
           }
         }
