@@ -1,42 +1,53 @@
 import React from 'react'
-import { Form, Checkbox, Tooltip, Icon } from 'antd'
+import { Checkbox, Tooltip, Icon, Table } from 'antd'
 import * as R from 'ramda'
 import { observer } from 'mobx-react'
-
-import { inputLayout } from '../../utils'
 
 class OptionalFields extends React.Component {
   render () {
     const { optionalFields, defaultValues, model, form, tooltips } = this.props
-    return [
-      <Form.Item label='Optional fields' {...inputLayout} key='optional-fields'>
-        {R.keys(optionalFields).map(name => {
-          return <Checkbox checked={model[name] !== undefined} key={name} onChange={e => {
-            if (e.target.checked) {
-              model.update(name, form[name] || defaultValues[name]) // restore
-              delete form[name]
-            } else {
-              form[name] = model[name].toJSON ? model[name].toJSON() : model[name] // backup
-              model.update(name, undefined)
-            }
-          }}>{name}</Checkbox>
-        })}
-      </Form.Item>,
-      R.toPairs(optionalFields).map(([name, component]) => {
-        if (model[name] === undefined) {
-          return null
+    const columns = [
+      {
+        dataIndex: 'name',
+        key: 'name',
+        width: '15%',
+        className: 'form-label',
+        render: (text, record, index) => {
+          if (tooltips && tooltips[text]) {
+            return <span><Tooltip title={tooltips[text]}><Icon type='question-circle-o' /></Tooltip> {text}</span>
+          } else {
+            return text
+          }
         }
-        let label = name
-        if (tooltips && tooltips[name]) {
-          label = <Tooltip title={tooltips[name]}><Icon type='question-circle' /> {name}</Tooltip>
-        }
-        return (
-          <Form.Item label={label} {...inputLayout} key={name}>
-            {component()}
-          </Form.Item>
-        )
-      })
+      },
+      {
+        dataIndex: 'component',
+        key: 'component',
+        width: '85%'
+      }
     ]
+    const dataSource = R.pipe(
+      R.toPairs,
+      R.reject(([name, component]) => model[name] === undefined),
+      R.map(([name, component]) => ({ name, component: component(), key: name })),
+      R.prepend({ name: 'Optional Fields',
+        key: 'optionalFields',
+        component: R.keys(optionalFields).map(name => {
+          return (
+            <Checkbox checked={model[name] !== undefined} key={name} onChange={e => {
+              if (e.target.checked) {
+                model.update(name, form[name] || defaultValues[name]) // restore
+                delete form[name]
+              } else {
+                form[name] = model[name].toJSON ? model[name].toJSON() : model[name] // backup
+                model.update(name, undefined)
+              }
+            }}>{name}</Checkbox>
+          )
+        })
+      })
+    )(optionalFields)
+    return <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false} bordered={false} />
   }
 }
 
