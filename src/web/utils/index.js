@@ -52,6 +52,8 @@ export const toAndFromJson = obj => {
 }
 
 export const primitiveTypes = ['object', 'array', 'string', 'number', 'boolean', 'integer', 'file']
+export const parameterIns = ['query', 'header', 'path', 'formData', 'body']
+export const collectionFormats = ['csv', 'ssv', 'tsv', 'pipes', 'multi']
 
 export const wrapExtensionFields = o => {
   const obj = R.clone(o)

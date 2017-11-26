@@ -28,3 +28,4 @@ yarn dist
 - CMD - S to save everything
 - CMD - R auto load the current file
 - https://github.com/ant-design/ant-design/issues/8320
+- Renaming should reserve Collapse activeKey
