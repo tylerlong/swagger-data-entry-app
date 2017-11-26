@@ -29,7 +29,7 @@ class RequiredFields extends React.Component {
     const dataSource = R.toPairs(requiredFields).map(([name, component]) => {
       return { name, component, key: name }
     })
-    return <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false} bordered={false} />
+    return <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false} bordered={false} size='middle' />
   }
 }
 

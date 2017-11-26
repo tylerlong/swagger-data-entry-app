@@ -14,3 +14,7 @@
 .form-label:after {
   content: ':';
 }
+
+.ant-table-tbody > tr > td {
+  border-bottom: none !important;
+}

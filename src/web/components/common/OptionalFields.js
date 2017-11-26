@@ -47,7 +47,7 @@ class OptionalFields extends React.Component {
         })
       })
     )(optionalFields)
-    return <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false} bordered={false} />
+    return <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false} bordered={false} size='middle' />
   }
 }
 
