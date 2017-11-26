@@ -32,8 +32,8 @@ class OptionalFields extends React.Component {
       R.toPairs,
       R.reject(([name, component]) => model[name] === undefined),
       R.map(([name, component]) => ({ name, component: component(), key: name })),
-      R.prepend({ name: 'Optional',
-        key: 'optional',
+      R.prepend({ name: 'Optionals',
+        key: 'optionals',
         component: R.keys(optionalFields).map(name => {
           return (
             <Checkbox checked={model[name] !== undefined} key={name} onChange={e => {
