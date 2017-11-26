@@ -18,6 +18,11 @@ class Properties extends BaseComponent {
     const { properties } = this.props
     return (
       <Card>
+        <Button style={{ marginBottom: '16px' }} onClick={e => {
+          const uuid = uuidv1()
+          getParent(properties).newProperty(uuid)
+          this.setStateProp('activeKey', uuid)
+        }}><Icon type='plus' />Add</Button>
         {properties.size < 1 ? null : (
           <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
             {R.sortBy(R.prop(0), properties.entries()).map(([name, property]) => {
@@ -31,13 +36,6 @@ class Properties extends BaseComponent {
             })}
           </Collapse>
         )}
-        <div style={{ marginTop: '16px' }}>
-          <Button onClick={e => {
-            const uuid = uuidv1()
-            getParent(properties).newProperty(uuid)
-            this.setStateProp('activeKey', uuid)
-          }}><Icon type='plus' />Add</Button>
-        </div>
       </Card>
     )
   }

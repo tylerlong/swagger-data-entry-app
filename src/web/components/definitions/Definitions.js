@@ -18,6 +18,11 @@ class Definitions extends BaseComponent {
     const { definitions } = this.props
     return (
       <Card title='Definitions'>
+        <Button style={{ marginBottom: '16px' }} onClick={e => {
+          const uuid = uuidv1()
+          getParent(definitions).newDefinition(uuid)
+          this.setStateProp('activeKey', uuid)
+        }}><Icon type='plus' />Add</Button>
         {definitions.size < 1 ? null : (
           <Collapse accordion activeKey={this.state.activeKey}
             onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
@@ -33,13 +38,6 @@ class Definitions extends BaseComponent {
             })}
           </Collapse>
         )}
-        <div style={{ marginTop: '16px' }}>
-          <Button onClick={e => {
-            const uuid = uuidv1()
-            getParent(definitions).newDefinition(uuid)
-            this.setStateProp('activeKey', uuid)
-          }}><Icon type='plus' />Add</Button>
-        </div>
       </Card>
     )
   }

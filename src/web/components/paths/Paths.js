@@ -18,6 +18,11 @@ class Paths extends BaseComponent {
     const { paths } = this.props
     return (
       <Card title='Paths'>
+        <Button style={{ marginBottom: '16px' }} onClick={e => {
+          const uuid = uuidv1()
+          getParent(paths).newPath(uuid)
+          this.setStateProp('activeKey', uuid)
+        }}><Icon type='plus' />Add</Button>
         {paths.size < 1 ? null : (
           <Collapse accordion activeKey={this.state.activeKey}
             onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
@@ -33,13 +38,6 @@ class Paths extends BaseComponent {
             })}
           </Collapse>
         )}
-        <div style={{ marginTop: '16px' }}>
-          <Button onClick={e => {
-            const uuid = uuidv1()
-            getParent(paths).newPath(uuid)
-            this.setStateProp('activeKey', uuid)
-          }}><Icon type='plus' />Add</Button>
-        </div>
       </Card>
     )
   }
