@@ -82,9 +82,9 @@ paths:
           enum:
             - Inbound
             - Outbound
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: type
           in: query
           description: >-
@@ -96,9 +96,9 @@ paths:
           enum:
             - Voice
             - Fax
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: view
           in: query
           description: >-
@@ -109,9 +109,9 @@ paths:
           enum:
             - Simple
             - Detailed
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: withRecording
           in: query
           description: '''True'' if only recorded calls have to be returned'
@@ -221,25 +221,25 @@ paths:
           in: query
           required: false
           type: array
+          collectionFormat: multi
           items:
             type: string
             enum:
               - Voice
               - Fax
-          collectionFormat: multi
         - name: direction
           in: query
           required: false
           type: array
+          collectionFormat: multi
           items:
             type: string
             enum:
               - Inbound
               - Outbound
-          collectionFormat: multi
         - name: dateFrom
-          format: date-time
           in: query
+          format: date-time
           required: false
           type: string
         - name: body
@@ -300,9 +300,9 @@ paths:
           enum:
             - FSync
             - ISync
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: syncToken
           in: query
           description: Value of syncToken property of last sync request response
@@ -333,9 +333,9 @@ paths:
           enum:
             - Missed
             - All
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: body
           in: body
           required: false
@@ -367,9 +367,9 @@ paths:
           in: path
           required: true
           type: array
+          collectionFormat: csv
           items:
             type: string
-          collectionFormat: csv
         - name: view
           in: query
           required: false
@@ -414,9 +414,9 @@ paths:
           in: path
           required: true
           type: array
+          collectionFormat: csv
           items:
             type: string
-          collectionFormat: csv
         - name: body
           in: body
           required: false
@@ -487,9 +487,9 @@ paths:
           enum:
             - Inbound
             - Outbound
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: type
           in: query
           description: >-
@@ -501,9 +501,9 @@ paths:
           enum:
             - Voice
             - Fax
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: page
           in: query
           description: >-
@@ -588,9 +588,9 @@ paths:
           enum:
             - Inbound
             - Outbound
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: type
           in: query
           description: >-
@@ -602,9 +602,9 @@ paths:
           enum:
             - Voice
             - Fax
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: view
           in: query
           description: >-
@@ -615,9 +615,9 @@ paths:
           enum:
             - Simple
             - Detailed
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: withRecording
           in: query
           description: '''True'' if only recorded calls have to be returned'
@@ -744,9 +744,9 @@ paths:
           enum:
             - FSync
             - ISync
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: syncToken
           in: query
           description: Value of syncToken property of last sync request response
@@ -777,9 +777,9 @@ paths:
           enum:
             - Missed
             - All
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
       responses:
         '200':
           description: Success
@@ -903,9 +903,9 @@ paths:
           enum:
             - Inbound
             - Outbound
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: type
           in: query
           description: >-
@@ -917,9 +917,9 @@ paths:
           enum:
             - Voice
             - Fax
+          collectionFormat: multi
           items:
             type: string
-          collectionFormat: multi
         - name: page
           in: query
           description: >-
