@@ -5,3 +5,12 @@
 .ant-form-item-label {
   text-transform: capitalize;
 }
+
+.form-label {
+  text-align: right;
+  text-transform: capitalize;
+  color: rgba(0, 0, 0, 0.85);
+}
+.form-label:after {
+  content: ':';
+}

@@ -1,24 +1,35 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import * as R from 'ramda'
-import { Form, Tooltip, Icon } from 'antd'
-
-import { inputLayout } from '../../utils'
+import { Tooltip, Icon, Table } from 'antd'
 
 class RequiredFields extends React.Component {
   render () {
     const { requiredFields, tooltips } = this.props
-    return R.toPairs(requiredFields).map(([name, component]) => {
-      let label = name
-      if (tooltips && tooltips[name]) {
-        label = <Tooltip title={tooltips[name]}><Icon type='question-circle' /> {name}</Tooltip>
+    const columns = [
+      {
+        dataIndex: 'name',
+        key: 'name',
+        width: '15%',
+        className: 'form-label',
+        render: (text, record, index) => {
+          if (tooltips && tooltips[text]) {
+            return [<Tooltip title={tooltips[text]}><Icon type='question-circle-o' /></Tooltip>, ' ', text]
+          } else {
+            return text
+          }
+        }
+      },
+      {
+        dataIndex: 'component',
+        key: 'component',
+        width: '85%'
       }
-      return (
-        <Form.Item label={label} {...inputLayout} key={name}>
-          {component}
-        </Form.Item>
-      )
+    ]
+    const dataSource = R.toPairs(requiredFields).map(([name, component]) => {
+      return { name, component, key: name }
     })
+    return <Table dataSource={dataSource} columns={columns} pagination={false} showHeader={false} bordered={false} />
   }
 }
 
