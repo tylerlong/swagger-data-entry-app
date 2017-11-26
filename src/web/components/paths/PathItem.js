@@ -25,11 +25,11 @@ class PathItem extends React.Component {
       'x-extension-fields': () => <Extension extensionFields={pathItem['x-extension-fields']} />
     }
     this.defaultValues = {
-      get: { responses: {} },
-      post: { responses: {} },
-      put: { responses: {} },
-      delete: { responses: {} },
-      head: { responses: {} },
+      get: { responses: { default: { description: 'OK' } } },
+      post: { responses: { default: { description: 'OK' } } },
+      put: { responses: { default: { description: 'OK' } } },
+      delete: { responses: { default: { description: 'OK' } } },
+      head: { responses: { default: { description: 'OK' } } },
       'x-extension-fields': {}
     }
     this.tooltips = {

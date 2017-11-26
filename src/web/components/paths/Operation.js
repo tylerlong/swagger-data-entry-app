@@ -3,14 +3,19 @@ import { observer } from 'mobx-react'
 import { Select, Card, Button, Icon, Input } from 'antd'
 
 import OptionalFields from '../common/OptionalFields'
+import RequiredFields from '../common/RequiredFields'
 import Extension from '../common/Extension'
 import Parameters from './Parameters'
+import Responses from './Responses'
 
 class Operation extends React.Component {
   constructor (props) {
     super(props)
     this.form = {}
     const { operation } = props
+    this.requiredFields = {
+      responses: <Responses parameters={operation.responses} />
+    }
     this.optionalFields = {
       tags: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={operation.tags.toJSON()} onChange={value => { this.form.tags = value }} />,
@@ -41,6 +46,7 @@ class Operation extends React.Component {
     return (
       <Card>
         <Button onClick={() => operation.replace(this.form)}><Icon type='save' /> Save</Button>
+        <RequiredFields requiredFields={this.requiredFields} />
         <OptionalFields
           optionalFields={this.optionalFields}
           defaultValues={this.defaultValues}
