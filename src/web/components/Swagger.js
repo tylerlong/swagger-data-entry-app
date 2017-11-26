@@ -17,7 +17,7 @@ class Swagger extends React.Component {
 
   render () {
     const { swagger } = this.props
-    const { info, tags, definitions } = swagger
+    const { info, tags, definitions, paths } = swagger
     return (
       <Tabs tabPosition='left'>
         <Tabs.TabPane tab='Swagger' key='swagger'>
@@ -30,7 +30,7 @@ class Swagger extends React.Component {
           <Tags tags={tags} />
         </Tabs.TabPane>
         <Tabs.TabPane tab='Paths' key='paths'>
-          <Paths />
+          <Paths paths={paths} />
         </Tabs.TabPane>
         <Tabs.TabPane tab='Definitions' key='definitions'>
           <Definitions definitions={definitions} />
