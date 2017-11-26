@@ -20,15 +20,15 @@ class Properties extends BaseComponent {
       <Card>
         {properties.size < 1 ? null : (
           <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
-            {R.sortBy(R.prop(0), properties.entries()).map(([name, property]) => (
-              <Collapse.Panel header={name} key={name}>
-                <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-                  onConfirm={() => getParent(properties).removeProperty(name)}>
-                  <Button type='danger'><Icon type='delete' /> Delete</Button>
-                </Popconfirm>
+            {R.sortBy(R.prop(0), properties.entries()).map(([name, property]) => {
+              const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
+                onConfirm={() => getParent(properties).removeProperty(name)} onClick={e => e.stopPropagation()}>
+                <Button type='danger'><Icon type='delete' /> Delete</Button>
+              </Popconfirm>
+              return <Collapse.Panel header={<span>{name} {deleteButton}</span>} key={name}>
                 <Property name={name} property={property} />
               </Collapse.Panel>
-            ))}
+            })}
           </Collapse>
         )}
         <div style={{ marginTop: '16px' }}>
