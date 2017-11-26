@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree'
+import * as R from 'ramda'
 
 import Parameter from './Parameter'
 import Response from './Response'
@@ -24,7 +25,13 @@ const Operation = types.model({
 })).actions(self => ({
   update: update(self),
   replace: replace(self),
-  ...extensionFieldActions(self)
+  ...extensionFieldActions(self),
+  newParameter (uuid) {
+    self.parameters.push({ name: uuid, in: 'path' })
+  },
+  removeParameter (name) {
+    self.parameters = R.reject(p => p.name === name, self.parameters)
+  }
 }))
 
 export default Operation
