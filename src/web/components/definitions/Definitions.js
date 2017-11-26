@@ -25,7 +25,7 @@ class Definitions extends BaseComponent {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
                 onConfirm={() => { getParent(definitions).removeDefinition(name) }}
                 onClick={e => e.stopPropagation()}>
-                <Button type='danger'><Icon type='delete' /> Delete</Button>
+                <Button style={{ marginLeft: '8px' }} type='danger' size='small'><Icon type='delete' />Delete</Button>
               </Popconfirm>
               return <Collapse.Panel header={<span>{name} {deleteButton}</span>} key={name}>
                 <Schema name={name} schema={schema} />

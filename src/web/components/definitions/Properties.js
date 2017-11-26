@@ -23,7 +23,7 @@ class Properties extends BaseComponent {
             {R.sortBy(R.prop(0), properties.entries()).map(([name, property]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
                 onConfirm={() => getParent(properties).removeProperty(name)} onClick={e => e.stopPropagation()}>
-                <Button type='danger'><Icon type='delete' /> Delete</Button>
+                <Button style={{ marginLeft: '8px' }} type='danger' size='small'><Icon type='delete' />Delete</Button>
               </Popconfirm>
               return <Collapse.Panel header={<span>{name} {deleteButton}</span>} key={name}>
                 <Property name={name} property={property} />
