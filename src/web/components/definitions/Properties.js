@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Card, Collapse, Button, Icon } from 'antd'
+import { Card, Collapse, Button, Icon, Popconfirm } from 'antd'
 import { getParent } from 'mobx-state-tree'
 import uuidv1 from 'uuid/v1'
 import * as R from 'ramda'
@@ -22,6 +22,10 @@ class Properties extends BaseComponent {
           <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
             {R.sortBy(R.prop(0), properties.entries()).map(([name, property]) => (
               <Collapse.Panel header={name} key={name}>
+                <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
+                  onConfirm={() => getParent(properties).removeProperty(name)}>
+                  <Button type='danger'><Icon type='delete' /> Delete</Button>
+                </Popconfirm>
                 <Property name={name} property={property} />
               </Collapse.Panel>
             ))}

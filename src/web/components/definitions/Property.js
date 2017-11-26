@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Icon, Button, Select, Card, Popconfirm, Checkbox, InputNumber } from 'antd'
+import { Form, Input, Icon, Button, Select, Card, Checkbox, InputNumber } from 'antd'
 import { getParent } from 'mobx-state-tree'
 import { observer } from 'mobx-react'
 
@@ -27,16 +27,6 @@ class Property extends React.Component {
     }
     return (
       <div>
-        <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-          onConfirm={() => {
-            if (fixedName) { // property.items
-              getParent(property).removeProperty(name)
-            } else {
-              getParent(getParent(property)).removeProperty(name) // schema.properties
-            }
-          }}>
-          <Button type='danger'><Icon type='delete' /> Delete</Button>
-        </Popconfirm>
         {fixedName ? null : (
           <Form.Item label='Name' {...inputLayout}>
             <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
