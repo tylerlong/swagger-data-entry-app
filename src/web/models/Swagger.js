@@ -4,8 +4,7 @@ import Info from './info/Info'
 import Tag from './tags/Tag'
 import PathItem from './paths/PathItem'
 import Schema from './definitions/Schema'
-import { update, replace } from '../utils'
-import * as R from 'ramda'
+import { update, replace, extensionFieldActions } from '../utils'
 
 const Swagger = types.model({
   swagger: types.literal('2.0'),
@@ -29,6 +28,7 @@ const Swagger = types.model({
 })).actions(self => ({
   update: update(self),
   replace: replace(self),
+  ...extensionFieldActions(self),
   init () {
     if (self.tags === undefined) {
       self.tags = []
@@ -39,15 +39,6 @@ const Swagger = types.model({
     if (self.definitions === undefined) {
       self.definitions = {}
     }
-  },
-  updateExtensionField (name, val) {
-    self['x-extension-fields'].set(name, val)
-  },
-  replaceExtensionFields (fields) {
-    self['x-extension-fields'] = {}
-    R.forEach(([name, val]) => {
-      self.updateExtensionField(name, val)
-    }, fields)
   },
   removeDefinition (name) {
     self.definitions.delete(name)
