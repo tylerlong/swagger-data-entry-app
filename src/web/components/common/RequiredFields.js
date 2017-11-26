@@ -10,7 +10,7 @@ class RequiredFields extends React.Component {
       {
         dataIndex: 'name',
         key: 'name',
-        width: '15%',
+        width: '128px',
         className: 'form-label',
         render: (text, record, index) => {
           if (tooltips && tooltips[text]) {
@@ -22,8 +22,7 @@ class RequiredFields extends React.Component {
       },
       {
         dataIndex: 'component',
-        key: 'component',
-        width: '85%'
+        key: 'component'
       }
     ]
     const dataSource = R.toPairs(requiredFields).map(([name, component]) => {

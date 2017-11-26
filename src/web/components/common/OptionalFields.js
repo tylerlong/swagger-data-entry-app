@@ -10,7 +10,7 @@ class OptionalFields extends React.Component {
       {
         dataIndex: 'name',
         key: 'name',
-        width: '15%',
+        width: '128px',
         className: 'form-label',
         render: (text, record, index) => {
           if (tooltips && tooltips[text]) {
@@ -22,16 +22,15 @@ class OptionalFields extends React.Component {
       },
       {
         dataIndex: 'component',
-        key: 'component',
-        width: '85%'
+        key: 'component'
       }
     ]
     const dataSource = R.pipe(
       R.toPairs,
       R.reject(([name, component]) => model[name] === undefined),
       R.map(([name, component]) => ({ name, component: component(), key: name })),
-      R.prepend({ name: 'Optional Fields',
-        key: 'optionalFields',
+      R.prepend({ name: 'Optional',
+        key: 'optional',
         component: R.keys(optionalFields).map(name => {
           return (
             <Checkbox checked={model[name] !== undefined} key={name} onChange={e => {
