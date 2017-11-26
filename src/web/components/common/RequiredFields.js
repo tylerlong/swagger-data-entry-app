@@ -14,7 +14,7 @@ class RequiredFields extends React.Component {
         className: 'form-label',
         render: (text, record, index) => {
           if (tooltips && tooltips[text]) {
-            return [<Tooltip title={tooltips[text]}><Icon type='question-circle-o' /></Tooltip>, ' ', text]
+            return <span><Tooltip title={tooltips[text]}><Icon type='question-circle-o' /></Tooltip> {text}</span>
           } else {
             return text
           }
