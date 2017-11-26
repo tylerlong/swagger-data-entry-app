@@ -13,7 +13,6 @@ class Extension extends BaseComponent {
     this.state = this.getState()
     this.columns = [
       {
-        title: 'Key',
         dataIndex: 'name',
         width: '25%',
         render: (text, record, index) => {
@@ -21,7 +20,6 @@ class Extension extends BaseComponent {
         }
       },
       {
-        title: 'Value',
         dataIndex: 'value',
         width: '50%',
         render: (text, record, index) => {
@@ -29,7 +27,6 @@ class Extension extends BaseComponent {
         }
       },
       {
-        title: 'Delete',
         width: '25%',
         render: (text, record, index) => {
           return <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
@@ -70,7 +67,7 @@ class Extension extends BaseComponent {
   render () {
     return (
       <Card>
-        <Table size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={this.state.dataSource.length > 10 ? {} : false} />
+        <Table showHeader={false} size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={this.state.dataSource.length > 10 ? {} : false} />
         <div style={{ marginTop: 16 }}>
           <Button onClick={e => { this.setStateProp('dataSource', R.append({ key: uuidv1(), name: '', value: '' })) }}>
             <Icon type='plus' />Add
