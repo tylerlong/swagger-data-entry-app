@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 
 import RequiredFields from '../common/RequiredFields'
 import OptionalFields from '../common/OptionalFields'
-import { primitiveTypes } from '../../utils'
+import { primitiveTypes, normalizeValue } from '../../utils'
 
 class Property extends React.Component {
   constructor (props) {
@@ -29,12 +29,7 @@ class Property extends React.Component {
       enum: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={property.enum.toJSON()} onChange={value => { this.form.enum = value }} />,
       default: () => <Input defaultValue={property.default} onChange={e => {
-        let value = e.target.value
-        if (value === 'true' || value === 'yes') {
-          value = true
-        } else if (value === 'false' || value === 'no') {
-          value = false
-        }
+        let value = normalizeValue(e.target.value)
         this.form.default = value
       }} />,
       readOnly: () => <Checkbox defaultChecked={property.readOnly} onChange={e => { this.form.readOnly = e.target.checked }} />,
@@ -59,7 +54,7 @@ class Property extends React.Component {
       additionalProperties: {}
     }
     this.tooltips = {
-      default: '"true", "yes", "false" and "no" will be converted to boolean'
+      default: '"true/yes/false/no" will be converted to boolean and "123", "0.45"...etc will be converted to number.'
     }
   }
 

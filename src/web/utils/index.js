@@ -90,3 +90,18 @@ export const unwrapExtensionFields = o => {
   })
   return obj
 }
+
+export const normalizeValue = value => {
+  let v = R.clone(value)
+  v = v.trim()
+  if (!isNaN(v)) {
+    v = +v
+  }
+  if (value === 'true' || value === 'yes') {
+    v = true
+  }
+  if (value === 'false' || value === 'no') {
+    v = false
+  }
+  return v
+}
