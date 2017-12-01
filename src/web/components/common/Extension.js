@@ -69,7 +69,7 @@ class Extension extends BaseComponent {
         <Table style={{ marginTop: '16px' }} size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={false} />
         <ul style={{ marginTop: '8px' }}>
           <li><Icon type='pushpin' /> "x-" will be prepended to names if you forget to do so</li>
-          <li><Icon type='pushpin' /> Clear name followed by saving to <span style={{ color: 'red' }}>delete</span> a row</li>
+          <li><Icon type='pushpin' /> Clear a row and save to delete it</li>
           <li><Icon type='pushpin' /> "true", "yes", "false" and "no" will be converted to booleans</li>
           <li><Icon type='pushpin' /> "123", "0.45"...etc will be converted to numbers</li>
         </ul>

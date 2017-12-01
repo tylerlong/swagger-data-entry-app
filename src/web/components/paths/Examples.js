@@ -63,7 +63,7 @@ class Examples extends BaseComponent {
       </Button>
       <Table style={{ marginTop: '16px' }} size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={false} />
       <ul style={{ marginTop: '16px' }}>
-        <li><Icon type='pushpin' /> Clear mimeType followed by saving to <span style={{ color: 'red' }}>delete</span> an example</li>
+        <li><Icon type='pushpin' /> Clear a row and save to delete it</li>
       </ul>
     </Card>
   }
