@@ -10,6 +10,7 @@ const Operation = types.model({
   summary: types.union(types.string, types.undefined),
   description: types.union(types.string, types.undefined),
   operationId: types.union(types.string, types.undefined),
+  deprecated: types.union(types.boolean, types.undefined),
   consumes: types.union(types.array(types.string), types.undefined),
   produces: types.union(types.array(types.string), types.undefined),
   parameters: types.union(types.array(Parameter), types.undefined),

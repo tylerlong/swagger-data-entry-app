@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Select, Card, Button, Icon, Input } from 'antd'
+import { Select, Card, Button, Icon, Input, Checkbox } from 'antd'
 
 import OptionalFields from '../common/OptionalFields'
 import RequiredFields from '../common/RequiredFields'
@@ -22,6 +22,7 @@ class Operation extends React.Component {
       summary: () => <Input defaultValue={operation.summary} onChange={e => { this.form.summary = e.target.value }} />,
       description: () => <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} defaultValue={operation.description} onChange={e => { this.form.description = e.target.value }} />,
       operationId: () => <Input defaultValue={operation.operationId} onChange={e => { this.form.operationId = e.target.value }} />,
+      deprecated: () => <Checkbox defaultChecked={operation.deprecated} onChange={e => { this.form.deprecated = e.target.checked }} />,
       consumes: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={operation.consumes.toJSON()} onChange={value => { this.form.consumes = value }} />,
       produces: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}

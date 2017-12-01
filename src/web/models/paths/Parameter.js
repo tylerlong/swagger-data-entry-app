@@ -10,6 +10,7 @@ const Parameter = types.model({
   format: types.union(types.string, types.undefined),
   description: types.union(types.string, types.undefined),
   required: types.union(types.boolean, types.undefined),
+  allowEmptyValue: types.union(types.boolean, types.undefined),
   type: types.union(types.enumeration(primitiveTypes), types.undefined),
   enum: types.union(types.array(types.string), types.undefined),
   default: types.union(types.string, types.boolean, types.number, types.undefined),
