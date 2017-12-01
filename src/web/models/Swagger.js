@@ -33,9 +33,6 @@ const Swagger = types.model({
     if (self.tags === undefined) {
       self.tags = []
     }
-    if (self['x-extension-fields'] === undefined) {
-      self['x-extension-fields'] = {}
-    }
     if (self.definitions === undefined) {
       self.definitions = {}
     }
