@@ -3,7 +3,6 @@ import { types } from 'mobx-state-tree'
 import Property from '../definitions/Property'
 import { primitiveTypes, parameterIns, collectionFormats, update, replace } from '../../utils'
 
-// todo: remove uncommon properties
 const Parameter = types.model({
   name: types.string,
   in: types.enumeration(parameterIns),

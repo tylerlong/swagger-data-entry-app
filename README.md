@@ -29,7 +29,6 @@ yarn dist
 - CMD - R auto load the current file
 - Renaming should reserve Collapse activeKey
 - Turn $ref into <Select/>
-- Go through models and remove uncommon fields
 - Go through UI inputs and improve convenience
 
 
