@@ -9,7 +9,7 @@ const PathItem = types.model({
   put: types.union(Operation, types.undefined),
   delete: types.union(Operation, types.undefined),
   head: types.union(Operation, types.undefined),
-  'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean)), types.undefined)
+  'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean, types.number)), types.undefined)
 }).views(self => ({
   extensionField (name) {
     if (self['x-extension-fields'] === undefined) {

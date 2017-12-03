@@ -13,7 +13,7 @@ const Swagger = types.model({
   basePath: types.union(types.string, types.undefined),
   consumes: types.union(types.array(types.string), types.undefined),
   produces: types.union(types.array(types.string), types.undefined),
-  'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean)), types.undefined),
+  'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean, types.number)), types.undefined),
   info: Info,
   tags: types.union(types.array(Tag), types.undefined),
   paths: types.map(PathItem),

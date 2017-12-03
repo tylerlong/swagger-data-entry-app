@@ -15,7 +15,7 @@ const Operation = types.model({
   produces: types.union(types.array(types.string), types.undefined),
   parameters: types.union(types.array(Parameter), types.undefined),
   responses: types.map(Response),
-  'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean)), types.undefined)
+  'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean, types.number)), types.undefined)
 }).views(self => ({
   extensionField (name) {
     if (self['x-extension-fields'] === undefined) {
