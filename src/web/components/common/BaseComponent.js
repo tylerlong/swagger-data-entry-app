@@ -11,8 +11,11 @@ class BaseComponent extends React.Component {
       value = value(R.view(R.lensPath(R.init(arguments)), this.state))
     }
     if (R.any(item => typeof item === 'number', R.init(arguments))) { // array structure involved
-      this.setState(R.set(R.lensPath(R.init(arguments)), value, this.state))
-      // todo: make the line above more efficient
+      const newState = R.set(R.lensPath(R.init(arguments)), value, this.state)
+      const shortIndex = R.findIndex(item => typeof item === 'number', arguments)
+      const shortPath = R.lensPath(R.slice(0, shortIndex, arguments))
+      const delta = R.set(shortPath, R.view(shortPath, newState), {})
+      this.setState(delta)
     } else {
       this.setState(R.set(R.lensPath(R.init(arguments)), value, {}))
     }

@@ -17,8 +17,8 @@ class MyComponent extends BaseComponent {
         <button onClick={e => { this.setStateProp('c', 'd', 'e') }}>Button #1</button>
         <button onClick={e => { this.setStateProp('a', 'b', 'c', R.append('d')) }}>Button #2</button>
         <button onClick={e => { this.setStateProp('a', 'b', 'c', R.append('e')) }}>Button #3</button>
-        <button onClick={e => { this.setStateProp('dataSource', 0, 'a', 'b') }}>Button #4</button>
-        <button onClick={e => { this.setStateProp('dataSource', 0, 'c', 'd') }}>Button #5</button>
+        <button onClick={e => { this.setStateProp('dataSource', 'key', 0, 'a', 'b') }}>Button #4</button>
+        <button onClick={e => { this.setStateProp('dataSource', 'key', 1, 'c', 'd') }}>Button #5</button>
       </div>
     )
   }
@@ -44,8 +44,8 @@ describe('BaseComponent', () => {
   test('array structure involved', () => {
     const wrapper = shallow(<MyComponent />)
     wrapper.find('button').at(4).simulate('click')
-    expect(wrapper.state()).toEqual({ dataSource: [{ a: 'b' }] })
+    expect(wrapper.state()).toEqual({ dataSource: { key: [{ a: 'b' }] } })
     wrapper.find('button').at(5).simulate('click')
-    expect(wrapper.state()).toEqual({ dataSource: [{ a: 'b', c: 'd' }] })
+    expect(wrapper.state()).toEqual({ dataSource: { key: [{ a: 'b' }, { c: 'd' }] } })
   })
 })
