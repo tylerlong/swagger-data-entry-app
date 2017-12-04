@@ -1,27 +1,12 @@
-import { types, detach } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 import PathItem from './PathItem'
+import { mapActions } from '../../utils'
 
 const Paths = types.model({
   paths: types.map(PathItem)
 }).actions(self => ({
-  removePath (name) {
-    self.paths.delete(name)
-  },
-  newPath (uuid) {
-    self.paths.set(uuid, {})
-  },
-  renamePath (name, newName) {
-    if (newName === name) {
-      return
-    }
-    if (self.paths.has(newName)) {
-      return
-    }
-    const node = self.paths.get(name)
-    detach(node)
-    self.paths.set(newName, node)
-  }
+  ...mapActions(self, 'path')
 }))
 
 export default Paths
