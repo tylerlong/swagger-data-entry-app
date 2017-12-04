@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Input, Card, Button, Select, Icon } from 'antd'
 
-import Extension from './common/Extension'
+import Extensions from './common/Extensions'
 import RequiredFields from './common/RequiredFields'
 import OptionalFields from './common/OptionalFields'
 
@@ -30,7 +30,7 @@ class SwaggerFields extends React.Component {
         defaultValue={swagger.consumes.toJSON()} onChange={value => { this.form.consumes = value }} />,
       produces: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={swagger.produces.toJSON()} onChange={value => { this.form.produces = value }} />,
-      'x-extension-fields': () => <Extension extensionFields={swagger['x-extension-fields']} />
+      'x-extension-fields': () => <Extensions extensionFields={swagger['x-extension-fields']} />
     }
     this.defaultValues = {
       host: '',

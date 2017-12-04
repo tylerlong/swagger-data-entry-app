@@ -4,7 +4,7 @@ import { Button, Icon, Input } from 'antd'
 import { getParent } from 'mobx-state-tree'
 
 import OptionalFields from '../common/OptionalFields'
-import Extension from '../common/Extension'
+import Extensions from '../common/Extensions'
 import RequiredFields from '../common/RequiredFields'
 import Operation from './Operation'
 
@@ -22,7 +22,7 @@ class PathItem extends React.Component {
       put: () => <Operation operation={pathItem.put} />,
       delete: () => <Operation operation={pathItem.delete} />,
       head: () => <Operation operation={pathItem.head} />,
-      'x-extension-fields': () => <Extension extensionFields={pathItem['x-extension-fields']} />
+      'x-extension-fields': () => <Extensions extensionFields={pathItem['x-extension-fields']} />
     }
     this.defaultValues = {
       get: { responses: { default: { description: 'OK' } } },

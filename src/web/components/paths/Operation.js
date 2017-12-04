@@ -4,7 +4,7 @@ import { Select, Card, Button, Icon, Input, Checkbox } from 'antd'
 
 import OptionalFields from '../common/OptionalFields'
 import RequiredFields from '../common/RequiredFields'
-import Extension from '../common/Extension'
+import Extensions from '../common/Extensions'
 import Parameters from './Parameters'
 import Responses from './Responses'
 
@@ -27,7 +27,7 @@ class Operation extends React.Component {
         defaultValue={operation.consumes.toJSON()} onChange={value => { this.form.consumes = value }} />,
       produces: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
         defaultValue={operation.produces.toJSON()} onChange={value => { this.form.produces = value }} />,
-      'x-extension-fields': () => <Extension extensionFields={operation['x-extension-fields']} />,
+      'x-extension-fields': () => <Extensions extensionFields={operation['x-extension-fields']} />,
       parameters: () => <Parameters parameters={operation.parameters} />
     }
     this.defaultValues = {

@@ -8,7 +8,7 @@ import { observer } from 'mobx-react'
 import BaseComponent from './BaseComponent'
 import { normalizeValue } from '../../utils'
 
-class Extension extends BaseComponent {
+class Extensions extends BaseComponent {
   constructor (props) {
     super(props)
     this.state = this.fromStore()
@@ -78,4 +78,4 @@ class Extension extends BaseComponent {
   }
 }
 
-export default observer(Extension)
+export default observer(Extensions)
