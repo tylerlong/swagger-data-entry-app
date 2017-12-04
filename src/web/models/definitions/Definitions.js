@@ -1,19 +1,4 @@
-import { types } from 'mobx-state-tree'
-
 import Schema from './Schema'
-import { mapActions } from '../../utils'
+import Dictionary from '../common/Dictionary'
 
-const Definitions = types.model({
-  definitions: types.union(types.map(Schema), types.undefined)
-}).volatile(self => ({
-  activeDefinition: ''
-})).actions(self => ({
-  afterCreate () {
-    if (self.definitions === undefined) {
-      self.definitions = {}
-    }
-  },
-  ...mapActions(self, 'definition')
-}))
-
-export default Definitions
+export default Dictionary('definition', Schema)

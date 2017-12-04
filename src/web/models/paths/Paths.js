@@ -1,12 +1,5 @@
-import { types } from 'mobx-state-tree'
-
 import PathItem from './PathItem'
-import { mapActions } from '../../utils'
 
-const Paths = types.model({
-  paths: types.map(PathItem)
-}).actions(self => ({
-  ...mapActions(self, 'path')
-}))
+import Dictionary from '../common/Dictionary'
 
-export default Paths
+export default Dictionary('path', PathItem, false)

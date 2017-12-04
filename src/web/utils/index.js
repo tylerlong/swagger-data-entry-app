@@ -2,9 +2,11 @@ import * as R from 'ramda'
 import { getType, detach } from 'mobx-state-tree'
 import pluralize from 'pluralize'
 
+export const capitalize = (str) => R.replace(/^./, R.toUpper)(str)
+
 export const mapActions = (self, model) => {
   const actions = {}
-  const capitalized = R.replace(/^./, R.toUpper)(model)
+  const capitalized = capitalize(model)
   const pluralized = pluralize(model)
   actions[`remove${capitalized}`] = (name) => {
     self[`${pluralized}`].delete(name)

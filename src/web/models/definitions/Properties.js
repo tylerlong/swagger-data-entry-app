@@ -1,19 +1,4 @@
-import { types } from 'mobx-state-tree'
-
 import Property from './Property'
-import { mapActions } from '../../utils'
+import Dictionary from '../common/Dictionary'
 
-const Properties = types.model({
-  properties: types.union(types.map(Property), types.undefined)
-}).volatile(self => ({
-  activeProperty: ''
-})).actions(self => ({
-  afterCreate () {
-    if (self.properties === undefined) {
-      self.properties = {}
-    }
-  },
-  ...mapActions(self, 'property')
-}))
-
-export default Properties
+export default Dictionary('property', Property)
