@@ -13,7 +13,7 @@ class OptionalFields extends React.Component {
       {
         dataIndex: 'name',
         key: 'name',
-        width: '128px',
+        width: '135px',
         className: 'form-label',
         render: (text, record, index) => {
           if (tooltips && tooltips[text]) {
