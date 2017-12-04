@@ -6,6 +6,7 @@ import { observer } from 'mobx-react'
 import RequiredFields from '../common/RequiredFields'
 import OptionalFields from '../common/OptionalFields'
 import { primitiveTypes, normalizeValue } from '../../utils'
+import swaggerStore from '../../models/swaggerStore'
 
 class Property extends React.Component {
   constructor (props) {
@@ -17,7 +18,12 @@ class Property extends React.Component {
       this.requiredFields.name = <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />
     }
     this.optionalFields = {
-      $ref: () => <Input defaultValue={property.$ref} onChange={e => { this.form.$ref = e.target.value }} />,
+      $ref: () => (
+        <Select defaultValue={property.$ref} style={{ width: '100%' }}
+          onChange={value => { this.form.$ref = value }}>
+          {swaggerStore.definitionNames.map(name => <Select.Option value={`#/definitions/${name}`} key={name}>{`#/definitions/${name}`}</Select.Option>)}
+        </Select>
+      ),
       type: () => (
         <Select defaultValue={property.type} style={{ width: '100%' }}
           onChange={value => { this.form.type = value }}>

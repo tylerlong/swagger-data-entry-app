@@ -29,6 +29,19 @@ const SwaggerStore = types.model({
   swaggerFiles: types.array(SwaggerFile)
 }).volatile(self => ({
   activeTab: 'home'
+})).views(self => ({
+  get definitionNames () {
+    if (self.activeTab === 'home') {
+      return []
+    }
+    return R.pipe(
+      R.find(R.propEq('filePath', self.activeTab)),
+      R.prop('swagger'),
+      R.prop('definitions'),
+      R.invoker(0, 'keys'),
+      R.sortBy(R.identity)
+    )(self.swaggerFiles)
+  }
 })).actions(self => ({
   open (filePath) {
     if (R.find(R.propEq('filePath', filePath), self.swaggerFiles)) {
