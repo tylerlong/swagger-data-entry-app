@@ -9,26 +9,22 @@ import PathItem from './PathItem'
 import BaseComponent from '../common/BaseComponent'
 
 class Paths extends BaseComponent {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
   render () {
     const { paths } = this.props
+    const parent = getParent(paths)
     return (
       <Card title='Paths'>
         <Button style={{ marginBottom: '16px' }} onClick={e => {
           const uuid = uuidv1()
-          getParent(paths).newPath(uuid)
-          this.setStateProp('activeKey', uuid)
+          parent.newPath(uuid)
+          parent.setActivePath(uuid)
         }}><Icon type='plus' />Add</Button>
         {paths.size < 1 ? null : (
-          <Collapse accordion activeKey={this.state.activeKey}
-            onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
+          <Collapse accordion activeKey={parent.activePath}
+            onChange={targetKey => { parent.setActivePath(targetKey) }}>
             {R.sortBy(R.prop(0), paths.entries()).map(([name, pathItem]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-                onConfirm={() => { getParent(paths).removePath(name) }}
+                onConfirm={() => { parent.removePath(name) }}
                 onClick={e => e.stopPropagation()}>
                 <Button style={{ marginLeft: '8px' }} type='danger' size='small'><Icon type='delete' />Delete</Button>
               </Popconfirm>
