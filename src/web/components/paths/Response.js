@@ -15,7 +15,7 @@ class Response extends React.Component {
     const { name, response } = props
     this.requiredFields = {
       name: <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />,
-      description: <Input defaultValue={response.description} onChange={e => { this.form.description = e.target.value }} />
+      description: <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} defaultValue={response.description} onChange={e => { this.form.description = e.target.value }} />
     }
     if (!name) {
       delete this.requiredFields.name

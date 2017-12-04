@@ -25,7 +25,7 @@ class Tags extends BaseComponent {
         dataIndex: 'description',
         width: '75%',
         render: (text, record, index) => {
-          return <Input placeholder='description' value={text} onChange={e => { this.setStateProp('dataSource', index, 'description', e.target.value) }} />
+          return <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} placeholder='description' value={text} onChange={e => { this.setStateProp('dataSource', index, 'description', e.target.value) }} />
         }
       }
     ]
