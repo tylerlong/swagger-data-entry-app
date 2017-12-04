@@ -1,9 +1,9 @@
-import { types, detach } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import * as R from 'ramda'
 
 import Parameter from './Parameter'
 import Response from './Response'
-import { update, replace } from '../../utils'
+import { update, replace, mapActions } from '../../utils'
 import Extensions from '../Extensions'
 
 let Operation = types.model({
@@ -25,22 +25,10 @@ let Operation = types.model({
   removeParameter (name) {
     self.parameters = R.reject(p => p.name === name, self.parameters)
   },
-  removeResponse (name) {
-    self.responses.delete(name)
-  },
-  newResponse (uuid) {
+  ...mapActions(self, 'response')
+})).actions(self => ({
+  newResponse (uuid) { // override
     self.responses.set(uuid, { description: '' })
-  },
-  renameResponse (name, newName) {
-    if (name === newName) {
-      return
-    }
-    if (self.responses.has(newName)) {
-      return
-    }
-    const node = self.responses.get(name)
-    detach(node)
-    self.responses.set(newName, node)
   }
 }))
 
