@@ -13,10 +13,7 @@ const Definitions = types.model({
       self.definitions = {}
     }
   },
-  ...mapActions(self, 'definition'),
-  setActiveDefinition (uuid) {
-    self.activeDefinition = uuid
-  }
+  ...mapActions(self, 'definition')
 }))
 
 export default Definitions

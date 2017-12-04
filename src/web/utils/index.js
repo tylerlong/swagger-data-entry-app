@@ -26,6 +26,9 @@ export const mapActions = (self, model) => {
       self[`active${capitalized}`] = newName
     }
   }
+  actions[`setActive${capitalized}`] = (uuid) => {
+    self[`active${capitalized}`] = uuid
+  }
   return actions
 }
 

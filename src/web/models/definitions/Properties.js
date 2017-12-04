@@ -13,10 +13,7 @@ const Properties = types.model({
       self.properties = {}
     }
   },
-  ...mapActions(self, 'property'),
-  setActiveProperty (uuid) {
-    self.activeProperty = uuid
-  }
+  ...mapActions(self, 'property')
 }))
 
 export default Properties
