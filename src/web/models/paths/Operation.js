@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import Parameter from './Parameter'
 import Response from './Response'
 import { update, replace } from '../../utils'
-import Extensions from './Extensions'
+import Extensions from '../Extensions'
 
 let Operation = types.model({
   tags: types.union(types.array(types.string), types.undefined),

@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree'
 
 import Operation from './Operation'
 import { update, replace } from '../../utils'
-import Extensions from './Extensions'
+import Extensions from '../Extensions'
 
 let PathItem = types.model({
   get: types.union(Operation, types.undefined),
