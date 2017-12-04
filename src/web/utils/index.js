@@ -1,5 +1,29 @@
 import * as R from 'ramda'
-import { getType } from 'mobx-state-tree'
+import { getType, detach } from 'mobx-state-tree'
+
+const capitalize = R.replace(/^./, R.toUpper)
+
+export const mapActions = (self, model) => {
+  const actions = {}
+  actions[`remove${capitalize(model)}`] = (name) => {
+    self[`${model}s`].delete(name)
+  }
+  actions[`new${capitalize(model)}`] = (uuid) => {
+    self[`${model}s`].set(uuid, {})
+  }
+  actions[`rename${capitalize(model)}`] = (name, newName) => {
+    if (newName === name) {
+      return
+    }
+    if (self[`${model}s`].has(newName)) {
+      return
+    }
+    const node = self[`${model}s`].get(name)
+    detach(node)
+    self[`${model}s`].set(newName, node)
+  }
+  return actions
+}
 
 export const update = self => {
   return (key, value) => {

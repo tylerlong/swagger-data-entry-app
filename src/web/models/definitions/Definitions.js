@@ -1,6 +1,7 @@
-import { types, detach } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 import Schema from './Schema'
+import { mapActions } from '../../utils'
 
 const Definitions = types.model({
   definitions: types.union(types.map(Schema), types.undefined)
@@ -10,23 +11,7 @@ const Definitions = types.model({
       self.definitions = {}
     }
   },
-  removeDefinition (name) {
-    self.definitions.delete(name)
-  },
-  newDefinition (uuid) {
-    self.definitions.set(uuid, {})
-  },
-  renameDefinition (name, newName) {
-    if (newName === name) {
-      return
-    }
-    if (self.definitions.has(newName)) {
-      return
-    }
-    const node = self.definitions.get(name)
-    detach(node)
-    self.definitions.set(newName, node)
-  }
+  ...mapActions(self, 'definition')
 }))
 
 export default Definitions
