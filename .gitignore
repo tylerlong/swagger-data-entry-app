@@ -1,6 +1,7 @@
 node_modules/
 *.bundle.*
 dist/
+test/fixtures/
 
 # misc
 .DS_Store
