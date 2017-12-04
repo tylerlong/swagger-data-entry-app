@@ -21,20 +21,6 @@ export const replace = self => {
   }
 }
 
-export const extensionFieldActions = self => {
-  return {
-    updateExtensionField (name, val) {
-      self['x-extension-fields'].set(name, val)
-    },
-    replaceExtensionFields (fields) {
-      self['x-extension-fields'] = {}
-      R.forEach(([name, val]) => {
-        self.updateExtensionField(name, val)
-      }, fields)
-    }
-  }
-}
-
 export const removeUnexpectedProps = (o, unexpectedKeys = [], unexpectedValues = []) => {
   const obj = R.clone(o)
   Object.keys(obj).forEach(key => {
