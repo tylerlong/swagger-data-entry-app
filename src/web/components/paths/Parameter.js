@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input, Icon, Button, Select, Checkbox, InputNumber, Card } from 'antd'
 import { observer } from 'mobx-react'
+import { getParent } from 'mobx-state-tree'
 
 import RequiredFields from '../common/RequiredFields'
 import OptionalFields from '../common/OptionalFields'
@@ -64,9 +65,15 @@ class Parameter extends React.Component {
 
   render () {
     const { parameter } = this.props
+    const parent = getParent(getParent(parameter))
     return (
       <div>
-        <Button onClick={() => { parameter.replace(this.form) }}><Icon type='save' /> Save</Button>
+        <Button onClick={() => {
+          if (this.form.name && parent.activeParameter === parameter.name && this.form.name !== parameter.name) {
+            parent.setActiveParameter(this.form.name)
+          }
+          parameter.replace(this.form)
+        }}><Icon type='save' /> Save</Button>
         <RequiredFields requiredFields={this.requiredFields} />
         <OptionalFields
           optionalFields={this.optionalFields}

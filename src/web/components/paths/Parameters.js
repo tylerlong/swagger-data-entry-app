@@ -9,25 +9,21 @@ import Parameter from './Parameter'
 import BaseComponent from '../common/BaseComponent'
 
 class Parameters extends BaseComponent {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
   render () {
     const { parameters } = this.props
+    const parent = getParent(parameters)
     return (
       <Card>
         <Button style={{ marginBottom: '16px' }} onClick={e => {
           const uuid = uuidv1()
-          getParent(parameters).newParameter(uuid)
-          this.setStateProp('activeKey', uuid)
+          parent.newParameter(uuid)
+          parent.setActiveParameter(uuid)
         }}><Icon type='plus' />Add</Button>
         {parameters.size < 1 ? null : (
-          <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
+          <Collapse accordion activeKey={parent.activeParameter} onChange={targetKey => { parent.setActiveParameter(targetKey) }}>
             {R.sortBy(R.prop('name'), parameters).map(parameter => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-                onConfirm={() => getParent(parameters).removeParameter(parameter.name)} onClick={e => e.stopPropagation()}>
+                onConfirm={() => parent.removeParameter(parameter.name)} onClick={e => e.stopPropagation()}>
                 <Button style={{ marginLeft: '8px' }} type='danger' size='small'><Icon type='delete' />Delete</Button>
               </Popconfirm>
               return <Collapse.Panel header={<span>{parameter.name} {deleteButton}</span>} key={parameter.name}>

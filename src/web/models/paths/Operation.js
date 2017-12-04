@@ -15,7 +15,9 @@ let Operation = types.model({
   consumes: types.union(types.array(types.string), types.undefined),
   produces: types.union(types.array(types.string), types.undefined),
   parameters: types.union(types.array(Parameter), types.undefined)
-}).actions(self => ({
+}).volatile(self => ({
+  activeParameter: ''
+})).actions(self => ({
   update: update(self),
   replace: replace(self),
   newParameter (uuid) {
@@ -23,6 +25,9 @@ let Operation = types.model({
   },
   removeParameter (name) {
     self.parameters = R.reject(p => p.name === name, self.parameters)
+  },
+  setActiveParameter (uuid) {
+    self.activeParameter = uuid
   }
 }))
 
