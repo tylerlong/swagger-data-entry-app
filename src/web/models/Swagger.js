@@ -4,31 +4,23 @@ import Info from './info/Info'
 import Tag from './tags/Tag'
 import PathItem from './paths/PathItem'
 import Schema from './definitions/Schema'
-import { update, replace, extensionFieldActions } from '../utils'
+import { update, replace } from '../utils'
+import Extensions from './Extensions'
 
-const Swagger = types.model({
+let Swagger = types.model({
   swagger: types.literal('2.0'),
   host: types.union(types.string, types.undefined),
   schemes: types.union(types.array(types.enumeration(['http', 'https', 'ws', 'wss'])), types.undefined),
   basePath: types.union(types.string, types.undefined),
   consumes: types.union(types.array(types.string), types.undefined),
   produces: types.union(types.array(types.string), types.undefined),
-  'x-extension-fields': types.union(types.map(types.union(types.string, types.boolean, types.number)), types.undefined),
   info: Info,
   tags: types.union(types.array(Tag), types.undefined),
   paths: types.map(PathItem),
   definitions: types.union(types.map(Schema), types.undefined)
-}).views(self => ({
-  extensionField (name) {
-    if (self['x-extension-fields'] === undefined) {
-      return undefined
-    }
-    return self['x-extension-fields'].get(name)
-  }
-})).actions(self => ({
+}).actions(self => ({
   update: update(self),
   replace: replace(self),
-  ...extensionFieldActions(self),
   afterCreate () {
     if (self.tags === undefined) {
       self.tags = []
@@ -70,5 +62,7 @@ const Swagger = types.model({
     self.paths.delete(name)
   }
 }))
+
+Swagger = types.compose(Swagger, Extensions)
 
 export default Swagger
