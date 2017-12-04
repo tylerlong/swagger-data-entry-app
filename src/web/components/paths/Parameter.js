@@ -49,6 +49,7 @@ class Parameter extends React.Component {
       format: '',
       description: '',
       required: false,
+      allowEmptyValue: false,
       type: 'string',
       enum: [],
       default: '',
