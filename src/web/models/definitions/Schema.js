@@ -1,7 +1,7 @@
-import { types, detach } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 
 import Property from './Property'
-import { update, replace } from '../../utils'
+import { update, replace, mapActions } from '../../utils'
 
 const Schema = types.model({
   type: types.union(types.literal('object'), types.undefined),
@@ -16,23 +16,7 @@ const Schema = types.model({
       self.properties = {}
     }
   },
-  removeProperty (name) {
-    self.properties.delete(name)
-  },
-  newProperty (uuid) {
-    self.properties.set(uuid, {})
-  },
-  renameProperty (name, newName) {
-    if (name === newName) {
-      return
-    }
-    if (self.properties.has(newName)) {
-      return
-    }
-    const node = self.properties.get(name)
-    detach(node)
-    self.properties.set(newName, node)
-  }
+  ...mapActions(self, 'property')
 }))
 
 export default Schema
