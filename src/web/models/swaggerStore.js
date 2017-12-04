@@ -26,9 +26,10 @@ const SwaggerFile = types.model({
 }))
 
 const SwaggerStore = types.model({
-  activeKey: 'home',
   swaggerFiles: types.array(SwaggerFile)
-}).actions(self => ({
+}).volatile(self => ({
+  activeKey: 'home'
+})).actions(self => ({
   open (filePath) {
     if (R.find(R.propEq('filePath', filePath), self.swaggerFiles)) {
       self.setActiveKey(filePath)
