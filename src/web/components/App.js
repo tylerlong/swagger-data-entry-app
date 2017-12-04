@@ -37,8 +37,8 @@ class App extends React.Component {
 
   render () {
     return (
-      <Tabs hideAdd type='editable-card' onEdit={this.onEdit} activeKey={swaggerStore.activeKey}
-        onChange={targetKey => swaggerStore.setActiveKey(targetKey)}>
+      <Tabs hideAdd type='editable-card' onEdit={this.onEdit} activeKey={swaggerStore.activeTab}
+        onChange={targetKey => swaggerStore.setActiveTab(targetKey)}>
         <Tabs.TabPane key='home' closable={false} tab={<span><Icon type='home' />Home</span>}>
           <Card title='Swagger Specifications' bordered={false}>
             <Button onClick={this.onOpen}>Open</Button>

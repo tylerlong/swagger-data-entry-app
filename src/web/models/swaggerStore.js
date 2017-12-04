@@ -28,11 +28,11 @@ const SwaggerFile = types.model({
 const SwaggerStore = types.model({
   swaggerFiles: types.array(SwaggerFile)
 }).volatile(self => ({
-  activeKey: 'home'
+  activeTab: 'home'
 })).actions(self => ({
   open (filePath) {
     if (R.find(R.propEq('filePath', filePath), self.swaggerFiles)) {
-      self.setActiveKey(filePath)
+      self.setActiveTab(filePath)
       return
     }
     const swagger = Swagger.create(wrapExtensionFields(yaml.safeLoad(global.fs.readFileSync(filePath, 'utf8'))))
@@ -40,7 +40,7 @@ const SwaggerStore = types.model({
       filePath,
       swagger
     }))
-    self.setActiveKey(filePath)
+    self.setActiveTab(filePath)
   },
   create (filePath) {
     const swagger = Swagger.create({
@@ -58,20 +58,20 @@ const SwaggerStore = types.model({
       const swaggerFile = SwaggerFile.create({ filePath, swagger })
       self.swaggerFiles.push(swaggerFile)
     }
-    self.setActiveKey(filePath)
+    self.setActiveTab(filePath)
   },
   clear () {
     self.swaggerFiles = []
-    self.setActiveKey('home')
+    self.setActiveTab('home')
   },
   close (filePath) {
     self.swaggerFiles = R.reject(R.propEq('filePath', filePath), self.swaggerFiles)
-    if (filePath === self.activeKey) {
-      self.setActiveKey('home')
+    if (filePath === self.activeTab) {
+      self.setActiveTab('home')
     }
   },
-  setActiveKey (key) {
-    self.activeKey = key
+  setActiveTab (key) {
+    self.activeTab = key
     if (key === 'home') {
       currentWindow.setTitle(productName)
     } else {
