@@ -19,8 +19,12 @@ class Schema extends React.Component {
     }
     this.optionalFields = {
       description: () => <Input.TextArea autosize={{ minRows: 2, maxRows: 6 }} defaultValue={schema.description} onChange={e => { this.form.description = e.target.value }} />,
-      required: () => <Select placeholder='Input some text then press enter' mode='tags' style={{ width: '100%' }}
-        defaultValue={schema.required.toJSON()} onChange={value => { this.form.required = value }} />
+      required: () => (
+        <Select mode='multiple' style={{ width: '100%' }}
+          defaultValue={schema.required.toJSON()} onChange={value => { this.form.required = value }}>
+          {schema.properties.keys().map(name => <Select.Option value={name} key={name}>{name}</Select.Option>)}
+        </Select>
+      )
     }
     this.defaultValues = {
       description: '',
