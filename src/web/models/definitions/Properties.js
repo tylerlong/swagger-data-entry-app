@@ -1,0 +1,17 @@
+import { types } from 'mobx-state-tree'
+
+import Property from './Property'
+import { mapActions } from '../../utils'
+
+const Properties = types.model({
+  properties: types.union(types.map(Property), types.undefined)
+}).actions(self => ({
+  afterCreate () {
+    if (self.properties === undefined) {
+      self.properties = {}
+    }
+  },
+  ...mapActions(self, 'property')
+}))
+
+export default Properties
