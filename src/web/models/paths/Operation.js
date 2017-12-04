@@ -2,8 +2,8 @@ import { types } from 'mobx-state-tree'
 import * as R from 'ramda'
 
 import Parameter from './Parameter'
-import Response from './Response'
-import { update, replace, mapActions } from '../../utils'
+import Responses from './Responses'
+import { update, replace } from '../../utils'
 import Extensions from '../common/Extensions'
 
 let Operation = types.model({
@@ -14,8 +14,7 @@ let Operation = types.model({
   deprecated: types.union(types.boolean, types.undefined),
   consumes: types.union(types.array(types.string), types.undefined),
   produces: types.union(types.array(types.string), types.undefined),
-  parameters: types.union(types.array(Parameter), types.undefined),
-  responses: types.map(Response)
+  parameters: types.union(types.array(Parameter), types.undefined)
 }).actions(self => ({
   update: update(self),
   replace: replace(self),
@@ -24,14 +23,9 @@ let Operation = types.model({
   },
   removeParameter (name) {
     self.parameters = R.reject(p => p.name === name, self.parameters)
-  },
-  ...mapActions(self, 'response')
-})).actions(self => ({
-  newResponse (uuid) { // override
-    self.responses.set(uuid, { description: '' })
   }
 }))
 
-Operation = types.compose(Operation, Extensions)
+Operation = types.compose(Operation, Responses, Extensions)
 
 export default Operation
