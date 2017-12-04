@@ -44,6 +44,10 @@ class App extends React.Component {
             <Button onClick={this.onOpen}>Open</Button>
             <Button onClick={this.onCreate}>Create</Button>
           </Card>
+          <Card title='Utilities' bordered={false}>
+            <Button onClick={swaggerStore.json2yaml}>Convert JSON to YAML</Button>
+            <Button onClick={swaggerStore.yaml2json}>Convert YAML to JSON</Button>
+          </Card>
         </Tabs.TabPane>
         {swaggerStore.swaggerFiles.map(swaggerFile => (
           <Tabs.TabPane key={swaggerFile.filePath} tab={R.last(swaggerFile.filePath.split('/'))}>

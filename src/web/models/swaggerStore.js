@@ -90,6 +90,42 @@ const SwaggerStore = types.model({
     } else {
       currentWindow.setTitle(`${key} · ${productName}`)
     }
+  },
+  json2yaml () {
+    const filesOpened = global.electron.dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [{ name: 'JSON files', extensions: ['json'] }]
+    })
+    if (filesOpened) {
+      const fileOpened = filesOpened[0]
+      const fileToSave = global.electron.dialog.showSaveDialog({
+        filters: [{ name: 'YAML files', extensions: ['yaml', 'yml'] }]
+      })
+      if (fileToSave) {
+        const data = global.fs.readFileSync(fileOpened, 'utf-8')
+        const yml = yaml.dump(JSON.parse(data))
+        global.fs.writeFileSync(fileToSave, yml, 'utf-8')
+        global.electron.shell.showItemInFolder(fileToSave)
+      }
+    }
+  },
+  yaml2json () {
+    const filesOpened = global.electron.dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [{ name: 'YAML files', extensions: ['yaml', 'yml'] }]
+    })
+    if (filesOpened) {
+      const fileOpened = filesOpened[0]
+      const fileToSave = global.electron.dialog.showSaveDialog({
+        filters: [{ name: 'JSON files', extensions: ['json'] }]
+      })
+      if (fileToSave) {
+        const data = global.fs.readFileSync(fileOpened, 'utf-8')
+        const json = JSON.stringify(yaml.load(data), null, 2)
+        global.fs.writeFileSync(fileToSave, json, 'utf-8')
+        global.electron.shell.showItemInFolder(fileToSave)
+      }
+    }
   }
 }))
 

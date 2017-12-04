@@ -19,7 +19,7 @@ yarn start
 ## Distribution
 
 ```
-yarn dist
+GH_TOKEN=<github-token> yarn dist
 ```
 
 
