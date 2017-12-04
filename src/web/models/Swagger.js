@@ -2,10 +2,10 @@ import { types } from 'mobx-state-tree'
 
 import Info from './info/Info'
 import PathItem from './paths/PathItem'
-import Schema from './definitions/Schema'
 import { update, replace } from '../utils'
 import Extensions from './Extensions'
 import Tags from './tags/Tags'
+import Definitions from './definitions/Definitions'
 
 let Swagger = types.model({
   swagger: types.literal('2.0'),
@@ -15,32 +15,10 @@ let Swagger = types.model({
   consumes: types.union(types.array(types.string), types.undefined),
   produces: types.union(types.array(types.string), types.undefined),
   info: Info,
-  paths: types.map(PathItem),
-  definitions: types.union(types.map(Schema), types.undefined)
+  paths: types.map(PathItem)
 }).actions(self => ({
   update: update(self),
   replace: replace(self),
-  afterCreate () {
-    if (self.definitions === undefined) {
-      self.definitions = {}
-    }
-  },
-  removeDefinition (name) {
-    self.definitions.delete(name)
-  },
-  newDefinition (uuid) {
-    self.definitions.set(uuid, {})
-  },
-  renameDefinition (name, newName) {
-    if (newName === name) {
-      return
-    }
-    if (self.definitions.has(newName)) {
-      return
-    }
-    self.definitions.set(newName, self.definitions.get(name).toJSON())
-    self.definitions.delete(name)
-  },
   removePath (name) {
     self.paths.delete(name)
   },
@@ -59,6 +37,6 @@ let Swagger = types.model({
   }
 }))
 
-Swagger = types.compose(Swagger, Tags, Extensions)
+Swagger = types.compose(Swagger, Tags, Definitions, Extensions)
 
 export default Swagger

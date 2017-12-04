@@ -1031,6 +1031,8 @@ paths:
       x-metering-group: System
       x-app-permission: ReadCallRecording
       x-user-permission: ReadCallRecordings
+tags:
+  - name: Call Log
 definitions:
   ExtensionCallLogEndpoint:
     type: object
@@ -1615,8 +1617,6 @@ definitions:
       uri:
         type: string
         description: Canonical URI of an extension
-tags:
-  - name: Call Log
 x-auth-required: true
 x-service-version: v1
 x-service-interface: rest
