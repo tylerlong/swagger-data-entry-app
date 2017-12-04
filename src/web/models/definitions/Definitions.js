@@ -5,13 +5,18 @@ import { mapActions } from '../../utils'
 
 const Definitions = types.model({
   definitions: types.union(types.map(Schema), types.undefined)
-}).actions(self => ({
+}).volatile(self => ({
+  activeDefinition: ''
+})).actions(self => ({
   afterCreate () {
     if (self.definitions === undefined) {
       self.definitions = {}
     }
   },
-  ...mapActions(self, 'definition')
+  ...mapActions(self, 'definition'),
+  setActiveDefinition (uuid) {
+    self.activeDefinition = uuid
+  }
 }))
 
 export default Definitions

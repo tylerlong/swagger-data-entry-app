@@ -9,26 +9,22 @@ import Schema from './Schema'
 import BaseComponent from '../common/BaseComponent'
 
 class Definitions extends BaseComponent {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
   render () {
     const { definitions } = this.props
+    const parent = getParent(definitions)
     return (
       <Card title='Definitions'>
         <Button style={{ marginBottom: '16px' }} onClick={e => {
           const uuid = uuidv1()
-          getParent(definitions).newDefinition(uuid)
-          this.setStateProp('activeKey', uuid)
+          parent.newDefinition(uuid)
+          parent.setActiveDefinition(uuid)
         }}><Icon type='plus' />Add</Button>
         {definitions.size < 1 ? null : (
-          <Collapse accordion activeKey={this.state.activeKey}
-            onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
+          <Collapse accordion activeKey={parent.activeDefinition}
+            onChange={targetKey => { parent.setActiveDefinition(targetKey) }}>
             {R.sortBy(R.prop(0), definitions.entries()).map(([name, schema]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-                onConfirm={() => { getParent(definitions).removeDefinition(name) }}
+                onConfirm={() => { parent.removeDefinition(name) }}
                 onClick={e => e.stopPropagation()}>
                 <Button style={{ marginLeft: '8px' }} type='danger' size='small'><Icon type='delete' />Delete</Button>
               </Popconfirm>

@@ -22,6 +22,9 @@ export const mapActions = (self, model) => {
     const node = self[`${pluralized}`].get(name)
     detach(node)
     self[`${pluralized}`].set(newName, node)
+    if (self[`active${capitalized}`] === name) {
+      self[`active${capitalized}`] = newName
+    }
   }
   return actions
 }
