@@ -13,7 +13,8 @@ describe('Snapshot testing', () => {
         ['xml'], // xml attribute will be removed from the spec
         [{}] // messaging.yml & call-log.yml entity.properties
       )
-      const actual = unwrapExtensionFields(toAndFromJson(swagger))
+      let actual = unwrapExtensionFields(toAndFromJson(swagger))
+      actual = removeUnexpectedProps(actual, [], [{}]) // remove afterCreate() created properties
       expect(actual).toEqual(expected)
     }, swaggers)
   })
