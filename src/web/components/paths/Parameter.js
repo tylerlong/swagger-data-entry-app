@@ -67,14 +67,15 @@ class Parameter extends React.Component {
   render () {
     const { parameter } = this.props
     const parent = getParent(getParent(parameter))
+    const button = <Button onClick={() => {
+      if (this.form.name && parent.activeParameter === parameter.name && this.form.name !== parameter.name) {
+        parent.setActiveParameter(this.form.name)
+      }
+      parameter.replace(this.form)
+    }}><Icon type='save' /> Save</Button>
     return (
       <div>
-        <Button onClick={() => {
-          if (this.form.name && parent.activeParameter === parameter.name && this.form.name !== parameter.name) {
-            parent.setActiveParameter(this.form.name)
-          }
-          parameter.replace(this.form)
-        }}><Icon type='save' /> Save</Button>
+        {button}
         <RequiredFields requiredFields={this.requiredFields} />
         <OptionalFields
           optionalFields={this.optionalFields}
@@ -82,6 +83,7 @@ class Parameter extends React.Component {
           model={parameter}
           form={this.form}
           tooltips={this.tooltips} />
+        {button}
       </div>
     )
   }

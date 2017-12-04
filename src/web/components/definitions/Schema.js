@@ -38,14 +38,15 @@ class Schema extends React.Component {
 
   render () {
     const { name, schema } = this.props
+    const button = <Button onClick={e => {
+      schema.replace(this.form)
+      if (this.form.name) {
+        getParent(getParent(schema)).renameDefinition(name, this.form.name)
+      }
+    }}><Icon type='save' />Save</Button>
     return (
       <div>
-        <Button onClick={e => {
-          schema.replace(this.form)
-          if (this.form.name) {
-            getParent(getParent(schema)).renameDefinition(name, this.form.name)
-          }
-        }}><Icon type='save' />Save</Button>
+        {button}
         <RequiredFields
           requiredFields={this.requiredFields}
           tooltips={this.tooltips} />
@@ -55,6 +56,7 @@ class Schema extends React.Component {
           model={schema}
           form={this.form}
           tooltips={this.tooltips} />
+        {button}
       </div>
     )
   }

@@ -51,17 +51,23 @@ class Examples extends BaseComponent {
   }
 
   render () {
+    const buttons = (
+      <div>
+        <Button onClick={e => { this.setStateProp('dataSource', R.append({ key: uuidv1(), mimeType: '', content: '' })) }}>
+          <Icon type='plus' />Add
+      </Button>
+        <Button onClick={e => {
+          getParent(this.props.examples).update('examples', this.toStore()) // sync state to store
+          this.setState(this.fromStore()) // sync store to state
+        }}>
+          <Icon type='save' />Save
+      </Button>
+      </div>
+    )
     return <Card title='Examples'>
-      <Button onClick={e => { this.setStateProp('dataSource', R.append({ key: uuidv1(), mimeType: '', content: '' })) }}>
-        <Icon type='plus' />Add
-      </Button>
-      <Button onClick={e => {
-        getParent(this.props.examples).update('examples', this.toStore()) // sync state to store
-        this.setState(this.fromStore()) // sync store to state
-      }}>
-        <Icon type='save' />Save
-      </Button>
-      <Table style={{ marginTop: '16px' }} size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={false} />
+      {buttons}
+      <Table style={{ marginTop: '16px', marginBottom: '16px' }} size='middle' dataSource={this.state.dataSource} columns={this.columns} pagination={false} />
+      {buttons}
       <ul style={{ marginTop: '16px' }}>
         <li><Icon type='pushpin' /> Clear a row and save to delete it</li>
       </ul>

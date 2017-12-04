@@ -35,14 +35,15 @@ class Response extends React.Component {
 
   render () {
     const { name, response } = this.props
+    const button = <Button onClick={() => {
+      response.replace(this.form)
+      if (name && this.form.name) {
+        getParent(getParent(response)).renameResponse(name, this.form.name)
+      }
+    }}><Icon type='save' /> Save</Button>
     return (
       <div>
-        <Button onClick={() => {
-          response.replace(this.form)
-          if (name && this.form.name) {
-            getParent(getParent(response)).renameResponse(name, this.form.name)
-          }
-        }}><Icon type='save' /> Save</Button>
+        {button}
         <RequiredFields
           requiredFields={this.requiredFields}
           tooltips={this.tooltips} />
@@ -51,6 +52,7 @@ class Response extends React.Component {
           defaultValues={this.defaultValues}
           model={response}
           form={this.form} />
+        {button}
       </div>
     )
   }

@@ -23,15 +23,17 @@ class License extends React.Component {
 
   render () {
     const { license } = this.props
+    const button = <Button onClick={() => license.replace(this.form)}><Icon type='save' /> Save</Button>
     return (
       <Card>
-        <Button onClick={() => license.replace(this.form)}><Icon type='save' /> Save</Button>
+        {button}
         <RequiredFields requiredFields={this.requiredFields} />
         <OptionalFields
           optionalFields={this.optionalFields}
           defaultValues={this.defaultValues}
           model={license}
           form={this.form} />
+        {button}
       </Card>
     )
   }

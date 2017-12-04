@@ -47,9 +47,10 @@ class SwaggerFields extends React.Component {
 
   render () {
     const { swagger } = this.props
+    const button = <Button onClick={() => swagger.replace(this.form)}><Icon type='save' /> Save</Button>
     return (
       <Card title='Swagger'>
-        <Button onClick={() => swagger.replace(this.form)}><Icon type='save' /> Save</Button>
+        {button}
         <RequiredFields
           requiredFields={this.requiredFields}
           tooltips={this.tooltips} />
@@ -59,6 +60,7 @@ class SwaggerFields extends React.Component {
           model={swagger}
           form={this.form}
           tooltips={this.tooltips} />
+        {button}
       </Card>
     )
   }
