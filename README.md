@@ -27,7 +27,6 @@ yarn dist
 
 - CMD - S to save everything
 - CMD - R auto load the current file
-- Go through UI inputs and improve convenience
 
 
 ## Bonus improvements

@@ -80,6 +80,9 @@ export const unwrapExtensionFields = o => {
 }
 
 export const normalizeValue = value => {
+  if (typeof value !== 'string') {
+    return value
+  }
   let v = R.clone(value)
   v = v.trim()
   if (!isNaN(v)) {
