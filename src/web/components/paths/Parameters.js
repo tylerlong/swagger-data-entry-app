@@ -21,7 +21,7 @@ class Parameters extends BaseComponent {
       <Card>
         {buttons}
         {parameters.size < 1 ? null : (
-          <Collapse accordion activeKey={parent.activeParameter} onChange={targetKey => { parent.setActiveParameter(targetKey) }}>
+          <Collapse style={{ marginBottom: '16px' }} accordion activeKey={parent.activeParameter} onChange={targetKey => { parent.setActiveParameter(targetKey) }}>
             {R.sortBy(R.prop('name'), parameters).map(parameter => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
                 onConfirm={() => parent.removeParameter(parameter.name)} onClick={e => e.stopPropagation()}>

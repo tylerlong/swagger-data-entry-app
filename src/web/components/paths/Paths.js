@@ -21,7 +21,7 @@ class Paths extends BaseComponent {
       <Card title='Paths'>
         {buttons}
         {paths.size < 1 ? null : (
-          <Collapse accordion activeKey={parent.activePath} onChange={targetKey => { parent.setActivePath(targetKey) }}>
+          <Collapse style={{ marginBottom: '16px' }} accordion activeKey={parent.activePath} onChange={targetKey => { parent.setActivePath(targetKey) }}>
             {R.sortBy(R.prop(0), paths.entries()).map(([name, pathItem]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
                 onConfirm={() => { parent.removePath(name) }}

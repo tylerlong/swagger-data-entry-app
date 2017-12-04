@@ -21,7 +21,7 @@ class Responses extends BaseComponent {
       <Card>
         {buttons}
         {responses.size < 1 ? null : (
-          <Collapse accordion activeKey={parent.activeResponse} onChange={targetKey => { parent.setActiveResponse(targetKey) }}>
+          <Collapse style={{ marginBottom: '16px' }} accordion activeKey={parent.activeResponse} onChange={targetKey => { parent.setActiveResponse(targetKey) }}>
             {R.sortBy(R.prop(0), responses.entries()).map(([name, response]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
                 onConfirm={() => parent.removeResponse(name)} onClick={e => e.stopPropagation()}>

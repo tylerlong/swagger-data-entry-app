@@ -21,7 +21,7 @@ class Properties extends BaseComponent {
       <Card>
         {buttons}
         {properties.size < 1 ? null : (
-          <Collapse accordion activeKey={parent.activeProperty} onChange={targetKey => { parent.setActiveProperty(targetKey) }}>
+          <Collapse style={{ marginBottom: '16px' }} accordion activeKey={parent.activeProperty} onChange={targetKey => { parent.setActiveProperty(targetKey) }}>
             {R.sortBy(R.prop(0), properties.entries()).map(([name, property]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
                 onConfirm={() => parent.removeProperty(name)} onClick={e => e.stopPropagation()}>
