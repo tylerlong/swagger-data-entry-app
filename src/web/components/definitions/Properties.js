@@ -9,25 +9,21 @@ import Property from './Property'
 import BaseComponent from '../common/BaseComponent'
 
 class Properties extends BaseComponent {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
   render () {
     const { properties } = this.props
+    const parent = getParent(properties)
     return (
       <Card>
         <Button style={{ marginBottom: '16px' }} onClick={e => {
           const uuid = uuidv1()
-          getParent(properties).newProperty(uuid)
-          this.setStateProp('activeKey', uuid)
+          parent.newProperty(uuid)
+          parent.setActiveProperty(uuid)
         }}><Icon type='plus' />Add</Button>
         {properties.size < 1 ? null : (
-          <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
+          <Collapse accordion activeKey={parent.activeProperty} onChange={targetKey => { parent.setActiveProperty(targetKey) }}>
             {R.sortBy(R.prop(0), properties.entries()).map(([name, property]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-                onConfirm={() => getParent(properties).removeProperty(name)} onClick={e => e.stopPropagation()}>
+                onConfirm={() => parent.removeProperty(name)} onClick={e => e.stopPropagation()}>
                 <Button style={{ marginLeft: '8px' }} type='danger' size='small'><Icon type='delete' />Delete</Button>
               </Popconfirm>
               return <Collapse.Panel header={<span>{name} {deleteButton}</span>} key={name}>

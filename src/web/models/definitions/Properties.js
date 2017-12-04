@@ -5,13 +5,18 @@ import { mapActions } from '../../utils'
 
 const Properties = types.model({
   properties: types.union(types.map(Property), types.undefined)
-}).actions(self => ({
+}).volatile(self => ({
+  activeProperty: ''
+})).actions(self => ({
   afterCreate () {
     if (self.properties === undefined) {
       self.properties = {}
     }
   },
-  ...mapActions(self, 'property')
+  ...mapActions(self, 'property'),
+  setActiveProperty (uuid) {
+    self.activeProperty = uuid
+  }
 }))
 
 export default Properties
