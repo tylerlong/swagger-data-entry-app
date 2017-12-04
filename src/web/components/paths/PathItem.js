@@ -38,7 +38,7 @@ class PathItem extends React.Component {
 
   render () {
     const { name, pathItem } = this.props
-    const button = <Button onClick={e => {
+    const buttons = <Button onClick={e => {
       pathItem.replace(this.form)
       if (this.form.name) {
         getParent(getParent(pathItem)).renamePath(name, this.form.name)
@@ -46,7 +46,7 @@ class PathItem extends React.Component {
     }}><Icon type='save' />Save</Button>
     return (
       <div>
-        {button}
+        {buttons}
         <RequiredFields
           requiredFields={this.requiredFields}
           tooltips={this.tooltips} />
@@ -56,7 +56,7 @@ class PathItem extends React.Component {
           model={pathItem}
           form={this.form}
           tooltips={this.tooltips} />
-        {button}
+        {buttons}
       </div>
     )
   }

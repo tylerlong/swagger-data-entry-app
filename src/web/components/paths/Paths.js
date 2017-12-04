@@ -12,13 +12,14 @@ class Paths extends BaseComponent {
   render () {
     const { paths } = this.props
     const parent = getParent(paths)
+    const buttons = <Button style={{ marginBottom: '16px' }} onClick={e => {
+      const uuid = uuidv1()
+      parent.newPath(uuid)
+      parent.setActivePath(uuid)
+    }}><Icon type='plus' />Add</Button>
     return (
       <Card title='Paths'>
-        <Button style={{ marginBottom: '16px' }} onClick={e => {
-          const uuid = uuidv1()
-          parent.newPath(uuid)
-          parent.setActivePath(uuid)
-        }}><Icon type='plus' />Add</Button>
+        {buttons}
         {paths.size < 1 ? null : (
           <Collapse accordion activeKey={parent.activePath} onChange={targetKey => { parent.setActivePath(targetKey) }}>
             {R.sortBy(R.prop(0), paths.entries()).map(([name, pathItem]) => {
@@ -33,6 +34,7 @@ class Paths extends BaseComponent {
             })}
           </Collapse>
         )}
+        {buttons}
       </Card>
     )
   }

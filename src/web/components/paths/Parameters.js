@@ -12,13 +12,14 @@ class Parameters extends BaseComponent {
   render () {
     const { parameters } = this.props
     const parent = getParent(parameters)
+    const buttons = <Button style={{ marginBottom: '16px' }} onClick={e => {
+      const uuid = uuidv1()
+      parent.newParameter(uuid)
+      parent.setActiveParameter(uuid)
+    }}><Icon type='plus' />Add</Button>
     return (
       <Card>
-        <Button style={{ marginBottom: '16px' }} onClick={e => {
-          const uuid = uuidv1()
-          parent.newParameter(uuid)
-          parent.setActiveParameter(uuid)
-        }}><Icon type='plus' />Add</Button>
+        {buttons}
         {parameters.size < 1 ? null : (
           <Collapse accordion activeKey={parent.activeParameter} onChange={targetKey => { parent.setActiveParameter(targetKey) }}>
             {R.sortBy(R.prop('name'), parameters).map(parameter => {
@@ -32,6 +33,7 @@ class Parameters extends BaseComponent {
             })}
           </Collapse>
         )}
+        {buttons}
       </Card>
     )
   }

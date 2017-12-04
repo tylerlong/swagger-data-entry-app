@@ -23,16 +23,16 @@ class Contact extends React.Component {
 
   render () {
     const { contact } = this.props
-    const button = <Button onClick={() => contact.replace(this.form)}><Icon type='save' /> Save</Button>
+    const buttons = <Button onClick={() => contact.replace(this.form)}><Icon type='save' /> Save</Button>
     return (
       <Card>
-        {button}
+        {buttons}
         <OptionalFields
           optionalFields={this.optionalFields}
           defaultValues={this.defaultValues}
           model={contact}
           form={this.form} />
-        {button}
+        {buttons}
       </Card>
     )
   }

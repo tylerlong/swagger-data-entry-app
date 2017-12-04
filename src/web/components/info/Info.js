@@ -32,17 +32,17 @@ class Info extends React.Component {
 
   render () {
     const { info } = this.props
-    const button = <Button onClick={() => info.replace(this.form)}><Icon type='save' /> Save</Button>
+    const buttons = <Button onClick={() => info.replace(this.form)}><Icon type='save' /> Save</Button>
     return (
       <Card title='Info'>
-        {button}
+        {buttons}
         <RequiredFields requiredFields={this.requiredFields} />
         <OptionalFields
           optionalFields={this.optionalFields}
           defaultValues={this.defaultValues}
           model={info}
           form={this.form} />
-        {button}
+        {buttons}
       </Card>
     )
   }

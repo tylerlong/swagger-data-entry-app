@@ -44,10 +44,10 @@ class Operation extends React.Component {
 
   render () {
     const { operation } = this.props
-    const button = <Button onClick={() => operation.replace(this.form)}><Icon type='save' /> Save</Button>
+    const buttons = <Button onClick={() => operation.replace(this.form)}><Icon type='save' /> Save</Button>
     return (
       <Card>
-        {button}
+        {buttons}
         <RequiredFields requiredFields={this.requiredFields} />
         <OptionalFields
           optionalFields={this.optionalFields}
@@ -55,7 +55,7 @@ class Operation extends React.Component {
           model={operation}
           form={this.form}
           tooltips={this.tooltips} />
-        {button}
+        {buttons}
       </Card>
     )
   }

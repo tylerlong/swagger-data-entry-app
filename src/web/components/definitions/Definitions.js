@@ -12,13 +12,14 @@ class Definitions extends BaseComponent {
   render () {
     const { definitions } = this.props
     const parent = getParent(definitions)
+    const buttons = <Button style={{ marginBottom: '16px' }} onClick={e => {
+      const uuid = uuidv1()
+      parent.newDefinition(uuid)
+      parent.setActiveDefinition(uuid)
+    }}><Icon type='plus' />Add</Button>
     return (
       <Card title='Definitions'>
-        <Button style={{ marginBottom: '16px' }} onClick={e => {
-          const uuid = uuidv1()
-          parent.newDefinition(uuid)
-          parent.setActiveDefinition(uuid)
-        }}><Icon type='plus' />Add</Button>
+        {buttons}
         {definitions.size < 1 ? null : (
           <Collapse accordion activeKey={parent.activeDefinition} onChange={targetKey => { parent.setActiveDefinition(targetKey) }}>
             {R.sortBy(R.prop(0), definitions.entries()).map(([name, schema]) => {
@@ -33,6 +34,7 @@ class Definitions extends BaseComponent {
             })}
           </Collapse>
         )}
+        {buttons}
       </Card>
     )
   }

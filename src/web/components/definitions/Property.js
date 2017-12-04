@@ -66,7 +66,7 @@ class Property extends React.Component {
 
   render () {
     const { name, property } = this.props
-    const button = <Button onClick={() => {
+    const buttons = <Button onClick={() => {
       property.replace(this.form)
       if (name && this.form.name) {
         getParent(getParent(property)).renameProperty(name, this.form.name)
@@ -74,7 +74,7 @@ class Property extends React.Component {
     }}><Icon type='save' /> Save</Button>
     return (
       <div>
-        {button}
+        {buttons}
         <RequiredFields requiredFields={this.requiredFields} />
         <OptionalFields
           optionalFields={this.optionalFields}
@@ -82,7 +82,7 @@ class Property extends React.Component {
           model={property}
           form={this.form}
           tooltips={this.tooltips} />
-        {button}
+        {buttons}
       </div>
     )
   }

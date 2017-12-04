@@ -12,13 +12,14 @@ class Responses extends BaseComponent {
   render () {
     const { responses } = this.props
     const parent = getParent(responses)
+    const buttons = <Button style={{ marginBottom: '16px' }} onClick={e => {
+      const uuid = uuidv1()
+      parent.newResponse(uuid)
+      parent.setActiveResponse(uuid)
+    }}><Icon type='plus' />Add</Button>
     return (
       <Card>
-        <Button style={{ marginBottom: '16px' }} onClick={e => {
-          const uuid = uuidv1()
-          parent.newResponse(uuid)
-          parent.setActiveResponse(uuid)
-        }}><Icon type='plus' />Add</Button>
+        {buttons}
         {responses.size < 1 ? null : (
           <Collapse accordion activeKey={parent.activeResponse} onChange={targetKey => { parent.setActiveResponse(targetKey) }}>
             {R.sortBy(R.prop(0), responses.entries()).map(([name, response]) => {
@@ -32,6 +33,7 @@ class Responses extends BaseComponent {
             })}
           </Collapse>
         )}
+        {buttons}
       </Card>
     )
   }
