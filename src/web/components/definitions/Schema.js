@@ -11,7 +11,6 @@ class Schema extends React.Component {
   constructor (props) {
     super(props)
     const { name, schema } = props
-    schema.init()
     this.form = {}
     this.requiredFields = {
       name: <Input defaultValue={name} onChange={e => { this.form.name = e.target.value }} />,

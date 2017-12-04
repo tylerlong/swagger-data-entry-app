@@ -29,7 +29,7 @@ const Swagger = types.model({
   update: update(self),
   replace: replace(self),
   ...extensionFieldActions(self),
-  init () {
+  afterCreate () {
     if (self.tags === undefined) {
       self.tags = []
     }

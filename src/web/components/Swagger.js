@@ -9,12 +9,6 @@ import Paths from './paths/Paths'
 import Definitions from './definitions/Definitions'
 
 class Swagger extends React.Component {
-  constructor (props) {
-    super(props)
-    const { swagger } = props
-    swagger.init()
-  }
-
   render () {
     const { swagger } = this.props
     const { info, tags, definitions, paths } = swagger

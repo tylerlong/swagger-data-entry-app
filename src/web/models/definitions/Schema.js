@@ -11,7 +11,7 @@ const Schema = types.model({
 }).actions(self => ({
   update: update(self),
   replace: replace(self),
-  init () {
+  afterCreate () {
     if (self.properties === undefined) {
       self.properties = {}
     }
