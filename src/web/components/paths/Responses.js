@@ -9,25 +9,21 @@ import Response from './Response'
 import BaseComponent from '../common/BaseComponent'
 
 class Responses extends BaseComponent {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
-
   render () {
     const { responses } = this.props
+    const parent = getParent(responses)
     return (
       <Card>
         <Button style={{ marginBottom: '16px' }} onClick={e => {
           const uuid = uuidv1()
-          getParent(responses).newResponse(uuid)
-          this.setStateProp('activeKey', uuid)
+          parent.newResponse(uuid)
+          parent.setActiveResponse(uuid)
         }}><Icon type='plus' />Add</Button>
         {responses.size < 1 ? null : (
-          <Collapse accordion activeKey={this.state.activeKey} onChange={targetKey => { this.setStateProp('activeKey', targetKey) }}>
+          <Collapse accordion activeKey={parent.activeResponse} onChange={targetKey => { parent.setActiveResponse(targetKey) }}>
             {R.sortBy(R.prop(0), responses.entries()).map(([name, response]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
-                onConfirm={() => getParent(responses).removeResponse(name)} onClick={e => e.stopPropagation()}>
+                onConfirm={() => parent.removeResponse(name)} onClick={e => e.stopPropagation()}>
                 <Button style={{ marginLeft: '8px' }} type='danger' size='small'><Icon type='delete' />Delete</Button>
               </Popconfirm>
               return <Collapse.Panel header={<span>{name} {deleteButton}</span>} key={name}>
