@@ -17,13 +17,7 @@ const Property = types.model({
   additionalProperties: types.union(types.late(() => Property), types.undefined)
 }).actions(self => ({
   update: update(self),
-  replace: replace(self),
-  newProperty (name) {
-    self[name] = {}
-  },
-  removeProperty (name) {
-    self[name] = undefined
-  }
+  replace: replace(self)
 }))
 
 export default Property
