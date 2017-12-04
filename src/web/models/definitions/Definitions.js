@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, detach } from 'mobx-state-tree'
 
 import Schema from './Schema'
 
@@ -23,8 +23,9 @@ const Definitions = types.model({
     if (self.definitions.has(newName)) {
       return
     }
-    self.definitions.set(newName, self.definitions.get(name).toJSON())
-    self.definitions.delete(name)
+    const node = self.definitions.get(name)
+    detach(node)
+    self.definitions.set(newName, node)
   }
 }))
 

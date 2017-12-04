@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, detach } from 'mobx-state-tree'
 
 import PathItem from './PathItem'
 
@@ -18,8 +18,9 @@ const Paths = types.model({
     if (self.paths.has(newName)) {
       return
     }
-    self.paths.set(newName, self.paths.get(name).toJSON())
-    self.paths.delete(name)
+    const node = self.paths.get(name)
+    detach(node)
+    self.paths.set(newName, node)
   }
 }))
 

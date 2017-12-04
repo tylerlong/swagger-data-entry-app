@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, detach } from 'mobx-state-tree'
 import * as R from 'ramda'
 
 import Parameter from './Parameter'
@@ -38,8 +38,9 @@ let Operation = types.model({
     if (self.responses.has(newName)) {
       return
     }
-    self.responses.set(newName, self.responses.get(name).toJSON())
-    self.responses.delete(name)
+    const node = self.responses.get(name)
+    detach(node)
+    self.responses.set(newName, node)
   }
 }))
 

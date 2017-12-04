@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, detach } from 'mobx-state-tree'
 
 import Property from './Property'
 import { update, replace } from '../../utils'
@@ -29,8 +29,9 @@ const Schema = types.model({
     if (self.properties.has(newName)) {
       return
     }
-    self.properties.set(newName, self.properties.get(name).toJSON())
-    self.properties.delete(name)
+    const node = self.properties.get(name)
+    detach(node)
+    self.properties.set(newName, node)
   }
 }))
 
