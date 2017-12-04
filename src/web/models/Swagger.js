@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree'
 
 import Info from './info/Info'
 import { update, replace } from '../utils'
-import Extensions from './Extensions'
+import Extensions from './common/Extensions'
 import Tags from './tags/Tags'
 import Definitions from './definitions/Definitions'
 import Paths from './paths/Paths'
