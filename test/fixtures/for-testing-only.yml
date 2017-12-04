@@ -16,6 +16,8 @@ info:
   license:
     name: RingCentral API License Agreement and Terms of Use
     url: 'https://www.ringcentral.com/legal/apilitos.html'
+tags:
+  - name: Call Log
 paths:
   '/v1.0/account/{accountId}/extension/{extensionId}/call-log':
     get:
@@ -1031,8 +1033,6 @@ paths:
       x-metering-group: System
       x-app-permission: ReadCallRecording
       x-user-permission: ReadCallRecordings
-tags:
-  - name: Call Log
 definitions:
   ExtensionCallLogEndpoint:
     type: object
