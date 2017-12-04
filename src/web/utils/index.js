@@ -1,38 +1,7 @@
 import * as R from 'ramda'
-import { getType, detach } from 'mobx-state-tree'
-import pluralize from 'pluralize'
+import { getType } from 'mobx-state-tree'
 
 export const capitalize = (str) => R.replace(/^./, R.toUpper)(str)
-
-export const mapActions = (self, model) => {
-  const actions = {}
-  const capitalized = capitalize(model)
-  const pluralized = pluralize(model)
-  actions[`remove${capitalized}`] = (name) => {
-    self[`${pluralized}`].delete(name)
-  }
-  actions[`new${capitalized}`] = (uuid) => {
-    self[`${pluralized}`].set(uuid, {})
-  }
-  actions[`rename${capitalized}`] = (name, newName) => {
-    if (newName === name) {
-      return
-    }
-    if (self[`${pluralized}`].has(newName)) {
-      return
-    }
-    const node = self[`${pluralized}`].get(name)
-    detach(node)
-    self[`${pluralized}`].set(newName, node)
-    if (self[`active${capitalized}`] === name) {
-      self[`active${capitalized}`] = newName
-    }
-  }
-  actions[`setActive${capitalized}`] = (uuid) => {
-    self[`active${capitalized}`] = uuid
-  }
-  return actions
-}
 
 export const update = self => {
   return (key, value) => {
