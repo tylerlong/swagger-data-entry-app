@@ -20,8 +20,7 @@ class Definitions extends BaseComponent {
           parent.setActiveDefinition(uuid)
         }}><Icon type='plus' />Add</Button>
         {definitions.size < 1 ? null : (
-          <Collapse accordion activeKey={parent.activeDefinition}
-            onChange={targetKey => { parent.setActiveDefinition(targetKey) }}>
+          <Collapse accordion activeKey={parent.activeDefinition} onChange={targetKey => { parent.setActiveDefinition(targetKey) }}>
             {R.sortBy(R.prop(0), definitions.entries()).map(([name, schema]) => {
               const deleteButton = <Popconfirm placement='top' title='Are you sure?' okText='Yes' cancelText='No'
                 onConfirm={() => { parent.removeDefinition(name) }}
