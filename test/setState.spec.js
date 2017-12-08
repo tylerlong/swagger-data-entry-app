@@ -53,13 +53,13 @@ describe('setState', () => {
     })
   })
 
-  // todo: setStateProp overrides other props， so...
   test('BaseComponent', () => {
     const wrapper = shallow(<Component2 />)
     wrapper.find('button').at(0).simulate('click')
     expect(wrapper.state()).toEqual({ // `a.c` is deleted
       a: {
-        b: '2'
+        b: '2',
+        c: 'c'
       }
     })
   })

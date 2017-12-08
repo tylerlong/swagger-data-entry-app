@@ -51,12 +51,11 @@ describe('BaseComponent', () => {
     expect(wrapper.state()).toEqual({ dataSource: { key: [{ a: 'b' }, { c: 'd' }] } })
   })
 
-  // todo: setStateProp overrides other props， so...
   test('override', () => {
     const wrapper = shallow(<MyComponent />)
     wrapper.find('button').at(6).simulate('click')
     expect(wrapper.state()).toEqual({ a: { b: 2 } })
     wrapper.find('button').at(7).simulate('click')
-    expect(wrapper.state()).toEqual({ a: { c: 3 } })
+    expect(wrapper.state()).toEqual({ a: { b: 2, c: 3 } })
   })
 })
