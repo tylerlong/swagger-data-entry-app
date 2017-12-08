@@ -19,6 +19,8 @@ class MyComponent extends BaseComponent {
         <button onClick={e => { this.setStateProp('a', 'b', 'c', R.append('e')) }}>Button #3</button>
         <button onClick={e => { this.setStateProp('dataSource', 'key', 0, 'a', 'b') }}>Button #4</button>
         <button onClick={e => { this.setStateProp('dataSource', 'key', 1, 'c', 'd') }}>Button #5</button>
+        <button onClick={e => { this.setStateProp('a', 'b', 2) }}>Button #6</button>
+        <button onClick={e => { this.setStateProp('a', 'c', 3) }}>Button #7</button>
       </div>
     )
   }
@@ -47,5 +49,14 @@ describe('BaseComponent', () => {
     expect(wrapper.state()).toEqual({ dataSource: { key: [{ a: 'b' }] } })
     wrapper.find('button').at(5).simulate('click')
     expect(wrapper.state()).toEqual({ dataSource: { key: [{ a: 'b' }, { c: 'd' }] } })
+  })
+
+  // todo: setStateProp overrides other props， so...
+  test('override', () => {
+    const wrapper = shallow(<MyComponent />)
+    wrapper.find('button').at(6).simulate('click')
+    expect(wrapper.state()).toEqual({ a: { b: 2 } })
+    wrapper.find('button').at(7).simulate('click')
+    expect(wrapper.state()).toEqual({ a: { c: 3 } })
   })
 })
