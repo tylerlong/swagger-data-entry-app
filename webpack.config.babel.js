@@ -4,7 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 const webConfig = {
   target: 'web',
   entry: {
-    index: ['babel-polyfill', './src/web/index.js']
+    index: './src/web/index.js'
   },
   output: {
     path: path.join(__dirname, 'build'),
@@ -25,10 +25,6 @@ const webConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              ['env', { 'targets': { 'node': '6.11.4' } }],
-              'react'
-            ],
             plugins: [
               ['import', { libraryName: 'antd', style: 'css' }],
               'transform-object-rest-spread'
@@ -41,9 +37,6 @@ const webConfig = {
   plugins: [
     new ExtractTextPlugin('[name].bundle.css')
   ],
-  devServer: {
-    contentBase: path.join(__dirname, 'build')
-  },
   devtool: 'source-map'
 }
 
@@ -51,7 +44,7 @@ const electronConfig = {
   target: 'electron',
   entry: {
     electron: ['babel-polyfill', './src/electron/index.js'],
-    preload: './src/electron/preload.js'
+    preload: ['babel-polyfill', './src/electron/preload.js']
   },
   output: {
     filename: '[name].bundle.js',
@@ -62,12 +55,7 @@ const electronConfig = {
       {
         test: /\.js$/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['env', { 'targets': { 'node': '4.8.4' } }]
-            ]
-          }
+          loader: 'babel-loader'
         }
       }
     ]
